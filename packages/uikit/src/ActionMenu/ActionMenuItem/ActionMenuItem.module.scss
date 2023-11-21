@@ -1,0 +1,59 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.button {
+	:global(.svg-icon) {
+		fill: #000;
+	}
+}
+
+.edit {
+	width: 100%;
+	color: themeColor(--mui-palette-slate-900);
+	justify-content: flex-start;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.boxEdit {
+	padding: 0 6px;
+}
+
+.meuItem {
+	color: themeColor(--mui-palette-slate-900);
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.modal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: themeColor(--mui-palette-common-white);
+	border-radius: 6px;
+	border: 1px solid themeColor(--mui-palette-slate-200);
+	box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.09);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 30px;
+}
+
+.title {
+	margin-bottom: 20px;
+	color: themeColor(--mui-palette-slate-900);
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 30px;
+	width: 311px;
+}
+
+.buttonModul {
+	width: 100%;
+}

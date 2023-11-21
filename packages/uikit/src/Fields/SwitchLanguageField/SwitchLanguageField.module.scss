@@ -1,0 +1,42 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.container {
+	display: flex;
+	padding: themeSpacing(0.5) themeSpacing(0.6);
+	align-items: center;
+	border-radius: 6px;
+	border: 1px solid themeColor(--mui-palette-slate-300);
+	width: 154px;
+	justify-content: space-between;
+}
+
+.button {
+	padding: themeSpacing(0.6) themeSpacing(1);
+	border-radius: 4px;
+	transition: all 0.3s ease-out;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+
+	.icon {
+		width: 20px;
+		height: 20px;
+	}
+
+	.label {
+		color: themeColor(--mui-palette-common-black);
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 20px;
+		margin-left: 10px;
+	}
+
+	&:hover {
+		background: themeColor(--mui-palette-primary-gradient-end);
+	}
+
+	&.isActive {
+		background: themeColor(--mui-palette-slate-200);
+	}
+}

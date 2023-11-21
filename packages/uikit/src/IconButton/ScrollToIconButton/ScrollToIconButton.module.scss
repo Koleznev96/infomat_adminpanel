@@ -1,0 +1,10 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.button {
+	background: themeColor(--mui-palette-grey-50);
+	box-shadow: themeShadow(--mui-palette-shadows-header);
+
+	&:hover {
+		background: themeColor(--mui-palette-grey-100);
+	}
+}

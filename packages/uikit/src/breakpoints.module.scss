@@ -1,0 +1,28 @@
+$breakpoints: (
+	xs: 0,
+	sm: 700,
+	md: 960,
+	lg: 1280,
+	xl: 1920,
+);
+
+$customBreakpoints: (
+	tablet: 1024,
+	touch: 810,
+);
+
+@function themeBreakpoint($breakpoint) {
+	@if map-has-key($breakpoints, $breakpoint) {
+		@return #{map-get($breakpoints, $breakpoint)}px;
+	} @else if map-has-key($customBreakpoints, $breakpoint) {
+		@return #{map-get($customBreakpoints, $breakpoint)}px;
+	} @else {
+		@error "ERROR: Breakpoint not found";
+	}
+}
+
+:export {
+	@each $key, $value in $breakpoints {
+		#{$key}: $value;
+	}
+}

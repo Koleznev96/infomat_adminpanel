@@ -1,0 +1,38 @@
+.spinner {
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	display: flex;
+
+	&.global {
+		background: #ffffff;
+		z-index: 2000; //over topmost --mui-zIndex
+	}
+
+	svg {
+		flex: 0 1 120px;
+		max-width: 95%;
+		max-height: 95%;
+	}
+}
+
+.cls1,
+.cls2 {
+	fill-rule: evenodd;
+}
+
+.cls3 {
+	fill-rule: evenodd;
+	fill: #ff4d3b;
+}
+
+.cls4 {
+	fill-opacity: 0;
+	stroke: #ffffff;
+	stroke-width: 26.8;
+	stroke-dasharray: 1400;
+}

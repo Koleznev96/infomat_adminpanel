@@ -1,0 +1,10 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.liveSearch {
+	flex-grow: 1;
+}
+
+.clearButton {
+	position: absolute;
+	right: themeSpacing(0.5);
+}

@@ -1,0 +1,13 @@
+diff --git a/lib/index.js b/lib/index.js
+index 379639a24edbc30500fdced71f671285e40b5ca5..ff6240e22c0f1d6809744ccd38584981b45548bc 100644
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -552,7 +552,7 @@ export class Slider extends PureComponent {
+                         ? renderThumbComponent[i](i)
+                         : renderThumbComponent(i)
+                     : this._renderThumbImage(i)))),
+-                React.createElement(View, { style: [styles.touchArea, touchOverflowStyle], ...this._panResponder.panHandlers }, !!debugTouchArea &&
++                React.createElement(View, { style: [styles.touchArea, touchOverflowStyle], ...(this.props.disabled ? {} : this._panResponder.panHandlers) }, !!debugTouchArea &&
+                     interpolatedThumbValues.map((value, i) => this._renderDebugThumbTouchRect(value, i)))),
+             renderBelowThumbComponent && (React.createElement(View, { style: styles.belowThumbComponentsContainer }, interpolatedThumbValues.map((interpolationValue, i) => {
+                 const animatedValue = values[i] || 0;

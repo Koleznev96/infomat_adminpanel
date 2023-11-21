@@ -1,0 +1,11 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.switch {
+	:global(.MuiFormControlLabel-label) {
+		color: themeColor(--mui-palette-common-black);
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 20px;
+	}
+}

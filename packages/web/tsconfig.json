@@ -1,0 +1,19 @@
+{
+	"extends": "./tsconfig.paths.json",
+	"compilerOptions": {
+		"typeRoots": [
+			"./src/@types",
+			"./node_modules/@reduxjs",
+			"./node_modules/@types",
+			"../../node_modules/@types",
+			"../../node_modules/@infomat/core/src/@types",
+			"../../node_modules/@infomat/uikit/src/@types"
+		],
+		"baseUrl": "./",
+		"rootDir": "./",
+		"outDir": "./dist/",
+		"jsx": "react-jsx",
+		"lib": ["dom", "dom.iterable", "esnext", "webworker"]
+	},
+	"include": ["src"]
+}

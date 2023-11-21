@@ -1,0 +1,52 @@
+@function themeColor($color) {
+	$colors: --mui-palette-background-default, --mui-palette-primary-main, --mui-palette-primary-gradient-start,
+		--mui-palette-primary-gradient-end, --mui-palette-secondary-main, --mui-palette-secondary-dark,
+		--mui-palette-secondary-light, --mui-palette-common-white, --mui-palette-common-black, --mui-palette-info-main,
+		--mui-palette-info-light, --mui-palette-info-dark, --mui-palette-warning-main, --mui-palette-error-main,
+		--mui-palette-error-gradient-start, --mui-palette-error-gradient-end, --mui-palette-success-main,
+		--mui-palette-success-gradient-start, --mui-palette-success-gradient-end, --mui-palette-text-primary,
+		--mui-palette-text-secondary, --mui-palette-text-disabled, --mui-palette-chat-admin, --mui-palette-chat-group,
+		--mui-palette-chat-media-preview-backdrop, --mui-palette-chat-message-guest-background,
+		--mui-palette-chat-message-model-background, --mui-palette-chat-private, --mui-palette-chat-voyeur,
+		--mui-palette-divider, --mui-palette-grey-50, --mui-palette-grey-100, --mui-palette-grey-200, --mui-palette-grey-300,
+		--mui-palette-grey-400, --mui-palette-grey-500, --mui-palette-grey-700, --mui-palette-grey-900,
+		--mui-palette-steel-dark, --mui-palette-slate-900, --mui-palette-title, --mui-palette-slate-200,
+		--mui-palette-slate-300, --mui-palette-slate-700;
+
+	@if not index($colors, $color) {
+		@error "#{$color} is not a valid theme color.";
+	}
+
+	@return var(#{$color});
+}
+
+@function themeSpacing($ratio: 1) {
+	@return 0.5rem * $ratio;
+}
+
+@function relatedFontSize($fontSize) {
+	@return ($fontSize / 16px) * 1em;
+}
+
+$shadows: --mui-palette-shadows-header, --mui-palette-shadows-toolbar, --mui-palette-shadows-login,
+	--mui-palette-shadows-customers, --mui-palette-shadows-tooltip, --mui-palette-shadows-streamOverlay;
+
+@function themeShadow($shadow) {
+	@if not index($shadows, $shadow) {
+		@error "#{$shadow} is not a valid theme shadow.";
+	}
+
+	@return var(#{$shadow});
+}
+
+@function themeShadowFilter($shadow) {
+	@if not index($shadows, $shadow) {
+		@error "#{$shadow} is not a valid theme shadow.";
+	}
+
+	@return drop-shadow(var(#{$shadow}));
+}
+
+@function themeImage($img) {
+	@return url('~/src/Assets/Images/#{$img}');
+}

@@ -1,0 +1,11 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# @link https://stackoverflow.com/questions/27800512/bypass-pre-commit-hook-for-merge-commits/27800562#27800562
+if [ -z "$(git rev-parse -q --verify MERGE_HEAD)" ];
+ then
+   echo "Running linters..."
+   yarn run lint-staged --quiet
+ else
+   echo "NOT running linters as in merge..."
+fi;

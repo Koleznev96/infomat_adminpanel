@@ -1,0 +1,55 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.item {
+	width: 100%;
+	padding: 4px 8px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	border-radius: 6px;
+	border: 1px solid themeColor(--mui-palette-slate-200);
+	background: themeColor(--mui-palette-common-white);
+
+	&.withIcon {
+		padding: 8px 12px;
+		border: 1px solid themeColor(--mui-palette-slate-300);
+
+		.label {
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: 24px;
+			color: themeColor(--mui-palette-slate-900);
+		}
+	}
+
+	.label {
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 20px;
+		color: themeColor(--mui-palette-title);
+	}
+
+	:global(.MuiButtonBase-root) {
+		&:hover {
+			background-color: themeColor(--mui-palette-primary-gradient-end);
+		}
+	}
+
+	:global(.MuiListItemIcon-root) {
+		min-width: auto;
+	}
+
+	&:global(.Mui-selected) {
+		background-color: themeColor(--mui-palette-primary-gradient-end);
+		&:hover {
+			background-color: themeColor(--mui-palette-primary-gradient-end);
+		}
+	}
+}
+
+.icon {
+	width: 20px;
+	height: 20px;
+}

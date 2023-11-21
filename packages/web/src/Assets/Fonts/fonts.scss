@@ -1,0 +1,72 @@
+$font-family-default: 'Manrope';
+$font-size-base: 16px;
+
+@font-face {
+	font-family: 'Manrope';
+	src: url('./Manrope-Bold.eot');
+	src: url('./Manrope-Bold.eot?#iefix') format('embedded-opentype'), url('./Manrope-Bold.woff2') format('woff2'),
+		url('./Manrope-Bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Manrope';
+	src: url('./Manrope-ExtraBold.eot');
+	src: url('./Manrope-ExtraBold.eot?#iefix') format('embedded-opentype'),
+		url('./Manrope-ExtraBold.woff2') format('woff2'), url('./Manrope-ExtraBold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Manrope';
+	src: url('./Manrope-Light.eot');
+	src: url('./Manrope-Light.eot?#iefix') format('embedded-opentype'), url('./Manrope-Light.woff2') format('woff2'),
+		url('./Manrope-Light.woff') format('woff');
+	font-weight: 300;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Manrope';
+	src: url('./Manrope-ExtraLight.eot');
+	src: url('./Manrope-ExtraLight.eot?#iefix') format('embedded-opentype'),
+		url('./Manrope-ExtraLight.woff2') format('woff2'), url('./Manrope-ExtraLight.woff') format('woff');
+	font-weight: 200;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Manrope';
+	src: url('./Manrope-Regular.eot');
+	src: url('./Manrope-Regular.eot?#iefix') format('embedded-opentype'), url('./Manrope-Regular.woff2') format('woff2'),
+		url('./Manrope-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Manrope';
+	src: url('./Manrope-Medium.eot');
+	src: url('./Manrope-Medium.eot?#iefix') format('embedded-opentype'), url('./Manrope-Medium.woff2') format('woff2'),
+		url('./Manrope-Medium.woff') format('woff');
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Manrope';
+	src: url('./Manrope-SemiBold.eot');
+	src: url('./Manrope-SemiBold.eot?#iefix') format('embedded-opentype'), url('./Manrope-SemiBold.woff2') format('woff2'),
+		url('./Manrope-SemiBold.woff') format('woff');
+	font-weight: 600;
+	font-style: normal;
+	font-display: swap;
+}

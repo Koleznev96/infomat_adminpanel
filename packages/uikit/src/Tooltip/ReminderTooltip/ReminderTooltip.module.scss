@@ -1,0 +1,23 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.reminderTooltip {
+	font-size: 13px;
+}
+
+.popper {
+	z-index: 500;
+	user-select: none;
+	cursor: pointer;
+	pointer-events: auto;
+}
+
+.tooltip {
+	background-color: themeColor(--mui-palette-primary-main);
+	color: themeColor(--mui-palette-common-white);
+	box-shadow: var(--mui-shadow-3);
+	display: flex;
+}
+
+.arrow {
+	color: themeColor(--mui-palette-primary-main);
+}

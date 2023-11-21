@@ -1,0 +1,71 @@
+@charset "UTF-8";
+@import '@infomat/uikit/src/themeUtils';
+
+$html-font-size: 16px;
+$tooltip-font-size: 0.8rem;
+
+//--------------------------------------------------------------------------------------------------//
+// variables - path
+//--------------------------------------------------------------------------------------------------//
+
+$avatarSize: 44px;
+
+$z-index-progress: 10;
+
+//--------------------------------------------------------------------------------------------------//
+// variables - transition
+//--------------------------------------------------------------------------------------------------//
+
+$trans-std: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+$transparent: rgba(255, 255, 255, 0);
+
+$desktop-mobile-recording-gradient: linear-gradient(
+	180deg,
+	themeColor(--mui-palette-primary-gradient-start) 0%,
+	themeColor(--mui-palette-primary-gradient-end) 100%
+);
+
+//--------------------------------------------------------------------------------------------------//
+// variables - sizes
+//--------------------------------------------------------------------------------------------------//
+
+$box-shadow-1: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+$box-shadow-2: 0 6px 10px 0 rgba(0, 0, 0, 0.3), 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+$box-shadow-3: 0 13px 25px 0 rgba(0, 0, 0, 0.3), 0 11px 7px 0 rgba(0, 0, 0, 0.19);
+$box-shadow-4: 0 20px 40px 0 rgba(0, 0, 0, 0.3), 0 14px 12px 0 rgba(0, 0, 0, 0.17);
+$box-shadow-5: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15);
+$box-shadow-6: 0 1px 7px 0 rgba(0, 0, 0, 0.17);
+$box-shadow-7: 0 0 7px 0 rgba(0, 0, 0, 0.29);
+$box-shadow-8: linear-gradient(
+	180deg,
+	rgba(0, 0, 0, 0) 0%,
+	rgba(0, 0, 0, 0) 60%,
+	rgba(0, 0, 0, 0.2) 80%,
+	themeColor(--mui-palette-text-primary) 100%
+);
+$box-shadow-chat-preview: 0 -7px 10px transparentize(rgb(156, 191, 212), 0.88);
+
+//--------------------------------------------------------------------------------------------------//
+// variables - text
+//--------------------------------------------------------------------------------------------------//
+
+$font-size-small: 10px;
+$user-info-width: 320px;
+$nav-top-height: 42px;
+$nav-top-height-collapsed: 9px;
+$chat-controls-horizontal-height: 149px;
+
+//--------------------------------------------------------------------------------------------------//
+// Globally used sizes constants
+//--------------------------------------------------------------------------------------------------//
+$messageAreaInputWarningHeight: 34px;
+$channelAvatarSize: 44px;
+$channelSelectedAvatarStroke: 2px;
+$mediaPreviewSize: 290px;
+
+@mixin customVhProperty($property, $value: 100) {
+	/* Fallback for browsers that do not support Custom Properties */
+	#{$property}: #{$value}vh;
+	#{$property}: calc(var(--vh, 1vh) * #{$value});
+}

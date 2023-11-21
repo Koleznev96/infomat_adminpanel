@@ -1,0 +1,51 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules/
+packages/**/node_modules/
+
+# testing
+packages/**/coverage/
+*junit.xml
+
+# macOS
+.DS_Store
+
+# build folder is not ignored as we can't deploy it otherwise
+
+# misc
+packages/web/.env.local
+packages/**/*.local
+
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.idea
+packages/web/public/locale/*.json
+
+lerna-debug.log
+packages/web/storybook-static/
+
+.gitlab-ci-local
+.env.local
+.dependencies.tar
+
+.nvmrc
+
+# yarn
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# for node-sass binary
+.node-sass

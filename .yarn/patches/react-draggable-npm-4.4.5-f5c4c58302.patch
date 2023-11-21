@@ -1,0 +1,12 @@
+diff --git a/build/cjs/DraggableCore.js b/build/cjs/DraggableCore.js
+index 07b05f1273866ab044b716d97d9ec5f167e7a9bd..b95cb8796a498ccbff0cbbcd62a85aea4c980036 100644
+--- a/build/cjs/DraggableCore.js
++++ b/build/cjs/DraggableCore.js
+@@ -399,6 +399,7 @@ var DraggableCore = /*#__PURE__*/function (_React$Component) {
+         // Note: mouseMove handler is attached to document so it will still function
+         // when the user drags quickly and leaves the bounds of the element.
+         onMouseDown: this.onMouseDown,
++        onTouchCancel: this.onTouchEnd,
+         onMouseUp: this.onMouseUp,
+         // onTouchStart is added on `componentDidMount` so they can be added with
+         // {passive: false}, which allows it to cancel. See

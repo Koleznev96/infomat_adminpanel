@@ -1,0 +1,12 @@
+diff --git a/android/src/main/java/com/rollbar/RollbarReactNative.java b/android/src/main/java/com/rollbar/RollbarReactNative.java
+index f3d2da7944e4764aa0bab87390f419a5d0eae29b..40f4ad2c545dd25922bd903d947a9276b7c74a3c 100644
+--- a/android/src/main/java/com/rollbar/RollbarReactNative.java
++++ b/android/src/main/java/com/rollbar/RollbarReactNative.java
+@@ -525,6 +525,7 @@ public class RollbarReactNative extends ReactContextBaseJavaModule {
+ 
+   @ReactMethod
+   public void init(ReadableMap options) {
++    if (!Rollbar.isInit()) init(this.reactContext, null, null);
+     final String environment = options.hasKey("environment") ? options.getString("environment") : "production";
+     final String platform = options.hasKey("platform") ? options.getString("platform") : "android";
+     final String notifier_version = options.hasKey("notifier") ? options.getMap("notifier").getString("version") : NOTIFIER_VERSION;

@@ -1,0 +1,7 @@
+$themeDesktop: desktop;
+$themeMobile: mobile;
+
+:export {
+	mobile: $themeMobile;
+	desktop: $themeDesktop;
+}

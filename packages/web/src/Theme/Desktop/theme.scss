@@ -1,0 +1,48 @@
+@import 'src/Theme/Desktop/Styles/variables_global';
+@import '@infomat/uikit/src/breakpoints.module';
+@import '@infomat/uikit/src/themeUtils';
+@import 'src/Assets/Fonts/fonts';
+
+html {
+	font-size: $html-font-size;
+	-webkit-text-size-adjust: none;
+	touch-action: none;
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	height: 100%;
+	overflow: hidden;
+
+	.introjs-tooltiptext {
+		color: themeColor(--mui-palette-text-primary);
+	}
+}
+
+.MuiListItem-button.MuiMenuItem-root:hover,
+.MuiButtonBase-root.MuiIconButton-root:hover {
+	background-color: themeColor(--mui-palette-grey-100);
+}
+
+.MuiTooltip-popper {
+	.MuiTooltip-tooltip {
+		font-size: $tooltip-font-size;
+	}
+}
+
+#bodycontainer {
+	@include customVhProperty(max-height, 100);
+	height: 100%;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+
+	&.-is-in-intro {
+		position: static;
+		height: 100%;
+	}
+}
