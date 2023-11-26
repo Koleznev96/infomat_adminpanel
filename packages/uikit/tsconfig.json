@@ -1,0 +1,14 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": "./",
+		"rootDir": "./",
+		"outDir": "./dist/",
+		"jsx": "react-jsx",
+		"typeRoots": ["./src/@types", "./node_modules/@types", "../../node_modules/@types", "../core/src/@types"],
+		"paths": {
+			"@infomat/uikit/*": ["./*"]
+		}
+	},
+	"include": ["src"]
+}

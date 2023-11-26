@@ -1,0 +1,51 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.button {
+	display: flex;
+	cursor: pointer;
+	transition: 0.3s;
+	border-radius: 6px;
+
+	.text {
+		margin-right: 6px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+
+		.label {
+			color: themeColor(--mui-palette-title);
+			font-size: 16px;
+			font-style: normal;
+			font-weight: 700;
+			line-height: 24px;
+		}
+
+		.title {
+			color: themeColor(--mui-palette-text-disabled);
+			font-size: 14px;
+			font-style: normal;
+			font-weight: 500;
+			line-height: 20px;
+		}
+	}
+
+	.icon {
+		margin-top: 6px;
+	}
+
+	&:hover {
+		background-color: rgba($color: #000000, $alpha: 0.02);
+	}
+}
+
+.paper {
+	border-radius: 6px;
+	box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.09);
+	overflow-y: auto;
+	max-height: 120px;
+
+	:global(.MuiList-root) {
+		padding: 5px;
+		border-radius: 6px;
+	}
+}

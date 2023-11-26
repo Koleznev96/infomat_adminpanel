@@ -1,0 +1,43 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "./packages/core"
+		},
+		{
+			"path": "./packages/web"
+		},
+		{
+			"path": "packages/uikit"
+		}
+	],
+	"extensions": {
+		"recommendations": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+	},
+	"settings": {
+		"files.exclude": {
+			"packages": true
+		},
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"[javascript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"[typescript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"[javascriptreact]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"[typescriptreact]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": true
+		},
+		"eslint.validate": ["javascript", "typescript", "javascriptreact", "typescriptreact"],
+		"typescript.tsdk": "adminpanel/node_modules/typescript/lib"
+	}
+}

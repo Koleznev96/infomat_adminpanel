@@ -1,0 +1,14 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": "./",
+		"rootDir": "./",
+		"outDir": "./dist/",
+		"jsx": "react",
+		"paths": {
+			"@infomat/core/*": ["./*"],
+		},
+		"typeRoots": ["./src/@types", "./node_modules/@reduxjs", "./node_modules/@types", "../../node_modules/@types"]
+	},
+	"include": ["src"]
+}

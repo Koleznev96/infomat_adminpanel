@@ -1,0 +1,69 @@
+{
+	"name": "infomat",
+	"private": true,
+	"devDependencies": {
+		"@types/eslint": "^8",
+		"@typescript-eslint/eslint-plugin": "^6.1.0",
+		"@typescript-eslint/parser": "^6.1.0",
+		"current-git-branch": "^1.1.0",
+		"del-cli": "~3.0.1",
+		"eslint": "^8.45.0",
+		"eslint-config-prettier": "^8.4.0",
+		"eslint-config-react-app": "6.0.0",
+		"eslint-plugin-check-file": "^1.3.0",
+		"eslint-plugin-css-modules": "^2.11.0",
+		"eslint-plugin-flowtype": "^8.0.3",
+		"eslint-plugin-functional": "^4.2.1",
+		"eslint-plugin-i18n-json": "^3.1.0",
+		"eslint-plugin-immutablejs": "^0.1.3",
+		"eslint-plugin-import": "^2.25.4",
+		"eslint-plugin-jsx-a11y": "^6.5.1",
+		"eslint-plugin-local": "^1.0.0",
+		"eslint-plugin-no-expectsaga-without-return": "^1.0.17",
+		"eslint-plugin-react": "^7.28.0",
+		"eslint-plugin-react-hooks": "^4.3.0",
+		"eslint-plugin-react-redux": "^4.0.0",
+		"eslint-plugin-redux-saga": "^1.3.2",
+		"eslint-plugin-sort-annotation": "^1.0.6",
+		"expo-yarn-workspaces": "~1.3.1",
+		"husky": "^6.0.0",
+		"lint-staged": "^13.0.3"
+	},
+	"peerDependencies": {
+		"chatloadtest": "*"
+	},
+	"scripts": {
+		"core:test": "yarn workspace @infomat/core run test",
+		"web:start": "yarn workspace @infomat/web run start",
+		"web:build": "yarn workspace @infomat/web run build",
+		"web:test": "yarn workspace @infomat/web run test",
+		"uikit:test": "yarn workspace @infomat/uikit run test",
+		"clean": "del-cli --force ./node_modules ./packages/*/node_modules && yarn cache clean",
+		"all:lint": "yarn workspaces foreach -v run lint && yarn workspaces foreach -v run prettier",
+		"all:lint:fix": "yarn workspaces foreach -v run lint:fix && yarn workspaces foreach -v run prettier:fix",
+		"all:lint:strict": "yarn workspaces foreach -v run lint:strict",
+		"all:lint:strict:fix": "yarn workspaces foreach -v run lint:strict:fix",
+		"all:tsc": "yarn workspaces foreach -v run tsc",
+		"all:test": "yarn workspaces foreach run test",
+		"prepare": "husky install",
+		"storybook": "yarn workspace @infomat/web run storybook",
+		"build-storybook": "yarn workspace @infomat/web build-storybook"
+	},
+	"workspaces": {
+		"packages": [
+			"packages/*"
+		]
+	},
+	"engines": {
+		"node": ">=18.17.0"
+	},
+	"packageManager": "yarn@3.6.1",
+	"resolutions": {
+		"perfect-scrollbar@^1.5.0": "patch:perfect-scrollbar@npm:1.5.0#.yarn/patches/perfect-scrollbar-npm-1.5.0-08ad9fe3b6.patch",
+		"react-draggable@^4.4.5": "patch:react-draggable@npm:4.4.5#.yarn/patches/react-draggable-npm-4.4.5-f5c4c58302.patch",
+		"twemoji-parser@^14.0.0": "patch:twemoji-parser@npm:14.0.0#.yarn/patches/twemoji-parser-npm-14.0.0-9cf535117a.patch",
+		"@react-native/virtualized-lists@^0.72.6": "patch:@react-native/virtualized-lists@npm%3A0.72.6#./.yarn/patches/@react-native-virtualized-lists-npm-0.72.6-677ed9eda7.patch",
+		"@miblanchard/react-native-slider@^2.3.1": "patch:@miblanchard/react-native-slider@npm%3A2.3.1#./.yarn/patches/@miblanchard-react-native-slider-npm-2.3.1-0bcdca5b45.patch",
+		"native-base@^3.4.28": "patch:native-base@npm%3A3.4.28#./.yarn/patches/native-base-npm-3.4.28-a8ecceae4d.patch"
+	}
+}

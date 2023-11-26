@@ -1,0 +1,135 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.item {
+	position: relative;
+	display: flex;
+	width: 225px;
+	height: 150px;
+	justify-content: center;
+	align-items: center;
+	border-radius: 6px;
+	padding: 1px;
+	border: 1px solid themeColor(--mui-palette-slate-200);
+
+	background: themeColor(--mui-palette-common-white);
+
+	&.isActive {
+		border: 1px dashed themeColor(--mui-palette-primary-gradient-start);
+		transition: 0.3s;
+		cursor: pointer;
+
+		&:hover {
+			background: themeColor(--mui-palette-primary-gradient-end);
+			border: 1px solid themeColor(--mui-palette-slate-200);
+
+			.icon {
+				background: themeColor(--mui-palette-common-white);
+			}
+		}
+	}
+
+	.img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		border-radius: 6px;
+	}
+
+	.clearIcon {
+		z-index: 10;
+		position: absolute;
+		right: 8px;
+		top: 8px;
+		display: flex;
+		width: 28px;
+		height: 28px;
+		justify-content: center;
+		align-items: center;
+		border-radius: 6px;
+		background: themeColor(--mui-palette-primary-gradient-end);
+		cursor: pointer;
+		transition: 0.3s;
+
+		&:hover {
+			background: themeColor(--mui-palette-slate-200);
+		}
+	}
+
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.icon {
+		display: flex;
+		width: 28px;
+		height: 28px;
+		padding: 4px;
+		justify-content: center;
+		align-items: center;
+		border-radius: 6px;
+		margin-bottom: 6px;
+		background: themeColor(--mui-palette-primary-gradient-end);
+	}
+
+	.label {
+		color: themeColor(--mui-palette-common-black);
+		font-size: 14px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 20px;
+	}
+}
+
+.title {
+	color: themeColor(--mui-palette-text-primary);
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 24px;
+	margin-bottom: 12px;
+}
+
+.containerCrop {
+}
+
+.modal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: themeColor(--mui-palette-common-white);
+	border-radius: 6px;
+	border: 1px solid themeColor(--mui-palette-slate-200);
+	box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.09);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	max-width: 90vw;
+	padding: 10px;
+
+	.title {
+		margin-bottom: 20px;
+		color: themeColor(--mui-palette-slate-900);
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 30px;
+	}
+
+	.boxCrop {
+		max-height: 300px;
+	}
+
+	.imgCrop {
+		max-width: 50vw;
+		max-height: 300px;
+	}
+
+	.button {
+		margin-right: 16px;
+	}
+}

@@ -1,0 +1,77 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.label {
+	color: themeColor(--mui-palette-text-primary);
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 20px;
+	margin-bottom: 6px;
+}
+
+.container {
+	width: 100%;
+}
+
+.item {
+	height: 60px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: themeColor(--mui-palette-common-white);
+	padding: 0 2px;
+}
+
+.boxIndex {
+	display: flex;
+	width: 36px;
+	height: 36px;
+	padding: 8px;
+	justify-content: center;
+	align-items: center;
+	border-radius: 6px;
+	border: 1px solid themeColor(--mui-palette-slate-300);
+	background: themeColor(--mui-palette-common-white);
+	margin-right: 10px;
+}
+
+.index {
+	color: themeColor(--mui-palette-common-black);
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+.boxInput {
+	flex: 1;
+	margin-right: 12px;
+	position: relative;
+	display: flex;
+	align-items: center;
+
+	&:hover {
+		.close {
+			opacity: 1;
+		}
+	}
+
+	.input {
+		:global(.MuiInputBase-input) {
+			padding-left: 36px;
+		}
+	}
+}
+
+.boxColor {
+	position: absolute;
+	left: 6px;
+	width: 24px;
+	height: 24px;
+	border-radius: 6px;
+	cursor: pointer;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}

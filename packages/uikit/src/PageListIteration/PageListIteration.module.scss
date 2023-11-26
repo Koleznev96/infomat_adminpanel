@@ -1,0 +1,121 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.container {
+	width: 100%;
+	box-shadow: none;
+	border-radius: 6px;
+	border: 1px solid themeColor(--mui-palette-primary-gradient-start);
+	background: themeColor(--mui-palette-common-white);
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.header {
+	padding: 20px 30px;
+}
+
+.input {
+	position: relative;
+	display: flex;
+	align-items: center;
+
+	.search {
+		:global(.MuiInputBase-input) {
+			padding-left: 38px;
+		}
+	}
+
+	.searchIcon {
+		position: absolute;
+		left: 36px;
+	}
+}
+
+.boxEmpty {
+	padding: 60px 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+
+	:global(.MuiTypography-root) {
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 30px;
+		color: themeColor(--mui-palette-common-black);
+		text-align: center;
+	}
+}
+
+.content {
+	width: 100%;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.footer {
+	bottom: 20px;
+	right: 34px;
+	display: flex;
+	align-items: center;
+	padding: 20px 30px;
+	width: 100%;
+	justify-content: flex-end;
+	border-top: 1px solid themeColor(--mui-palette-slate-200);
+
+	:global(.MuiTypography-root) {
+		font-size: 16px;
+		font-style: normal;
+		font-weight: 500;
+		line-height: normal;
+		color: '#0B0B0D';
+	}
+
+	.footerTitle {
+		margin-right: 14px;
+	}
+
+	.footerLimit {
+		margin: 0 26px 0 30px;
+	}
+}
+
+.select {
+	:global(.MuiSelect-select) {
+		padding: 8px 16px;
+
+		:global(.MuiTypography-root) {
+			font-size: 14px;
+			font-style: normal;
+			font-weight: 500;
+			line-height: 20px;
+			color: '#09090B';
+		}
+	}
+
+	&:global(.Mui-focused) {
+		:global(.MuiOutlinedInput-notchedOutline) {
+			border: 2px solid themeColor(--mui-palette-text-disabled);
+		}
+	}
+}
+
+:global(.MuiMenuItem-root) {
+	&:hover {
+		background-color: themeColor(--mui-palette-primary-gradient-end);
+	}
+
+	&:global(.Mui-selected) {
+		background-color: themeColor(--mui-palette-primary-gradient-end);
+
+		&:hover {
+			background-color: themeColor(--mui-palette-primary-gradient-end);
+		}
+	}
+}

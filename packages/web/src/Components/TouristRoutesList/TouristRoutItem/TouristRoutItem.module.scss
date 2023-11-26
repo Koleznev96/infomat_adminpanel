@@ -1,0 +1,63 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.title {
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 20px;
+	color: #0b0b0d;
+}
+
+.img {
+	width: 54px;
+	height: 36px;
+	border-radius: 6px;
+}
+
+.container {
+	padding: 8px 16px;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid themeColor(--mui-palette-slate-200);
+}
+
+.filter {
+	display: flex;
+	align-items: center;
+
+	:global(.svg-icon) {
+		margin-right: 8px;
+	}
+}
+
+.label {
+	flex: 1;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	color: themeColor(--mui-palette-slate-900);
+}
+
+.background {
+	display: flex;
+	width: 30px;
+	height: 30px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: 200px;
+	position: relative;
+	background-color: red;
+
+	.layout {
+		width: 30px;
+		height: 30px;
+		border-radius: 200px;
+	}
+
+	.icon {
+		width: 16px;
+		height: 16px;
+	}
+}

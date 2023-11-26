@@ -1,0 +1,31 @@
+diff --git a/Lists/VirtualizedList.js b/Lists/VirtualizedList.js
+index 8a23e81cbef1a62eb5f28eb9a42f8a11571d0ca1..59bbcb142aaf30cda46eb224cc9505dd85648d37 100644
+--- a/Lists/VirtualizedList.js
++++ b/Lists/VirtualizedList.js
+@@ -30,6 +30,7 @@ import {
+   View,
+   StyleSheet,
+   findNodeHandle,
++  Platform
+ } from 'react-native';
+ import Batchinator from '../Interaction/Batchinator';
+ import clamp from '../Utilities/clamp';
+@@ -1125,6 +1126,7 @@ class VirtualizedList extends StateSafePureComponent<Props, State> {
+       style: inversionStyle
+         ? [inversionStyle, this.props.style]
+         : this.props.style,
++      isInvertedVirtualizedList: this.props.inverted,
+       maintainVisibleContentPosition:
+         this.props.maintainVisibleContentPosition != null
+           ? {
+@@ -2056,9 +2058,7 @@ class VirtualizedList extends StateSafePureComponent<Props, State> {
+ }
+
+ const styles = StyleSheet.create({
+-  verticallyInverted: {
+-    transform: [{scaleY: -1}],
+-  },
++  verticallyInverted: {transform: [Platform.OS === 'android' ? {scale: -1} : {scaleY: -1}]},
+   horizontallyInverted: {
+     transform: [{scaleX: -1}],
+   },

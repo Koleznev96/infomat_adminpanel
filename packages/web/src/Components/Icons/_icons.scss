@@ -1,0 +1,119 @@
+@charset "UTF-8";
+
+//--------------------------------------------------------------------------------------------------//
+// icons
+//--------------------------------------------------------------------------------------------------//
+
+//--------------------------------------------------------------------------------------------------//
+// iconflag
+//--------------------------------------------------------------------------------------------------//
+
+$iconflag-path: './flag/';
+
+.iconflag {
+	&:before {
+		content: '';
+		display: block;
+
+		width: 21px;
+		height: 15px;
+
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+}
+
+*[class^='iconflag-'] {
+	@extend .iconflag;
+}
+
+.iconflag-cz {
+	&:before {
+		background-image: url($iconflag-path + 'cz.png');
+	}
+}
+
+.iconflag-da {
+	&:before {
+		background-image: url($iconflag-path + 'da.png');
+	}
+}
+
+.iconflag-de {
+	&:before {
+		background-image: url($iconflag-path + 'de.png');
+	}
+}
+
+.iconflag-en {
+	&:before {
+		background-image: url($iconflag-path + 'en.png');
+	}
+}
+
+.iconflag-es {
+	&:before {
+		background-image: url($iconflag-path + 'es.png');
+	}
+}
+
+.iconflag-fi {
+	&:before {
+		background-image: url($iconflag-path + 'fi.png');
+	}
+}
+
+.iconflag-fr {
+	&:before {
+		background-image: url($iconflag-path + 'fr.png');
+	}
+}
+
+.iconflag-hu {
+	&:before {
+		background-image: url($iconflag-path + 'hu.png');
+	}
+}
+
+.iconflag-it {
+	&:before {
+		background-image: url($iconflag-path + 'it.png');
+	}
+}
+
+.iconflag-nl {
+	&:before {
+		background-image: url($iconflag-path + 'nl.png');
+	}
+}
+
+.iconflag-pl {
+	&:before {
+		background-image: url($iconflag-path + 'pl.png');
+	}
+}
+
+.iconflag-pt {
+	&:before {
+		background-image: url($iconflag-path + 'pt.png');
+	}
+}
+
+.iconflag-ro {
+	&:before {
+		background-image: url($iconflag-path + 'ro.png');
+	}
+}
+
+.iconflag-ru {
+	&:before {
+		background-image: url($iconflag-path + 'ru.png');
+	}
+}
+
+.iconflag-tr {
+	&:before {
+		background-image: url($iconflag-path + 'tr.png');
+	}
+}

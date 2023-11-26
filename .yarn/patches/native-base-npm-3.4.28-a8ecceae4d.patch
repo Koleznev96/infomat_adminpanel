@@ -1,0 +1,25 @@
+diff --git a/src/components/composites/Modal/Modal.tsx b/src/components/composites/Modal/Modal.tsx
+index 7c67156e73c545550bde0098e95621a946b31977..6ea701a524db728d95a01eece3e0617dcbfb0d78 100644
+--- a/src/components/composites/Modal/Modal.tsx
++++ b/src/components/composites/Modal/Modal.tsx
+@@ -84,7 +84,6 @@ const Modal = (
+       onRequestClose={handleClose}
+       isKeyboardDismissable={isKeyboardDismissable}
+       animationPreset={animationPreset}
+-      useRNModalOnAndroid
+       useRNModal={useRNModal}
+       {..._overlay}
+     >
+diff --git a/src/core/NativeBaseProvider.tsx b/src/core/NativeBaseProvider.tsx
+index 43b4bd14b648f19227dbfb8caa37fe230a06c983..8867311f139986b3eca22d73831c309f337be8f9 100644
+--- a/src/core/NativeBaseProvider.tsx
++++ b/src/core/NativeBaseProvider.tsx
+@@ -94,7 +94,7 @@ const NativeBaseProvider = (props: NativeBaseProviderProps) => {
+             <OverlayProvider isSSR>
+               <ToastProvider>
+                 <InitializeToastRef />
+-                <SSRProvider>{children}</SSRProvider>
++                {React.version >= '18' ? children : <SSRProvider>{children}</SSRProvider>}
+               </ToastProvider>
+             </OverlayProvider>
+           </HybridProvider>

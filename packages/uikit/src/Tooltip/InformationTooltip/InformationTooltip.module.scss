@@ -1,0 +1,32 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.tooltipPopper {
+	z-index: 500;
+	user-select: none;
+	width: 280px;
+
+	&.positionTop {
+		.tooltip {
+			margin-bottom: themeSpacing(1);
+		}
+	}
+}
+
+.tooltip {
+	color: themeColor(--mui-palette-secondary-main);
+	box-shadow: themeShadow(--mui-palette-shadows-tooltip);
+	background-color: themeColor(--mui-palette-background-default);
+	display: flex;
+	padding: themeSpacing(1);
+	border-radius: 8px;
+}
+
+.tooltipArrow {
+	color: themeColor(--mui-palette-background-default);
+}
+
+.footer {
+	:global(.MuiButton-text) {
+		padding-left: 0;
+	}
+}

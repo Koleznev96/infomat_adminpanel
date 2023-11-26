@@ -1,0 +1,161 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.label {
+	color: themeColor(--mui-palette-text-primary);
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 24px;
+	margin-bottom: 16px;
+}
+
+.containerMap {
+	width: 100%;
+	height: 40vw;
+	max-height: 600px;
+}
+
+.map {
+	width: 100%;
+	height: 100%;
+}
+
+.container {
+	width: 100%;
+}
+
+.item {
+	height: 60px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: themeColor(--mui-palette-common-white);
+	padding: 0 2px;
+}
+
+.boxIndex {
+	display: flex;
+	width: 36px;
+	height: 36px;
+	padding: 8px;
+	justify-content: center;
+	align-items: center;
+	border-radius: 6px;
+	border: 1px solid themeColor(--mui-palette-slate-300);
+	background: themeColor(--mui-palette-common-white);
+	margin-right: 10px;
+}
+
+.index {
+	color: themeColor(--mui-palette-common-black);
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+.boxInput {
+	flex: 1;
+	margin-right: 12px;
+	position: relative;
+	display: flex;
+	align-items: center;
+
+	&:hover {
+		.close {
+			opacity: 1;
+		}
+	}
+
+	.close {
+		position: absolute;
+		right: 4px;
+		display: flex;
+		width: 28px;
+		height: 28px;
+		justify-content: center;
+		align-items: center;
+		border-radius: 6px;
+		border: 1px solid themeColor(--mui-palette-slate-200);
+		cursor: pointer;
+		transition: all 0.3s;
+		opacity: 0;
+
+		&:hover {
+			background: themeColor(--mui-palette-slate-200);
+		}
+	}
+
+	.input {
+		:global(.MuiInputBase-input) {
+			padding-right: 36px;
+		}
+	}
+}
+
+.boxIcon {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 6px;
+
+	.icon {
+		width: 24px;
+		height: 24px;
+	}
+}
+
+ul,
+li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.wrapper {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.button {
+	border-radius: 6px;
+	padding: 4px 14px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	user-select: none;
+	cursor: pointer;
+	transition: all 0.3s;
+
+	color: themeColor(--mui-palette-slate-700);
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 20px;
+
+	&.isDisabled {
+		opacity: 0.7;
+		&:hover {
+			background: none;
+		}
+	}
+
+	&:hover {
+		background: themeColor(--mui-palette-primary-gradient-end);
+	}
+}
+
+.load {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 5px 15px 15px 15px;
+}
+
+.menuItem {
+	word-wrap: break-word;
+	overflow: hidden;
+}

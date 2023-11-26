@@ -1,0 +1,7 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.container {
+	justify-content: center;
+	display: flex;
+	padding: themeSpacing(1) 0;
+}

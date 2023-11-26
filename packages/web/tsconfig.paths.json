@@ -1,0 +1,11 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": "./",
+		"paths": {
+			"src/*": ["./src/*"],
+			"@infomat/core/*": ["./../../node_modules/@infomat/core/*"],
+			"@infomat/uikit/*": ["./../../node_modules/@infomat/uikit/*"]
+		}
+	}
+}

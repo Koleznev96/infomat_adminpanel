@@ -1,0 +1,118 @@
+@import '@infomat/uikit/src/themeUtils';
+
+$base-icon-size: 24px;
+$size-increment: 4px;
+
+@mixin makeIconSizes($base) {
+	&.svg-icon-nano {
+		width: $base - $size-increment * 3.5;
+		height: $base - $size-increment * 3.5;
+	}
+
+	&.svg-icon-micro {
+		width: $base - $size-increment * 3;
+		height: $base - $size-increment * 3;
+	}
+
+	&.svg-icon-tiny {
+		width: $base - $size-increment * 2;
+		height: $base - $size-increment * 2;
+	}
+
+	&.svg-icon-small {
+		width: $base - $size-increment;
+		height: $base - $size-increment;
+	}
+
+	&.svg-icon-default {
+		width: $base;
+		height: $base;
+	}
+
+	&.svg-icon-medium {
+		width: $base + $size-increment;
+		height: $base + $size-increment;
+	}
+	&-large {
+		width: $base-icon-size + $size-increment * 2;
+		height: $base-icon-size + $size-increment * 2;
+	}
+
+	&-xlarge {
+		width: $base-icon-size + $size-increment * 7;
+		height: $base-icon-size + $size-increment * 7;
+	}
+
+	&-xxlarge {
+		width: $base-icon-size + $size-increment * 12;
+		height: $base-icon-size + $size-increment * 12;
+	}
+}
+
+.svg-icon {
+	&.svg-icon {
+		fill: currentColor;
+
+		&-black {
+			color: themeColor(--mui-palette-text-primary);
+		}
+
+		&-orange {
+			color: themeColor(--mui-palette-chat-group);
+		}
+
+		&-red {
+			color: themeColor(--mui-palette-error-main);
+		}
+
+		&-green {
+			color: themeColor(--mui-palette-success-main);
+		}
+
+		&-grey {
+			color: themeColor(--mui-palette-text-secondary);
+		}
+
+		&-white {
+			color: themeColor(--mui-palette-common-white);
+		}
+
+		&-blue {
+			color: themeColor(--mui-palette-info-dark);
+		}
+
+		&-lightgrey {
+			color: themeColor(--mui-palette-grey-500);
+		}
+
+		&-cherry {
+			color: themeColor(--mui-palette-primary-main);
+		}
+
+		@include makeIconSizes($base-icon-size);
+
+		&-archive,
+		&-attach,
+		&-toy,
+		&-macro,
+		&-wait,
+		&-mic-alt,
+		&-send,
+		&-voyeur-line,
+		&-emoji,
+		&-msn,
+		&-video-chat {
+			@include makeIconSizes($base-icon-size - 4);
+		}
+		&-discount,
+		&-toy-vibrating {
+			@include makeIconSizes($base-icon-size + 2);
+		}
+	}
+}
+
+p {
+	.svg-icon {
+		vertical-align: middle;
+	}
+}

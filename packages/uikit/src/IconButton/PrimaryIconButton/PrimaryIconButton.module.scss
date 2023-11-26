@@ -1,0 +1,13 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.primaryIconButton {
+	color: themeColor(--mui-palette-common-white);
+	background: themeColor(--mui-palette-primary-main);
+
+	&:global(.MuiIconButton-root) {
+		&:hover {
+			background: themeColor(--mui-palette-primary-main);
+			opacity: 0.8;
+		}
+	}
+}

@@ -1,0 +1,41 @@
+diff --git a/dist/perfect-scrollbar.esm.js b/dist/perfect-scrollbar.esm.js
+index 3a4c392d1c84fa24bb1db196bc6dccce7ce54927..4b5fde6d785b824b1c7c5c506482289a057e7111 100644
+--- a/dist/perfect-scrollbar.esm.js
++++ b/dist/perfect-scrollbar.esm.js
+@@ -320,6 +320,7 @@ var env = {
+ 
+ function updateGeometry(i) {
+   var element = i.element;
++  if (!element) { return; }
+   var roundedScrollTop = Math.floor(element.scrollTop);
+   var rect = element.getBoundingClientRect();
+ 
+@@ -550,11 +551,12 @@ function bindMouseScrollHandler(
+   var scrollBy = null;
+ 
+   function mouseMoveHandler(e) {
++    let pageY_ = e[pageY];
+     if (e.touches && e.touches[0]) {
+-      e[pageY] = e.touches[0].pageY;
++      pageY_ = e.touches[0].pageY;
+     }
+     element[scrollTop] =
+-      startingScrollTop + scrollBy * (e[pageY] - startingMousePageY);
++      startingScrollTop + scrollBy * (pageY_ - startingMousePageY);
+     addScrollingClass(i, y);
+     updateGeometry(i);
+ 
+@@ -570,10 +572,11 @@ function bindMouseScrollHandler(
+ 
+   function bindMoves(e, touchMode) {
+     startingScrollTop = element[scrollTop];
++    let pageY_ = e[pageY];
+     if (touchMode && e.touches) {
+-      e[pageY] = e.touches[0].pageY;
++      pageY_ = e.touches[0].pageY;
+     }
+-    startingMousePageY = e[pageY];
++    startingMousePageY = pageY_;
+     scrollBy =
+       (i[contentHeight] - i[containerHeight]) /
+       (i[railYHeight] - i[scrollbarYHeight]);

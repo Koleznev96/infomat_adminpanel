@@ -1,0 +1,45 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.container {
+	flex: 1;
+	width: 100%;
+	padding: 6px;
+	box-shadow: none;
+	border-radius: 6px;
+	border: 1px solid themeColor(--mui-palette-primary-gradient-start);
+	background: themeColor(--mui-palette-common-white);
+	display: flex;
+	overflow: hidden;
+
+	.label {
+		margin: 30px 0;
+		font-size: 24px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 32px;
+		color: themeColor(--mui-palette-slate-900);
+	}
+}
+
+.scroll {
+	overflow-y: auto;
+	padding: 24px;
+	width: 100%;
+}
+
+.boxEmpty {
+	padding: 60px 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+
+	:global(.MuiTypography-root) {
+		font-size: 20px;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 30px;
+		color: themeColor(--mui-palette-common-black);
+		text-align: center;
+	}
+}

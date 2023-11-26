@@ -1,0 +1,22 @@
+@charset "UTF-8";
+@import 'src/Theme/Desktop/Styles/variables_global';
+@import '@infomat/uikit/src/breakpoints.module';
+@import '@infomat/uikit/src/themeUtils';
+
+.error.-is-inline {
+	display: flex;
+	align-items: flex-start;
+	background-color: themeColor(--mui-palette-common-white);
+	color: themeColor(--mui-palette-text-primary);
+	border-top: solid themeColor(--mui-palette-primary-main) 2px;
+	padding: 15px;
+	margin: 15px;
+	font-size: 13px;
+
+	.icon-remove {
+		color: themeColor(--mui-palette-primary-main);
+		font-size: 20px;
+		margin-right: 10px;
+		margin-top: 3px;
+	}
+}
