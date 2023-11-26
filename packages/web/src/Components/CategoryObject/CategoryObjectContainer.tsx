@@ -1,20 +1,44 @@
 import React from 'react';
-import _ from 'lodash';
+import {isUndefined} from 'lodash';
 
 import {useStoreSelector} from '@infomat/core/src/Hooks/useStoreSelector';
+import {selectCategoryObjectData} from '@infomat/core/src/Redux/CategoryObject/Selectors/selectCategoryObjectData';
+import {categoryObjectClientToServerActions} from '@infomat/core/src/Redux/CategoryObject/Actions/categoryObjectClientToServerActions';
+import useActionDispatcher from '@infomat/core/src/Hooks/useActionDispatcher';
+import {selectCategoryObjectIsLoading} from '@infomat/core/src/Redux/CategoryObject/Selectors/selectCategoryObjectIsLoading';
+import Page from '@infomat/uikit/src/Page/Page';
+
+import useRouterLinkForMui from 'src/Utils/Navigation/useRouterLinkForMui';
+import {Routes} from 'src/Routes/Routes';
 
 import CategoryObject from './CategoryObject';
 
 const CategoryObjectContainer = ({id}: TCategoryObjectContainerProps) => {
-	// const chatTime = useStoreSelector(selectRunningChatsVideoTimeById, {chatId: chatId ?? ''});
+	const categoryObjectVM = isUndefined(id) ? undefined : useStoreSelector(selectCategoryObjectData);
+	const isLoading = useStoreSelector(selectCategoryObjectIsLoading);
+	const onDelete = useActionDispatcher(categoryObjectClientToServerActions.deleteCategory);
+	const onUpdate = useActionDispatcher(categoryObjectClientToServerActions.updateCategory);
+	const onCreate = useActionDispatcher(categoryObjectClientToServerActions.createCategory);
+	const CategoriesObjectsLink = useRouterLinkForMui(Routes.categoriesObjects);
 
-	const onDelete = () => console.log('log');
-
-	return <CategoryObject onSubmit={onDelete} onDelete={onDelete} />;
+	return (
+		<Page
+			isLoading={isLoading || (isUndefined(categoryObjectVM) && !isUndefined(id))}
+			backLink={CategoriesObjectsLink}
+			label={isUndefined(id) ? 'Создание категории объектов' : 'Редактирование категории объектов'}
+		>
+			<CategoryObject
+				id={id}
+				categoryObjectVM={categoryObjectVM}
+				onSubmit={isUndefined(id) ? onCreate : onUpdate}
+				onDelete={onDelete}
+			/>
+		</Page>
+	);
 };
 
 type TCategoryObjectContainerProps = {
-	id: string;
+	id?: number;
 };
 
 export default CategoryObjectContainer;

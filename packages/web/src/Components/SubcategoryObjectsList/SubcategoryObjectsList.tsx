@@ -1,5 +1,6 @@
 import React, {useCallback, useState} from 'react';
-import _, {map} from 'lodash';
+import {Typography} from '@mui/material';
+import _ from 'lodash';
 
 import PropertyHandler from '@infomat/core/src/Types/PropertyHandler';
 import PageListIteration from '@infomat/uikit/src/PageListIteration/PageListIteration';
@@ -10,73 +11,82 @@ import {Routes} from 'src/Routes/Routes';
 
 import SubcategoryObjectItemContainer from './SubcategoryObjectItem/SubcategoryObjectItemContainer';
 import style from './SubcategoryObjectsList.module.scss';
-import {SelectChangeEvent, Typography} from '@mui/material';
 
-// const itemIdsConst = [{id: '11', values: ['asds', 'sdfg', 'dsfg', '896', 'cxvb']}, {id: '22', values: ['as2ds', 'sdfg2', 'ds2fg', '8926', 'cxv3b']}];
-const itemIdsConst = ['asds', 'sdfg', 'dsfg', '896', 'cxvb', 'q', 'a', 's', 'd'];
-
-const itemLabelsIds = [
-	{
-		label: 'fdgsdfg',
-		ids: ['q', 'a', 's', 'd'],
-	},
-	{
-		label: 'fdgsdfg',
-		ids: ['q', 'a', 's', 'd'],
-	},
-	{
-		label: 'fdgsdfg',
-		ids: ['q', 'a', 's', 'd'],
-	},
+const filtersConst = [
+	{title: 'Категории объектов', id: 0},
+	{title: 'Все объекты', id: 1},
 ];
 
-const filtersConst = [{label: 'Категории объектов'}, {label: 'Все объекты'}];
-
-const SubcategoryObjectsList = ({onSubmit, onDelete, itemIds = itemIdsConst}: TSubcategoryObjectsListProps) => {
+const SubcategoryObjectsList = ({
+	getData,
+	setIndexFilter,
+	subcategoryObjectIds,
+	subcategoryGroupedVMs,
+	indexFilter,
+	currentPage,
+	totalPage,
+	size,
+	isLoading,
+	search,
+}: TSubcategoryObjectsListProps) => {
 	const TouristObjectCreateLink = useRouterLinkForMui(Routes.subcategoryObject());
-	const [search, setSearch] = useState('');
-	const [filter, setFilter] = useState(filtersConst[0]);
+	const [filter, setFilter] = useState(indexFilter || 0);
 
-	const filterChange = ({label}: {label: string}) => {
-		setFilter({label});
-	};
+	const filterChange = useCallback(
+		(value: number) => {
+			setIndexFilter(value);
+			setFilter(value);
+		},
+		[setIndexFilter, setFilter],
+	);
 
-	const isShowCat = filter.label === filtersConst[0].label;
+	const isShowCat = filter === 0;
 
 	return (
 		<PageListIteration
-			onLoadPage={_.noop}
-			changeValueLimit={_.noop}
+			numberPages={totalPage}
+			startSearch={search}
+			isLoading={isLoading}
+			isEmptyList={_.isEmpty(subcategoryObjectIds)}
+			getData={getData}
 			labelAdd="Добавить объект"
-			chengeSearch={setSearch}
 			addLink={TouristObjectCreateLink}
+			startCrrentPageNumber={currentPage}
+			startValueLimit={size}
 			FilterComponent={
 				<div className={style.filter}>
-					<SelectField isFilterItems items={filtersConst} value={filter} onChange={filterChange} />
+					<SelectField items={filtersConst} value={filter} onChange={(e) => filterChange(Number(e))} />
 				</div>
 			}
 		>
 			<div className={style.container}>
 				{isShowCat
-					? map(itemLabelsIds, ({label, ids}, index) => (
+					? _.map(subcategoryGroupedVMs, ({title, ids}, index) => (
 							<div key={index} className={style.item}>
-								<Typography className={style.itemLabel}>{label}</Typography>
-								{map(ids, (id) => (
+								<Typography className={style.itemLabel}>{title}</Typography>
+								{_.map(ids, (id) => (
 									<SubcategoryObjectItemContainer key={id} id={id} />
 								))}
 							</div>
 					  ))
-					: map(itemIds, (id) => <SubcategoryObjectItemContainer key={id} id={id} />)}
+					: _.map(subcategoryObjectIds, (id) => <SubcategoryObjectItemContainer key={id} id={id} />)}
 			</div>
 		</PageListIteration>
 	);
 };
 
 type TSubcategoryObjectsListProps = {
-	login?: string;
-	onSubmit: PropertyHandler;
-	onDelete?: PropertyHandler;
-	itemIds?: string[];
+	subcategoryObjectIds?: number[];
+	currentPage: number;
+	isLoading?: boolean;
+	search: string;
+	size: number;
+	totalPage: number;
+	error?: string;
+	indexFilter: number;
+	subcategoryGroupedVMs?: {title: string; ids: number[]}[];
+	setIndexFilter: PropertyHandler<number>;
+	getData: PropertyHandler<{page?: number; size?: number; search?: string}>;
 };
 
 export default SubcategoryObjectsList;

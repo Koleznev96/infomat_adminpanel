@@ -23,8 +23,6 @@ module.exports = {
 
 							'!@infomat/core/src/Services',
 							'@infomat/core/src/Services/*',
-							'!@infomat/core/src/Services/ServiceFactory',
-
 							'!@infomat/core/src/BusinessLogic',
 							'@infomat/core/src/BusinessLogic/*',
 							'!@infomat/core/src/BusinessLogic/Constants',

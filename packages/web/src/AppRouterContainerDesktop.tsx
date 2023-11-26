@@ -1,12 +1,14 @@
 import React from 'react';
 
+import {selectIsLoggedIn} from '@infomat/core/src/Redux/User/Selectors/selectIsLoggedIn';
+import {useStoreSelector} from '@infomat/core/src/Hooks/useStoreSelector';
+
 import Information from 'src/Components/Information/Information';
 import RouterDesktop from 'src/Routes/RouterDesktop';
 import AppRouter from 'src/AppRouter';
 
 const AppRouterContainerDesktop = () => {
-	// const isLoggedIn = useStoreSelector(selectIsLoggedIn);
-	const isLoggedIn = true;
+	const isLoggedIn = useStoreSelector(selectIsLoggedIn);
 
 	return (
 		<>

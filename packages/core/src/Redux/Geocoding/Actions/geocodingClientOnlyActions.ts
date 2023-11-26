@@ -7,6 +7,8 @@ enum EnumClientOnlyActions {
 	UPSERT_COORDINATES = 'UPSERT_COORDINATES',
 	RESET_STORE = 'RESET_STORE',
 	SET_ERRORS = 'SET_ERRORS',
+	STOP_LOADING = 'STOP_LOADING',
+	RESET = 'RESET',
 }
 
 class GeocodingClientOnlyActions extends ClientOnlyActions<EnumStore.GEOCODING> {
@@ -14,7 +16,7 @@ class GeocodingClientOnlyActions extends ClientOnlyActions<EnumStore.GEOCODING> 
 
 	upsertAddress = this.createAction(EnumClientOnlyActions.UPSERT_ADDRESS, this.getPrepareAction<TAddress[]>());
 
-	upsertCoordinates = this.createAction(EnumClientOnlyActions.UPSERT_COORDINATES, this.getPrepareAction<string>());
+	upsertCoordinates = this.createAction(EnumClientOnlyActions.UPSERT_COORDINATES, this.getPrepareAction<TAddress>());
 
 	setErrors = this.createAction(
 		EnumClientOnlyActions.SET_ERRORS,
@@ -22,6 +24,10 @@ class GeocodingClientOnlyActions extends ClientOnlyActions<EnumStore.GEOCODING> 
 	);
 
 	resetStore = this.createAction(EnumClientOnlyActions.RESET_STORE);
+
+	stopLoading = this.createAction(EnumClientOnlyActions.STOP_LOADING);
+
+	reset = this.createAction(EnumClientOnlyActions.RESET);
 }
 
 const geocodingClientOnlyActions = new GeocodingClientOnlyActions();

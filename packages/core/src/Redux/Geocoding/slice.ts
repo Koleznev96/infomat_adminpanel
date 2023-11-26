@@ -20,11 +20,13 @@ const geocodingSlice = createSlice<TGeocodingSlice, SliceCaseReducers<TGeocoding
 		builder.addCase(geocodingClientOnlyActions.resetStore, () => initialGeocodingState);
 		builder.addCase(geocodingClientOnlyActions.upsertAddress, (state, action) => {
 			// 1.2
+			// получаем список адресов с координатоми
 			state.address = action.payload;
 			state.isLoadingCoordinates = false;
 		});
 		builder.addCase(geocodingClientOnlyActions.upsertCoordinates, (state, action) => {
 			// 2.2
+			// получаем элемент с адресом
 			state.coordinates = action.payload;
 			state.isLoadingAddress = false;
 		});
@@ -36,11 +38,24 @@ const geocodingSlice = createSlice<TGeocodingSlice, SliceCaseReducers<TGeocoding
 		});
 		builder.addCase(geocodingClientToServerActions.getAddress, (state, action) => {
 			// 2.1
+			// поиск по координатам
+			state.address = [];
 			state.isLoadingAddress = true;
 		});
 		builder.addCase(geocodingClientToServerActions.getGeocoding, (state, action) => {
 			// 1.1
+			// поиск по адресу
 			state.isLoadingCoordinates = true;
+		});
+		builder.addCase(geocodingClientOnlyActions.stopLoading, (state, action) => {
+			state.isLoadingAddress = false;
+			state.isLoadingCoordinates = false;
+		});
+		builder.addCase(geocodingClientOnlyActions.reset, (state, action) => {
+			state.isLoadingAddress = false;
+			state.isLoadingCoordinates = false;
+			state.address = [];
+			state.coordinates = undefined;
 		});
 	},
 });
@@ -51,7 +66,7 @@ export type TGeocodingSlice = {
 	errorAddress?: string;
 	errorCoordinates?: string;
 	address: TAddress[];
-	coordinates?: string;
+	coordinates?: TAddress;
 };
 
 export default geocodingSlice;

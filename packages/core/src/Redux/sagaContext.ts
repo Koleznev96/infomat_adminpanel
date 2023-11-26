@@ -8,13 +8,20 @@ export type TNavigateOptions = {replace?: boolean};
 
 export type TSagaContext = {
 	[EnumSagaContext.ROUTER]: {
-		// goToChannelMessages: (channelId: string, options?: TNavigateOptions) => void;
-		// goToIntro: (isChannel?: boolean) => void;
-		// goToChatMessages: (chatId: string, options?: TNavigateOptions) => void;
+		goEvent: (id: number, options?: TNavigateOptions) => void;
+		goTouristRout: (id: number, options?: TNavigateOptions) => void;
+		goSubcategoryObject: (id: number, options?: TNavigateOptions) => void;
+		goCategoryObject: (id: number, options?: TNavigateOptions) => void;
+		goTouristObject: (id: number, options?: TNavigateOptions) => void;
+
+		goInformation: (options?: TNavigateOptions) => void;
+		goEvents: (options?: TNavigateOptions) => void;
+		goRecommend: (options?: TNavigateOptions) => void;
+		goTouristRoutes: (options?: TNavigateOptions) => void;
+		goSubcategoriesObjects: (options?: TNavigateOptions) => void;
+		goCategoriesObjects: (options?: TNavigateOptions) => void;
+		goTouristObjects: (options?: TNavigateOptions) => void;
 		goHome: (options?: TNavigateOptions) => void;
-		goUp: () => void;
-		// isChannelPage: (channelId: string) => boolean;
-		// isChatPage: (chatId: string) => boolean;
 	};
 };
 

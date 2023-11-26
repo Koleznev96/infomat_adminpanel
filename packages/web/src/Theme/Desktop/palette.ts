@@ -1,6 +1,6 @@
 import {PaletteOptions} from '@mui/material/styles';
 
-const VxLivePalette: PaletteOptions = {
+const InfomatPalette: PaletteOptions = {
 	background: {
 		default: '#fff', //--mui-palette-background-default+
 	},
@@ -64,4 +64,4 @@ const VxLivePalette: PaletteOptions = {
 	},
 };
 
-export default VxLivePalette;
+export default InfomatPalette;

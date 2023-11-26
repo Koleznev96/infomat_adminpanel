@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
-import {Grid, SelectChangeEvent, Typography} from '@mui/material';
-import {isUndefined} from 'lodash';
+import {Grid, Typography} from '@mui/material';
+import _ from 'lodash';
 
 import PropertyHandler from '@infomat/core/src/Types/PropertyHandler';
 import ButtonWithTooltip from '@infomat/uikit/src/Button/ButtonWithTooltip';
@@ -8,45 +8,113 @@ import ButtonDelete from '@infomat/uikit/src/Button/ButtonDelete';
 import TextField from '@infomat/uikit/src/Fields/TextField/TextField';
 import SelectField from '@infomat/uikit/src/Fields/SelectField/SelectField';
 import IconFiledWithPreview from '@infomat/uikit/src/Fields/IconFiledWithPreview/IconFiledWithPreview';
-import SwitchField from '@infomat/uikit/src/Fields/SwitchField/SwitchField';
 import SwitchLanguageField from '@infomat/uikit/src/Fields/SwitchLanguageField/SwitchLanguageField';
-import RoutesField from '@infomat/uikit/src/Fields/RoutesField/RoutesField';
-import RoutesOnMap from '@infomat/uikit/src/RoutesOnMap/RoutesOnMap';
+import ColorPicker from '@infomat/uikit/src/Fields/ColorPicker/ColorPicker';
+import {TRoutesCreate} from '@infomat/core/src/Redux/Routes/entityAdapter';
+import {TFile, TFileLocal} from '@infomat/core/src/Types/media';
+
+import ItemRoutesMapContainer from 'src/Components/ItemRoutesMap/ItemRoutesMapContainer';
 
 import style from './TouristRout.module.scss';
 
-const names = [{label: 'Черновик'}, {label: 'Опубликован'}];
+const names = [
+	{title: 'Черновик', id: 'DRAFT'},
+	{title: 'Опубликован', id: 'PUBLISHED'},
+];
 
-const TouristRout = ({onSubmit, onDelete}: TTouristRoutProps) => {
-	const [labelRu, setLabelRu] = useState('');
-	const [labelEng, setLabelEng] = useState('');
-	const [category, setCategory] = useState<string | undefined>(undefined);
-	const [info, setInfo] = useState<{label: string} | undefined>(names[0]);
+const TouristRout = ({onSubmit, onDelete, routesVM, id}: TTouristRoutProps) => {
+	const [title, setTitle] = useState(routesVM?.title || '');
+	const [titleEn, setTitleEn] = useState(routesVM?.titleEn || '');
+	const [status, setStatus] = useState(routesVM?.status || 'DRAFT');
+	const [description, setDescription] = useState(routesVM?.description || '');
+	const [descriptionEn, setDescriptionEn] = useState(routesVM?.descriptionEn || '');
+	const [backgroundColor, setBackgroundColor] = useState(routesVM?.backgroundColor || '');
+	const [routeColor, setRouteColor] = useState(routesVM?.routeColor || '');
+	const [length, setLength] = useState(routesVM?.length || '');
+	const [lengthEn, setLengthEn] = useState(routesVM?.lengthEn || '');
+	const [duration, setDuration] = useState(routesVM?.duration || '');
+	const [durationEn, setDurationEn] = useState(routesVM?.durationEn || '');
+	const [type, setType] = useState(routesVM?.type || '');
+	const [typeEn, setTypeEn] = useState(routesVM?.typeEn || '');
+	const [icon, onIcon] = useState<TFile | TFileLocal>(routesVM?.icon || {url: null});
+	const [stops, setStops] = useState(
+		routesVM?.stops
+			? _.sortBy(routesVM?.stops, [
+					function (o) {
+						return o.sequenceNumber;
+					},
+			  ])
+			: [],
+	);
 	const [leng, setLeng] = useState('ru');
-	const [attachBack, onAttachBack] = useState<File | null | string>(null);
-	const [attachIcon, onAttachIcon] = useState<File | null | string>(null);
 
-	const isDisabledSave = !labelRu.length || !labelEng.length;
+	const titleValue = leng === 'ru' ? title : titleEn;
+	const setTitleValue = leng === 'ru' ? setTitle : setTitleEn;
+	const descriptionValue = leng === 'ru' ? description : descriptionEn;
+	const setDescriptionValue = leng === 'ru' ? setDescription : setDescriptionEn;
+	const lengthValue = leng === 'ru' ? length : lengthEn;
+	const setLengthValue = leng === 'ru' ? setLength : setLengthEn;
+	const durationValue = leng === 'ru' ? duration : durationEn;
+	const setDurationValue = leng === 'ru' ? setDuration : setDurationEn;
+	const typeValue = leng === 'ru' ? type : typeEn;
+	const setTypeValue = leng === 'ru' ? setType : setTypeEn;
+
+	const isDisabledSave =
+		!title.length ||
+		!status.length ||
+		!description.length ||
+		!backgroundColor.length ||
+		!routeColor.length ||
+		!length.length ||
+		!duration?.length ||
+		!type.length;
+	// _.isEmpty(stops) ||
+	// icon.url === null;
 
 	const onSave = useCallback(() => {
-		onSubmit();
-	}, []);
+		onSubmit({
+			id,
+			title,
+			titleEn: titleEn.length ? titleEn : undefined,
+			description,
+			descriptionEn: descriptionEn.length ? descriptionEn : undefined,
+			status,
+			backgroundColor,
+			routeColor,
+			length,
+			lengthEn: lengthEn.length ? lengthEn : undefined,
+			duration,
+			durationEn: durationEn.length ? durationEn : undefined,
+			type,
+			typeEn: typeEn.length ? typeEn : undefined,
+			icon,
+			stops: stops ? _.map(stops, (item, index) => ({placeId: item.place?.id, sequenceNumber: index + 1})) : undefined,
+		});
+	}, [
+		id,
+		title,
+		titleEn,
+		description,
+		descriptionEn,
+		status,
+		backgroundColor,
+		routeColor,
+		length,
+		lengthEn,
+		duration,
+		durationEn,
+		type,
+		typeEn,
+		icon,
+		stops,
+	]);
 
 	return (
 		<Grid container spacing={3}>
 			<Grid item container xs={12} md={12} direction="row" justifyContent="space-between" alignItems="flex-end">
 				<Grid item container alignItems="flex-end" spacing={3} xs={12} md={9}>
 					<Grid item xs={12} md={6}>
-						<SelectField
-							items={names}
-							value={info}
-							onChange={setInfo}
-							label="Родительская категория*"
-							placeholder="Категории объектов"
-						/>
-					</Grid>
-					<Grid item xs={12} md={6}>
-						<SwitchField label="Добавить в «Рекомендуем»" />
+						<SelectField items={names} value={status} onChange={(e) => setStatus(String(e))} />
 					</Grid>
 				</Grid>
 				<Grid item container xs={12} md={3} justifyContent="flex-end">
@@ -54,18 +122,15 @@ const TouristRout = ({onSubmit, onDelete}: TTouristRoutProps) => {
 				</Grid>
 			</Grid>
 			<Grid item container xs={12} md={12} gap={3}>
-				<IconFiledWithPreview onAttach={onAttachBack} file={attachBack} label="Загрузить подложку 56х56" />
-				<IconFiledWithPreview onAttach={onAttachIcon} file={attachIcon} label="Загрузить иконку 30х30" />
+				<IconFiledWithPreview onAttach={onIcon} file={icon} label="Загрузить иконку 30х30" />
 			</Grid>
-			<Grid item xs={12} md={6}>
-				<TextField
-					label={'Цвет маршрута (HEX, с решёткой)*'}
-					variant="outlined"
-					tabIndex={1}
-					onChange={(e) => setLabelRu(e.target.value)}
-					value={labelRu}
-					placeholder="#78DBE2"
-				/>
+			<Grid item container spacing={1.5}>
+				<Grid item xs={12} md={6}>
+					<ColorPicker label="Цвет подложки (HEX, с решёткой)*" value={backgroundColor} setValue={setBackgroundColor} />
+				</Grid>
+				<Grid item xs={12} md={6}>
+					<ColorPicker label={'Цвет маршрута (HEX, с решёткой)*'} value={routeColor} setValue={setRouteColor} />
+				</Grid>
 			</Grid>
 			<Grid item container spacing={1.5}>
 				<Grid item container>
@@ -77,35 +142,35 @@ const TouristRout = ({onSubmit, onDelete}: TTouristRoutProps) => {
 							label={'Название*'}
 							variant="outlined"
 							tabIndex={1}
-							onChange={(e) => setLabelRu(e.target.value)}
-							value={labelRu}
-							placeholder="Название объекта"
+							onChange={(e) => setTitleValue(e.target.value)}
+							value={titleValue}
+							placeholder="Название маршрута"
 						/>
 						<TextField
-							label={'Номер телефона'}
+							label={'Продолжительность*'}
 							variant="outlined"
-							tabIndex={1}
-							onChange={(e) => setLabelRu(e.target.value)}
-							value={labelRu}
-							placeholder="Телефон"
+							tabIndex={2}
+							onChange={(e) => setDurationValue(e.target.value)}
+							value={durationValue}
+							placeholder="Например: 2-2,5 часа"
 						/>
 					</Grid>
 					<Grid item container xs={12} md={6} direction="column" gap={1.5}>
 						<TextField
-							label={'Режим работы'}
+							label={'Протяженность*'}
 							variant="outlined"
-							tabIndex={2}
-							onChange={(e) => setLabelEng(e.target.value)}
-							value={labelEng}
-							placeholder="Режим работы"
+							tabIndex={3}
+							onChange={(e) => setLengthValue(e.target.value)}
+							value={lengthValue}
+							placeholder="Например: 5 км"
 						/>
 						<TextField
-							label={'Сайт'}
+							label={'Тип маршрута*'}
 							variant="outlined"
-							tabIndex={2}
-							onChange={(e) => setLabelEng(e.target.value)}
-							value={labelEng}
-							placeholder="Сайт"
+							tabIndex={4}
+							onChange={(e) => setTypeValue(e.target.value)}
+							value={typeValue}
+							placeholder="Автомобильный, пешеходный или автомобильно-пешеходный"
 						/>
 					</Grid>
 				</Grid>
@@ -115,25 +180,28 @@ const TouristRout = ({onSubmit, onDelete}: TTouristRoutProps) => {
 					label={'Описание'}
 					variant="outlined"
 					multiline
-					tabIndex={1}
-					onChange={(e) => setLabelEng(e.target.value)}
-					value={labelEng}
+					tabIndex={5}
+					onChange={(e) => setDescriptionValue(e.target.value)}
+					value={descriptionValue}
 					rows={8}
 					placeholder="Описание"
 				/>
 			</Grid>
-			{/* <Grid item container xs={12} md={6}>
-				<RoutesField label="Создание маршрута" label="Создание маршрута" />
-			</Grid> */}
 			<Grid item container xs={12} md={12}>
-				<RoutesOnMap labelMap="Маршрут на карте" label="Создание маршрута" />
+				<ItemRoutesMapContainer
+					labelMap="Маршрут на карте"
+					label="Создание маршрута"
+					value={stops}
+					setValue={setStops}
+					routeColor={routeColor}
+				/>
 			</Grid>
 			<Grid item container gap={1.5}>
-				<ButtonWithTooltip onClick={onSave} disabled={isDisabledSave} tabIndex={3}>
+				<ButtonWithTooltip onClick={onSave} disabled={isDisabledSave} tabIndex={6}>
 					Сохранить
 				</ButtonWithTooltip>
-				{!isUndefined(onDelete) && (
-					<ButtonDelete onClick={onSave} tabIndex={4}>
+				{!_.isUndefined(id) && (
+					<ButtonDelete onClick={() => onDelete({id})} tabIndex={7}>
 						Удалить объект
 					</ButtonDelete>
 				)}
@@ -143,9 +211,10 @@ const TouristRout = ({onSubmit, onDelete}: TTouristRoutProps) => {
 };
 
 type TTouristRoutProps = {
-	login?: string;
-	onSubmit: PropertyHandler;
-	onDelete?: PropertyHandler;
+	id?: number;
+	routesVM?: TRoutesCreate;
+	onSubmit: PropertyHandler<TRoutesCreate>;
+	onDelete: PropertyHandler<{id: number}>;
 };
 
 export default TouristRout;

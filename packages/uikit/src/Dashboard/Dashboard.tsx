@@ -14,7 +14,6 @@ const Dashboard = ({title, label, children, RootComponent}: TDashboardProps) => 
 	};
 
 	const handleClose = (event: Event | React.SyntheticEvent) => {
-		console.log(',mmm');
 		if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
 			return;
 		}

@@ -47,8 +47,7 @@
 		"all:test": "yarn workspaces foreach run test",
 		"prepare": "husky install",
 		"storybook": "yarn workspace @infomat/web run storybook",
-		"build-storybook": "yarn workspace @infomat/web build-storybook",
-		"sync-static": "aws s3 sync static/ s3://vxlive-pr-static-env/"
+		"build-storybook": "yarn workspace @infomat/web build-storybook"
 	},
 	"workspaces": {
 		"packages": [

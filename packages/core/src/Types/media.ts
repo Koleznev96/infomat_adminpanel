@@ -47,3 +47,38 @@ export enum EnumVideoFacingMode {
 	user = 'user',
 	environment = 'environment',
 }
+
+export type TVideo = {
+	id?: number;
+	url?: File | null | string;
+	url3x2Original?: File | null | string;
+};
+
+export type TFile = {
+	id?: number;
+	url?: string;
+};
+
+export type TFileLocal = {
+	id?: number;
+	url?: File | null;
+};
+
+export type TFileCrop = {
+	id?: number;
+	urlOriginal?: File | null | string;
+	url3x2Original?: File | null | string;
+	url3x2?: File | null | string;
+	partName?: string;
+};
+
+export type TFrameCrop =
+	| {
+			partName?: string | null;
+			x?: number;
+			y?: number;
+			width?: number;
+			height?: number;
+			isFile?: boolean;
+	  }
+	| undefined;

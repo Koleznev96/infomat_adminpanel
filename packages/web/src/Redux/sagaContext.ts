@@ -15,46 +15,57 @@ export const createSagaContext = (router: ReturnType<typeof createBrowserRouter>
 
 	return {
 		[EnumSagaContext.ROUTER]: {
-			// goToChannelMessages(channelId, options) {
-			// 	navigate(Routes.channel(channelId), options);
-			// },
-
-			// goToIntro(isChannel?: boolean) {
-			// 	isChannel ? navigate(Routes.modal.introChannel, {replace: true}) : navigate(Routes.modal.intro);
-			// },
-
-			// goToChatMessages(chatId, options) {
-			// 	navigate(Routes.chat(chatId), options);
-			// },
-
 			goHome(options) {
 				navigate(Routes.home, options);
 			},
 
-			goUp() {
-				navigate(getCloseModalRoute(router.state.location.pathname), {relative: 'path'});
+			goInformation(options) {
+				navigate(Routes.information, options);
 			},
 
-			// isChannelPage(channelId: string) {
-			// 	return !_.isEmpty(
-			// 		matchPath(
-			// 			{
-			// 				path: Routes.channel(channelId),
-			// 			},
-			// 			router.state.location.pathname,
-			// 		),
-			// 	);
-			// },
-			// isChatPage(chatId: string) {
-			// 	return !_.isEmpty(
-			// 		matchPath(
-			// 			{
-			// 				path: Routes.chat(chatId),
-			// 			},
-			// 			router.state.location.pathname,
-			// 		),
-			// 	);
-			// },
+			goEvents(options) {
+				navigate(Routes.events, options);
+			},
+
+			goEvent(id, options) {
+				navigate(Routes.event(id), options);
+			},
+
+			goRecommend(options) {
+				navigate(Routes.recommend, options);
+			},
+
+			goTouristRoutes(options) {
+				navigate(Routes.touristRoutes, options);
+			},
+
+			goTouristRout(id, options) {
+				navigate(Routes.touristRout(id), options);
+			},
+
+			goSubcategoriesObjects(options) {
+				navigate(Routes.subcategoriesObjects, options);
+			},
+
+			goSubcategoryObject(id, options) {
+				navigate(Routes.subcategoryObject(id), options);
+			},
+
+			goCategoriesObjects(options) {
+				navigate(Routes.categoriesObjects, options);
+			},
+
+			goCategoryObject(id, options) {
+				navigate(Routes.categoryObject(id), options);
+			},
+
+			goTouristObjects(options) {
+				navigate(Routes.touristObjects, options);
+			},
+
+			goTouristObject(id, options) {
+				navigate(Routes.touristObject(id), options);
+			},
 		},
 	};
 };

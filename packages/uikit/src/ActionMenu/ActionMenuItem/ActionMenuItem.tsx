@@ -57,11 +57,9 @@ const ActionMenuItem = ({onEdit, onDelete, editLink, deleteTitle}: TActionMenuIt
 						}}
 					>
 						{(onEdit || editLink) && (
-							// <div className={style.boxEdit}>
 							<Button component={editLink} className={style.edit}>
 								Редактировать
 							</Button>
-							// </div>
 						)}
 						{onDelete && (
 							<MenuItem onClick={deleteTitle ? onDelete : displayModal} key={'delete'}>

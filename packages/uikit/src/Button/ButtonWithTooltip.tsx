@@ -4,7 +4,6 @@ import {Tooltip} from '@mui/material';
 import Button, {TButtonProps} from './Button';
 
 const ButtonWithTooltip = ({
-	onClick,
 	title = 'Заполните все обязательные поля*',
 	variant = 'contained',
 	children = 'Сохранить',
@@ -12,7 +11,7 @@ const ButtonWithTooltip = ({
 	disabled,
 	...props
 }: TButtonWithTooltipProps) => {
-	return (
+	return disabled ? (
 		<Tooltip disableHoverListener={!disabled} title={title} placement={placement} style={{userSelect: 'none'}}>
 			<div>
 				<Button disabled={disabled} variant={variant} type="submit" {...props}>
@@ -20,6 +19,10 @@ const ButtonWithTooltip = ({
 				</Button>
 			</div>
 		</Tooltip>
+	) : (
+		<Button disabled={disabled} variant={variant} type="submit" {...props}>
+			{children}
+		</Button>
 	);
 };
 

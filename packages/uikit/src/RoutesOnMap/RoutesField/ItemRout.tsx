@@ -62,7 +62,6 @@ const RoutesField = ({
 					<TextField
 						autoComplete="off"
 						onFocus={openMenu}
-						// onBlur={close}
 						value={inputValue}
 						onChange={(e) => inputChange(e.target.value, index)}
 						classes={{root: style.input}}
@@ -125,7 +124,6 @@ type TRoutesFieldProps = {
 	onItem: PropertyHandler<string, number>;
 	inputValue?: string;
 	inputChange: PropertyHandler<string, number>;
-	// valueKey: string;
 };
 
 export default RoutesField;

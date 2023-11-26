@@ -1,48 +1,53 @@
-import React, {useCallback, useState} from 'react';
-import {Grid, SelectChangeEvent, Typography} from '@mui/material';
-import {map} from 'lodash';
+import React, {useCallback} from 'react';
+import {Grid, Typography} from '@mui/material';
 
 import PropertyHandler from '@infomat/core/src/Types/PropertyHandler';
 import {Icon, IconColor, IconType} from '@infomat/uikit/src/Icon';
 import ActionMenuItem from '@infomat/uikit/src/ActionMenu/ActionMenuItem/ActionMenuItem';
+import {TPlacesVM} from '@infomat/core/src/Redux/Places/entityAdapter';
 
 import useRouterLinkForMui from 'src/Utils/Navigation/useRouterLinkForMui';
 import {Routes} from 'src/Routes/Routes';
 
 import style from './TouristObjectItem.module.scss';
 
-type TSubcategory = {
-	id: string;
-	label: string;
-	background: string;
-	icon: string;
-};
-
-const TouristObjectItem = ({onDelete, touristObjectVM, isRemoveRecommend}: TTouristObjectItemProps) => {
+const TouristObjectItem = ({
+	id,
+	onDelete,
+	touristObjectVM,
+	isRemoveRecommend,
+	onDeleteRecommend,
+}: TTouristObjectItemProps) => {
 	const TouristObjectEditLink = useRouterLinkForMui(Routes.touristObject(touristObjectVM.id));
+
+	const deletePlaces = useCallback(() => {
+		isRemoveRecommend ? onDeleteRecommend({id}) : onDelete({id});
+	}, [onDelete, id]);
+
+	const statusTitle = touristObjectVM.status === 'DRAFT' ? 'Черновик' : 'Опубликовано';
 
 	return (
 		<Grid container className={style.container} direction="row" spacing={1}>
 			<Grid item xs={1} md={0.5}>
-				<Typography className={style.title}>ID</Typography>
+				<Typography className={style.title}>{touristObjectVM.id}</Typography>
 			</Grid>
 			<Grid item xs={2} md={1.5} container justifyContent="flex-end">
-				<img src={touristObjectVM.background} className={style.img} />
+				<img src={touristObjectVM.cover.url} className={style.img} />
 			</Grid>
 			<Grid item xs={5} md={7}>
-				<Typography className={style.title}>Название</Typography>
+				<Typography className={style.title}>{touristObjectVM.title}</Typography>
 			</Grid>
 			<Grid item container xs={2} md={1}>
 				<div className={style.filter}>
-					<Icon type={IconType.chevronsDownUp} color={IconColor.white} />
-					<Typography className={style.title}>Статус</Typography>
+					<Icon type={IconType.time} color={IconColor.white} />
+					<Typography className={style.title}>{statusTitle}</Typography>
 				</div>
 			</Grid>
 			<Grid item xs={2} md={2} container justifyContent="flex-end">
 				<ActionMenuItem
 					deleteTitle={isRemoveRecommend ? 'Убрать из рекомендуем' : undefined}
 					editLink={TouristObjectEditLink}
-					onDelete={onDelete}
+					onDelete={deletePlaces}
 				/>
 			</Grid>
 		</Grid>
@@ -50,9 +55,11 @@ const TouristObjectItem = ({onDelete, touristObjectVM, isRemoveRecommend}: TTour
 };
 
 type TTouristObjectItemProps = {
-	touristObjectVM: TSubcategory;
-	onDelete?: PropertyHandler;
+	id: number;
+	touristObjectVM: TPlacesVM;
+	onDeleteRecommend: PropertyHandler<{id: number}>;
 	isRemoveRecommend?: boolean;
+	onDelete: PropertyHandler<{id: number}>;
 };
 
 export default TouristObjectItem;

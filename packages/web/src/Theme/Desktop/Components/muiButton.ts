@@ -35,10 +35,6 @@ const muiButton: Components<Theme>['MuiButton'] = {
 					boxShadow: 'none',
 				},
 			},
-
-			// '&:hover': {
-			// 	opacity: 0.9,
-			// },
 		}),
 		contained: ({theme}) => ({
 			color: theme.palette.common.white,
@@ -65,7 +61,6 @@ const muiButton: Components<Theme>['MuiButton'] = {
 			borderColor: '#E2E8F0',
 			fontSize: theme.typography.pxToRem(14),
 			fontWeight: '500',
-			// padding: `4px 16px`,
 
 			'&:hover': {
 				background: '#F1F5F9',
@@ -73,88 +68,6 @@ const muiButton: Components<Theme>['MuiButton'] = {
 				borderColor: '#E2E8F0',
 			},
 		}),
-		// sizeMedium: ({theme}) => ({
-		// 	lineHeight: 'normal',
-		// 	minWidth: theme.typography.pxToRem(32),
-		// 	'&.Mui-iconOnly': {
-		// 		padding: 0,
-		// 		'.MuiButton-endIcon': {
-		// 			margin: 0,
-		// 		},
-		// 		width: theme.typography.pxToRem(32),
-		// 		height: theme.typography.pxToRem(32),
-		// 	},
-		// }),
-		// sizeLarge: ({theme}) => ({
-		// 	fontSize: theme.typography.pxToRem(16),
-		// 	borderRadius: theme.typography.pxToRem(20),
-		// }),
-		// textPrimary: ({theme}) => ({
-		// 	color: theme.palette.primary.main,
-		// 	'&:hover': {
-		// 		color: theme.palette.primary.light,
-		// 		background: 'none',
-		// 	},
-		// }),
-		// textSecondary: ({theme}) => ({
-		// 	color: theme.palette.text.primary,
-		// 	'&:hover': {
-		// 		color: theme.palette.primary.main,
-		// 		background: 'none',
-		// 	},
-		// }),
-
-		// containedPrimary: ({theme}) => ({
-		// 	background: theme.gradient(theme.palette.primary.gradient),
-		// 	'&:hover': {
-		// 		background: theme.gradient({
-		// 			start: theme.palette.primary.main,
-		// 			end: theme.palette.primary.main,
-		// 		}),
-		// 	},
-		// 	'&.Mui-disabled': {
-		// 		color: theme.palette.common.white,
-		// 		background: theme.palette.secondary.main,
-		// 	},
-		// }),
-		// containedSuccess: ({theme}) => ({
-		// 	border: 0,
-		// 	fontWeight: 'normal',
-		// 	boxShadow: 'none',
-		// 	background: theme.gradient(theme.palette.success.gradient),
-		// 	'&:hover': {
-		// 		background: theme.gradient({
-		// 			start: theme.palette.success.main,
-		// 			end: theme.palette.success.main,
-		// 		}),
-		// 	},
-		// 	'&.Mui-disabled': {
-		// 		color: theme.palette.common.white,
-		// 		background: theme.gradient({
-		// 			start: theme.palette.secondary.main,
-		// 			end: theme.palette.secondary.main,
-		// 		}),
-		// 	},
-		// }),
-		// containedError: ({theme}) => ({
-		// 	border: 0,
-		// 	fontWeight: 'normal',
-		// 	boxShadow: 'none',
-		// 	background: theme.gradient(theme.palette.error.gradient),
-		// 	'&:hover': {
-		// 		background: theme.gradient({
-		// 			start: theme.palette.error.main,
-		// 			end: theme.palette.error.main,
-		// 		}),
-		// 	},
-		// 	'&.Mui-disabled': {
-		// 		color: theme.palette.common.white,
-		// 		background: theme.gradient({
-		// 			start: theme.palette.secondary.main,
-		// 			end: theme.palette.secondary.main,
-		// 		}),
-		// 	},
-		// }),
 	},
 };
 

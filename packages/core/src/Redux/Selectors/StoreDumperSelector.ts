@@ -3,7 +3,6 @@ import _ from 'lodash';
 
 import EnumStore from '@infomat/core/src/BusinessLogic/EnumStore';
 import IRootState from '@infomat/core/src/Redux/IRootState';
-import ServiceFactory from '@infomat/core/src/Services/ServiceFactory';
 
 type ValueOf<T> = T[keyof T];
 
@@ -23,9 +22,7 @@ const getStoreDumped = (state: IRootState) => {
 				result[key] = _.isFunction(_.get(state, key).toJS) ? _.get(state, key).toJS() : _.get(state, key);
 			}
 		});
-	} catch (error) {
-		ServiceFactory.logService.error(error);
-	}
+	} catch (error) {}
 
 	return JSON.stringify(result);
 };

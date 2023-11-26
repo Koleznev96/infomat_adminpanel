@@ -1,20 +1,44 @@
 import React from 'react';
-import _ from 'lodash';
+import {isUndefined} from 'lodash';
 
+import {selectSubcategoryObjectData} from '@infomat/core/src/Redux/SubcategoryObject/Selectors/selectSubcategoryObjectData';
+import {selectSubcategoryObjectIsLoading} from '@infomat/core/src/Redux/SubcategoryObject/Selectors/selectSubcategoryObjectIsLoading';
+import {subcategoryObjectClientToServerActions} from '@infomat/core/src/Redux/SubcategoryObject/Actions/subcategoryObjectClientToServerActions';
+import useActionDispatcher from '@infomat/core/src/Hooks/useActionDispatcher';
 import {useStoreSelector} from '@infomat/core/src/Hooks/useStoreSelector';
+import Page from '@infomat/uikit/src/Page/Page';
+
+import useRouterLinkForMui from 'src/Utils/Navigation/useRouterLinkForMui';
+import {Routes} from 'src/Routes/Routes';
 
 import SubcategoryObject from './SubcategoryObject';
 
 const SubcategoryObjectContainer = ({id}: TSubcategoryObjectContainerProps) => {
-	// const chatTime = useStoreSelector(selectRunningChatsVideoTimeById, {chatId: chatId ?? ''});
+	const subcategoryObjectVM = isUndefined(id) ? undefined : useStoreSelector(selectSubcategoryObjectData);
+	const isLoading = useStoreSelector(selectSubcategoryObjectIsLoading);
+	const onDelete = useActionDispatcher(subcategoryObjectClientToServerActions.deleteCategory);
+	const onUpdate = useActionDispatcher(subcategoryObjectClientToServerActions.updateCategory);
+	const onCreate = useActionDispatcher(subcategoryObjectClientToServerActions.createCategory);
+	const SubategoriesObjectsLink = useRouterLinkForMui(Routes.subcategoriesObjects);
 
-	const onDelete = () => console.log('log');
-
-	return <SubcategoryObject onSubmit={onDelete} onDelete={onDelete} />;
+	return (
+		<Page
+			isLoading={isLoading || (isUndefined(subcategoryObjectVM) && !isUndefined(id))}
+			backLink={SubategoriesObjectsLink}
+			label={isUndefined(id) ? 'Создание категории объектов' : 'Редактирование категории объектов'}
+		>
+			<SubcategoryObject
+				id={id}
+				subcategoryObjectVM={subcategoryObjectVM}
+				onSubmit={isUndefined(id) ? onCreate : onUpdate}
+				onDelete={onDelete}
+			/>
+		</Page>
+	);
 };
 
 type TSubcategoryObjectContainerProps = {
-	id: string;
+	id?: number;
 };
 
 export default SubcategoryObjectContainer;

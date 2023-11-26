@@ -45,49 +45,5 @@
 		"storybook": "^7.0.27",
 		"typescript": "^5.1.3",
 		"webpack": "5"
-	},
-	"jest": {
-		"testEnvironment": "jsdom",
-		"moduleNameMapper": {
-			"^.+\\.module\\.scss$": "identity-obj-proxy",
-			"^.+\\.(css|less|scss)$": "@swc/jest",
-			"\\.svg": "<rootDir>/src/__mocks__/svg.js"
-		},
-		"globalSetup": "../../jest.global-setup.js",
-		"setupFilesAfterEnv": [
-			"./jest.setup.js"
-		],
-		"transform": {
-			"^.+\\.[jt](s|sx)?$": "@swc/jest"
-		},
-		"transformIgnorePatterns": [
-			"node_modules/(?!sip\\.js/.*)"
-		],
-		"collectCoverageFrom": [
-			"src/**/*.tsx"
-		],
-		"coveragePathIgnorePatterns": [
-			"<rootDir>/.*.stories.tsx$"
-		],
-		"coverageThreshold": {
-			"global": {
-				"lines": 63.4,
-				"functions": 54.43,
-				"statements": 62.76,
-				"branches": 58.49
-			}
-		},
-		"coverageReporters": [
-			"text",
-			"text-summary",
-			[
-				"cobertura",
-				{
-					"projectRoot": "../../"
-				}
-			]
-		],
-		"testTimeout": 10000,
-		"maxWorkers": "50%"
 	}
 }

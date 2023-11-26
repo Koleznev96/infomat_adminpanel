@@ -5,9 +5,9 @@ import classNames from 'classnames';
 import {Icon, IconSize, IconType} from '@infomat/uikit/src/Icon';
 import MediaAttachment from '@infomat/uikit/src/Media/MediaAttachment/MediaAttachment';
 import PropertyHandler from '@infomat/core/src/Types/PropertyHandler';
-import ServiceFactory from '@infomat/core/src/Services/ServiceFactory';
 
 import style from './IconFiledWithPreview.module.scss';
+import {TFile, TFileLocal} from '@infomat/core/src/Types/media';
 
 const IconFiledWithPreview = ({label, file, onAttach, error}: TIconFiledWithPreviewProps) => {
 	const [errorFile, setErrorFile] = useState<string | null>(null);
@@ -17,26 +17,27 @@ const IconFiledWithPreview = ({label, file, onAttach, error}: TIconFiledWithPrev
 		<div>
 			<div className={style.container}>
 				<MediaAttachment
-					isDisabled={file !== null}
-					onSuccess={onAttach}
+					isDisabled={file.url !== null}
+					onSuccess={(file) => onAttach({url: file})}
 					onError={setErrorFile}
-					isImageAllowed={true}
+					isIconAllowed={true}
+					isImageAllowed={false}
 					isVideoAllowed={false}
 					isAudioAllowed={false}
 					sizeIcon={IconSize.medium}
 				>
 					{({getRootProps, open, dropZoneOverlay}) => (
 						<section {...getRootProps()}>
-							<div onClick={open} className={classNames(style.file, {[style.isActive]: file === null})}>
+							<div onClick={open} className={classNames(style.file, {[style.isActive]: file.url === null})}>
 								{dropZoneOverlay}
-								{file !== null ? (
+								{file.url !== null ? (
 									<>
 										<img
 											className={style.img}
-											src={file instanceof File ? ServiceFactory.uiContainer.createObjectURL(file as File) : file}
+											src={file.url instanceof File ? URL.createObjectURL(file.url as File) : file.url}
 											alt={'Image'}
 										/>
-										<div onClick={() => onAttach(null)} className={style.clearIcon}>
+										<div onClick={() => onAttach({url: null})} className={style.clearIcon}>
 											<Icon type={IconType.close} size={IconSize.micro} />
 										</div>
 									</>
@@ -56,8 +57,8 @@ const IconFiledWithPreview = ({label, file, onAttach, error}: TIconFiledWithPrev
 
 type TIconFiledWithPreviewProps = {
 	label?: string;
-	file?: File | string | null;
-	onAttach: PropertyHandler<File | null>;
+	file: TFile | TFileLocal;
+	onAttach: PropertyHandler<TFile | TFileLocal>;
 	error?: string;
 };
 

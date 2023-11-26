@@ -1,25 +1,14 @@
-import {LoaderFunction} from 'react-router-dom';
+import {LoaderFunction, LoaderFunctionArgs} from 'react-router-dom';
 import {Store} from 'redux';
 
 import {routingClientOnlyActions} from '@infomat/core/src/Redux/Routing/Actions/routingClientOnlyActions';
 
+import {EnumRouteSlugs} from './EnumRouteSlugs';
+
 export const pageLoader =
-	(store: Store): LoaderFunction =>
-	({params: {channelId, chatId}}) => {
-		store.dispatch(
-			routingClientOnlyActions.updateStateAfterNavigation({
-				channelId,
-				chatId: channelId ? undefined : chatId ?? undefined,
-			}),
-		);
-
-		return null;
-	};
-
-export const bulkPageLoader =
-	(store: Store): LoaderFunction =>
+	(store: Store, path: EnumRouteSlugs, args: LoaderFunctionArgs): LoaderFunction =>
 	() => {
-		store.dispatch(routingClientOnlyActions.updateStateAfterNavigation({}));
+		store.dispatch(routingClientOnlyActions.updateStateAfterNavigation({path, params: args.params}));
 
 		return null;
 	};

@@ -1,4 +1,4 @@
-import Reactd from 'react';
+import React from 'react';
 import {Helmet} from 'react-helmet';
 
 import PageNotFound from 'src/Components/PageNotFound/PageNotFound';

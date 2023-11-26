@@ -1,3 +1,5 @@
+import {Params} from 'react-router-dom';
+
 import {ClientOnlyActions} from '@infomat/core/src/Actions/ActionCreator';
 
 enum RoutingActions {
@@ -12,7 +14,7 @@ export class RoutingClientOnlyActions extends ClientOnlyActions<typeof scope> {
 
 	updateStateAfterNavigation = this.createAction(
 		RoutingActions.CHAT_NAVIGATION,
-		this.getPrepareAction<{channelId?: string; chatId?: string}>(),
+		this.getPrepareAction<{path?: string; params?: Params}>(),
 	);
 
 	navigateChatOrChannel = this.createAction(

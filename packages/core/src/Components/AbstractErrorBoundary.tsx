@@ -7,9 +7,7 @@ abstract class AbstractErrorBoundary<Props, State> extends React.Component<Props
 		return {hasError: error};
 	}
 
-	componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-		ServiceFactory.logService.error(error, errorInfo);
-	}
+	componentDidCatch(error: Error, errorInfo: ErrorInfo) {}
 }
 
 export type IWithErrorState<T = any> = T & {

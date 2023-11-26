@@ -1,0 +1,92 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.root {
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: nowrap;
+	padding: 6px 16px;
+	border-radius: 8px;
+	flex-grow: 1;
+	color: themeColor(--mui-palette-text-primary);
+	min-width: 260px;
+
+	@media only screen and (max-width: 700px) {
+		min-width: 288px;
+	}
+
+	:global(.MuiButtonBase-root) {
+		min-width: 0;
+		border-radius: 100%;
+		transition: all 0.3s;
+		padding-top: 0;
+
+		:global(.MuiButton-startIcon) {
+			margin-left: 0;
+			margin-right: 0;
+		}
+
+		&:hover {
+			opacity: 0.8;
+			background-color: rgba(0, 0, 0, 0);
+		}
+	}
+
+	.buttonTitle {
+		:global(.MuiButtonBase-root) {
+			border-radius: 6px;
+			color: themeColor(--mui-palette-text-primary);
+			font-size: 14px;
+			font-weight: 400;
+			padding-top: 0;
+			padding-bottom: 0;
+		}
+	}
+}
+.noSeverityTextColor {
+	color: themeColor(--mui-palette-background-default);
+}
+.noSeverityBackground {
+	background-color: #313131;
+}
+.message {
+	font-size: 14px;
+	font-weight: 400;
+}
+
+.title {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.action {
+	display: flex;
+	align-items: center;
+	padding-left: 16px;
+	margin-right: 8px;
+	gap: 4px;
+
+	:global(.close-button) {
+		padding: 4px;
+		color: themeColor(--mui-palette-text-primary);
+	}
+	:global(.MuiButtonBase-root.MuiIconButton-root:hover) {
+		background-color: themeColor(--mui-palette-text-primary);
+		color: themeColor(--mui-palette-common-white);
+	}
+	:global(.MuiButton-textPrimary) {
+		color: themeColor(--mui-palette-text-primary);
+	}
+	:global(.MuiButton-textPrimary:hover) {
+		color: themeColor(--mui-palette-text-primary);
+	}
+}
+
+.timer {
+	color: themeColor(--mui-palette-chat-admin);
+	margin-right: 8px;
+}
+
+.messageBox {
+	display: flex;
+	flex-wrap: wrap;
+}

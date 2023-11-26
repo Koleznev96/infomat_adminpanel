@@ -1,4 +1,6 @@
 export type TAddress = {
-	coordinates: [number, number];
-	label: string;
+	id?: number;
+	address?: string;
+	latitude?: number;
+	longitude?: number;
 };

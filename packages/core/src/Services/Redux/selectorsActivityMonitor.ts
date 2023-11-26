@@ -35,18 +35,6 @@ class SelectorsActivityMonitor {
 	incrementEvalCounter(selectorId: string) {
 		this.evalCounters[selectorId] = (this.evalCounters[selectorId] ?? 0) + 1;
 	}
-
-	showStats() {
-		//.table
-		ServiceFactory.logService.log(
-			_.map(this.selectors, (value, key) => ({
-				ID: key,
-				'Total Evaluations': this.evalCounters[key] ?? 0,
-				Recomputations: value.recomputations(),
-				Selector: value.resultFunc.toString(),
-			})),
-		);
-	}
 }
 
 declare global {

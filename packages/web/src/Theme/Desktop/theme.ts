@@ -18,8 +18,6 @@ import muiMobileStepper from './Components/muiMobileStepper';
 import muiTableCell from './Components/muiTableCell';
 import muiChip from './Components/muiChip';
 import muiDialog from './Components/muiDialog';
-import muiPopover from './Components/muiPopover';
-import muiModal from './Components/muiModal';
 import muiList from './Components/muiList';
 import muiSlider from './Components/muiSlider';
 import muiMenuItem from './Components/muiMenuItem';
@@ -62,8 +60,6 @@ const commonTheme: ThemeOptions = {
 		MuiDialog: muiDialog,
 		MuiAlert: muiAlert,
 		MuiTooltip: muiTooltip,
-		MuiPopover: muiPopover,
-		MuiModal: muiModal,
 		MuiList: muiList,
 		MuiMenuItem: muiMenuItem,
 		MuiSlider: muiSlider,

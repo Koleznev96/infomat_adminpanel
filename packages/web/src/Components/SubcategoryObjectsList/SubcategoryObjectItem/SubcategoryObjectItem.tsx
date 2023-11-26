@@ -9,32 +9,31 @@ import useRouterLinkForMui from 'src/Utils/Navigation/useRouterLinkForMui';
 import {Routes} from 'src/Routes/Routes';
 
 import style from './SubcategoryObjectItem.module.scss';
+import {TSubcategoryObjectVM} from '@infomat/core/src/Redux/SubcategoryObject/entityAdapter';
 
-type TSubcategory = {
-	id: string;
-	label: string;
-	background: string;
-	icon: string;
-};
+const SubcategoryObjectItem = ({id, onDelete, subcategoryObjectVM}: TSubcategoryObjectItemProps) => {
+	const CategoryObjectEditLink = useRouterLinkForMui(Routes.subcategoryObject(id));
 
-const SubcategoryObjectItem = ({onDelete, categoryObjectVM}: TSubcategoryObjectItemProps) => {
-	const CategoryObjectEditLink = useRouterLinkForMui(Routes.subcategoryObject(categoryObjectVM.id));
+	const deleteCategory = useCallback(() => {
+		onDelete({id});
+	}, [onDelete, id]);
 
 	return (
 		<div className={style.container}>
-			<div className={style.box}>
-				<img src={categoryObjectVM.background} className={style.layout} />
-				<img src={categoryObjectVM.icon} className={style.icon} />
+			<div className={style.box} style={{backgroundColor: subcategoryObjectVM.category.backgroundColor}}>
+				{/* <img src={subcategoryObjectVM.category.background.url} className={style.layout} /> */}
+				<img src={subcategoryObjectVM.icon.url} className={style.icon} />
 			</div>
-			<Typography className={style.label}>{categoryObjectVM.label}</Typography>
-			<ActionMenuItem editLink={CategoryObjectEditLink} onDelete={onDelete} />
+			<Typography className={style.label}>{subcategoryObjectVM.title}</Typography>
+			<ActionMenuItem editLink={CategoryObjectEditLink} onDelete={deleteCategory} />
 		</div>
 	);
 };
 
 type TSubcategoryObjectItemProps = {
-	categoryObjectVM: TSubcategory;
-	onDelete?: PropertyHandler;
+	id: number;
+	subcategoryObjectVM: TSubcategoryObjectVM;
+	onDelete: PropertyHandler<{id: number}>;
 };
 
 export default SubcategoryObjectItem;

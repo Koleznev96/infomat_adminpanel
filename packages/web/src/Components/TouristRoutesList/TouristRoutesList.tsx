@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useCallback} from 'react';
 import {Grid, Typography} from '@mui/material';
-import {map, noop} from 'lodash';
+import _ from 'lodash';
 
 import PropertyHandler from '@infomat/core/src/Types/PropertyHandler';
 import PageListIteration from '@infomat/uikit/src/PageListIteration/PageListIteration';
@@ -12,24 +12,53 @@ import {Routes} from 'src/Routes/Routes';
 import TouristRoutItemContainer from './TouristRoutItem/TouristRoutItemContainer';
 import style from './TouristRoutesList.module.scss';
 
-const itemIdsConst = ['asds', 'sdfg', 'dsfg', '896', 'cxvb', 'q', 'a', 's', 'd'];
-
 const TouristRoutesList = ({
-	onAscStatus,
-	onDecStatus,
-	onResetStatus,
-	itemIds = itemIdsConst,
+	getData,
+	routesIds,
+	error,
+	currentPage,
+	totalPage,
+	size,
+	isLoading,
+	search,
+	status,
 }: TTouristRoutesListProps) => {
 	const TouristRoutCreateLink = useRouterLinkForMui(Routes.touristRout());
-	const [search, setSearch] = useState('');
+
+	const wrapperGetData = useCallback(
+		({restFilters, ...data}: {page?: number; size?: number; search?: string; restFilters?: boolean}) => {
+			if (restFilters === true) {
+				getData({...data, status: null});
+			} else {
+				getData(data);
+			}
+		},
+		[getData],
+	);
+
+	const onAscStatus = useCallback(() => {
+		getData({status: 'PUBLISHED', page: 0, search: ''});
+	}, [getData]);
+
+	const onDecStatus = useCallback(() => {
+		getData({status: 'DRAFT', page: 0, search: ''});
+	}, [getData]);
+
+	const onResetStatus = useCallback(() => {
+		getData({status: null, page: 0});
+	}, [getData]);
 
 	return (
 		<PageListIteration
-			onLoadPage={noop}
-			changeValueLimit={noop}
+			numberPages={totalPage}
+			startSearch={search}
+			isLoading={isLoading}
+			isEmptyList={_.isEmpty(routesIds)}
+			getData={wrapperGetData}
 			labelAdd="Добавить маршрут"
-			chengeSearch={setSearch}
 			addLink={TouristRoutCreateLink}
+			startCrrentPageNumber={currentPage}
+			startValueLimit={size}
 		>
 			<Grid container className={style.table} direction="column">
 				<Grid item container className={style.header}>
@@ -41,12 +70,18 @@ const TouristRoutesList = ({
 						<Typography className={style.title}>Название</Typography>
 					</Grid>
 					<Grid item container xs={2} md={1}>
-						<FilterMenuItem title={'Статус'} onAsc={onAscStatus} onDec={onDecStatus} onReset={onResetStatus} />
+						<FilterMenuItem
+							isReset={!!(!_.isUndefined(status) && status !== null && status.length)}
+							title={'Статус'}
+							onAsc={onAscStatus}
+							onDec={onDecStatus}
+							onReset={onResetStatus}
+						/>
 					</Grid>
 					<Grid item xs={2} md={2}></Grid>
 				</Grid>
 				<div className={style.container}>
-					{map(itemIds, (id) => (
+					{_.map(routesIds, (id) => (
 						<TouristRoutItemContainer key={id} id={id} />
 					))}
 				</div>
@@ -56,11 +91,20 @@ const TouristRoutesList = ({
 };
 
 type TTouristRoutesListProps = {
-	login?: string;
-	onAscStatus: PropertyHandler;
-	onDecStatus: PropertyHandler;
-	onResetStatus: PropertyHandler;
-	itemIds?: string[];
+	routesIds?: number[];
+	currentPage: number;
+	isLoading?: boolean;
+	search: string;
+	size: number;
+	totalPage: number;
+	error?: string;
+	status?: string | null;
+	getData: PropertyHandler<{
+		page?: number;
+		size?: number;
+		search?: string;
+		status?: string | null;
+	}>;
 };
 
 export default TouristRoutesList;

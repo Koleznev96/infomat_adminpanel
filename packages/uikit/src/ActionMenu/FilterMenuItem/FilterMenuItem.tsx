@@ -1,7 +1,7 @@
 import React, {useCallback, useRef, ReactNode} from 'react';
 import {Typography, Paper, ClickAwayListener, Popper, MenuItem, Modal, Box, Grid} from '@mui/material';
 
-import {Icon, IconColor, IconType} from '@infomat/uikit/src/Icon';
+import {Icon, IconColor, IconSize, IconType} from '@infomat/uikit/src/Icon';
 import PropertyHandler from '@infomat/core/src/Types/PropertyHandler';
 import {useBooleanState} from '@infomat/core/src/Hooks/useBooleanState';
 import {useDebounced} from '@infomat/core/src/Hooks/useDebounced';
@@ -60,7 +60,7 @@ const FilterMenuItem = ({onDec, onAsc, title, isReset, onReset}: TFilterMenuItem
 							Dec
 						</Button>
 						{isReset && (
-							<Button startIconType={IconType.close} onClick={onReset} className={style.edit}>
+							<Button iconSize={IconSize.tiny} startIconType={IconType.close} onClick={onReset} className={style.edit}>
 								Reset
 							</Button>
 						)}

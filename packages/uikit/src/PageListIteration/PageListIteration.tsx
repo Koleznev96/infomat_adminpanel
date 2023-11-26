@@ -1,4 +1,4 @@
-import React, {ElementType, ReactNode, useCallback} from 'react';
+import React, {ElementType, ReactNode, useCallback, useState} from 'react';
 import {Paper, Typography, Grid, Select, MenuItem, CircularProgress} from '@mui/material';
 import classNames from 'classnames';
 
@@ -8,6 +8,7 @@ import TextField from '@infomat/uikit/src/Fields/TextField/TextField';
 import {Icon, IconSize, IconType, IconColor} from '@infomat/uikit/src/Icon';
 
 import style from './PageListIteration.module.scss';
+import {useDebounced} from '@infomat/core/src/Hooks/useDebounced';
 
 const itemsLimit = [10, 20, 30, 40, 50];
 
@@ -15,48 +16,70 @@ const PageListIteration = ({
 	children,
 	labelAdd = 'Добавить',
 	addLink,
-	chengeSearch,
-	onLoadPage,
-	currentPageNumber = 1,
+	startCrrentPageNumber = 0,
 	numberPages = 1,
 	isEmptyList = false,
 	labelEmptyList = 'У вас пока нет опубликованных объектов :(',
-	changeValueLimit,
-	valueLimit = itemsLimit[0],
+	startValueLimit = itemsLimit[0],
 	isLoading,
 	FilterComponent,
+	startSearch = '',
+	getData,
 }: TPageListIterationProps) => {
+	const [search, setSearch] = useState(startSearch);
+	const [currentPageNumber, setCurrentPageNumber] = useState(startCrrentPageNumber);
+	const [valueLimit, setValueLimit] = useState(startValueLimit);
+
 	const decrementFullPage = useCallback(() => {
-		onLoadPage && onLoadPage(1);
-	}, [onLoadPage]);
+		setCurrentPageNumber(0);
+		getData({page: 0, search});
+	}, [setCurrentPageNumber, getData, currentPageNumber, search]);
 
 	const incrementFullPage = useCallback(() => {
-		onLoadPage && onLoadPage(numberPages);
-	}, [onLoadPage, numberPages]);
+		setCurrentPageNumber(numberPages - 1);
+		getData({page: numberPages - 1, search});
+	}, [setCurrentPageNumber, getData, currentPageNumber, search, numberPages]);
 
 	const decrementPage = useCallback(() => {
-		onLoadPage && onLoadPage(currentPageNumber - 1);
-	}, [onLoadPage, currentPageNumber]);
+		setCurrentPageNumber(currentPageNumber - 1);
+		getData({page: currentPageNumber - 1, search});
+	}, [setCurrentPageNumber, getData, currentPageNumber, search]);
 
 	const incrementPage = useCallback(() => {
-		onLoadPage && onLoadPage(currentPageNumber + 1);
-	}, [onLoadPage, currentPageNumber]);
+		setCurrentPageNumber(currentPageNumber + 1);
+		getData({page: currentPageNumber + 1, search});
+	}, [setCurrentPageNumber, getData, currentPageNumber, search]);
 
 	const onChangeValueLimit = useCallback(
 		(value: number) => {
-			changeValueLimit && changeValueLimit(value);
+			setValueLimit(value);
+			setCurrentPageNumber(0);
+			getData({page: 0, search, size: value});
 		},
-		[changeValueLimit],
+		[setValueLimit, getData, search, setCurrentPageNumber],
 	);
 
-	const isShowFooter = !isEmptyList && changeValueLimit && onLoadPage;
+	const searchDebounce = useDebounced((value: string) => {
+		setCurrentPageNumber(0);
+		getData({page: 0, search: value, restFilters: true});
+	}, 400);
+
+	const chengeSearch = useCallback(
+		(value: string) => {
+			setSearch(value);
+			searchDebounce(value);
+		},
+		[setSearch, searchDebounce],
+	);
+
+	const isShowFooter = !isEmptyList && getData;
 
 	return (
 		<Paper classes={{root: classNames(style.container, {[style.isShowFooter]: isShowFooter})}}>
 			<Grid container className={style.header} spacing={3} direction="row">
 				{chengeSearch && (
 					<Grid item xs={12} md={8} className={style.input}>
-						<TextField onChange={(e) => chengeSearch(e.target.value)} className={style.search} />
+						<TextField value={search} onChange={(e) => chengeSearch(e.target.value)} className={style.search} />
 						<Icon
 							className={style.searchIcon}
 							type={IconType.search}
@@ -103,33 +126,35 @@ const PageListIteration = ({
 								))}
 							</Select>
 
-							<Typography className={style.footerLimit}>{`Страница ${currentPageNumber} из ${numberPages}`}</Typography>
+							<Typography className={style.footerLimit}>{`Страница ${
+								currentPageNumber + 1
+							} из ${numberPages}`}</Typography>
 
 							<Button
 								variant="outlined"
 								className={style.buttonIteration}
-								disabled={currentPageNumber <= 1}
+								disabled={currentPageNumber <= 0}
 								iconType={IconType.iterationDLeft}
 								onClick={decrementFullPage}
 							/>
 							<Button
 								variant="outlined"
 								className={style.buttonIteration}
-								disabled={currentPageNumber <= 1}
+								disabled={currentPageNumber <= 0}
 								iconType={IconType.iterationLeft}
 								onClick={decrementPage}
 							/>
 							<Button
 								variant="outlined"
 								className={style.buttonIteration}
-								disabled={currentPageNumber >= numberPages}
+								disabled={currentPageNumber >= numberPages - 1}
 								iconType={IconType.iterationRight}
 								onClick={incrementPage}
 							/>
 							<Button
 								variant="outlined"
 								className={style.buttonIteration}
-								disabled={currentPageNumber >= numberPages}
+								disabled={currentPageNumber >= numberPages - 1}
 								iconType={IconType.iterationDRight}
 								onClick={incrementFullPage}
 							/>
@@ -145,16 +170,15 @@ type TPageListIterationProps = {
 	children?: ReactNode;
 	labelAdd?: string;
 	addLink?: ElementType;
-	chengeSearch?: PropertyHandler<string>;
 	isEmptyList?: boolean;
 	labelEmptyList?: string;
-	currentPageNumber?: number;
+	startCrrentPageNumber?: number;
 	numberPages?: number;
-	onLoadPage?: PropertyHandler<number>;
-	changeValueLimit?: PropertyHandler<number>;
-	valueLimit?: number;
+	startValueLimit?: number;
 	isLoading?: boolean;
 	FilterComponent?: ReactNode;
+	startSearch?: string;
+	getData: PropertyHandler<{page?: number; size?: number; search?: string; restFilters?: boolean}>;
 };
 
 export default PageListIteration;

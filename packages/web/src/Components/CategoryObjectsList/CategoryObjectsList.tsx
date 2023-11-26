@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {map, noop} from 'lodash';
+import React from 'react';
+import _ from 'lodash';
 
 import PropertyHandler from '@infomat/core/src/Types/PropertyHandler';
 import PageListIteration from '@infomat/uikit/src/PageListIteration/PageListIteration';
@@ -10,22 +10,32 @@ import {Routes} from 'src/Routes/Routes';
 import CategoryObjectItemContainer from './CategoryObjectItem/CategoryObjectItemContainer';
 import style from './CategoryObjectsList.module.scss';
 
-const itemIdsConst = ['asds', 'sdfg', 'dsfg', '896', 'cxvb', 'q', 'a', 's', 'd'];
-
-const CategoryObjectsList = ({onSubmit, onDelete, itemIds = itemIdsConst}: TCategoryObjectsListProps) => {
+const CategoryObjectsList = ({
+	getData,
+	categoryObjectIds,
+	error,
+	currentPage,
+	totalPage,
+	size,
+	isLoading,
+	search,
+}: TCategoryObjectsListProps) => {
 	const TouristObjectCreateLink = useRouterLinkForMui(Routes.categoryObject());
-	const [search, setSearch] = useState('');
 
 	return (
 		<PageListIteration
-			onLoadPage={noop}
-			changeValueLimit={noop}
+			numberPages={totalPage}
+			startSearch={search}
+			isLoading={isLoading}
+			isEmptyList={_.isEmpty(categoryObjectIds)}
+			getData={getData}
 			labelAdd="Добавить объект"
-			chengeSearch={setSearch}
 			addLink={TouristObjectCreateLink}
+			startCrrentPageNumber={currentPage}
+			startValueLimit={size}
 		>
 			<div className={style.container}>
-				{map(itemIds, (id) => (
+				{_.map(categoryObjectIds, (id) => (
 					<CategoryObjectItemContainer key={id} id={id} />
 				))}
 			</div>
@@ -34,10 +44,14 @@ const CategoryObjectsList = ({onSubmit, onDelete, itemIds = itemIdsConst}: TCate
 };
 
 type TCategoryObjectsListProps = {
-	login?: string;
-	onSubmit: PropertyHandler;
-	onDelete?: PropertyHandler;
-	itemIds?: string[];
+	categoryObjectIds?: number[];
+	currentPage: number;
+	isLoading?: boolean;
+	search: string;
+	size: number;
+	totalPage: number;
+	error?: string;
+	getData: PropertyHandler<{page?: number; size?: number; search?: string}>;
 };
 
 export default CategoryObjectsList;

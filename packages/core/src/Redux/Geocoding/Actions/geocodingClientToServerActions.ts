@@ -11,7 +11,10 @@ class GeocodingClientToServerActions extends ClientOnlyActions<EnumStore.GEOCODI
 
 	getGeocoding = this.createAction(EnumClientToServerActions.GET_GEOCODING, this.getPrepareAction<string>());
 
-	getAddress = this.createAction(EnumClientToServerActions.GET_ADDRESS, this.getPrepareAction<[number, number]>());
+	getAddress = this.createAction(
+		EnumClientToServerActions.GET_ADDRESS,
+		this.getPrepareAction<{latitude?: number; longitude?: number}>(),
+	);
 }
 
 export type TChannelGroupRequestPayload = {

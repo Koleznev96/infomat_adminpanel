@@ -8,6 +8,7 @@ import {useDebounced} from '@infomat/core/src/Hooks/useDebounced';
 
 import ItemRout from './ItemRout';
 import style from './RoutesOnMap.module.scss';
+import PropertyHandler from '@infomat/core/src/Types/PropertyHandler';
 
 const constcoordinatesObjects = [
 	[55.8, 37.5],
@@ -61,7 +62,7 @@ const RoutesOnMap = ({hasError, label, labelMap, coordinatesObjects = constcoord
 	};
 
 	const chengeCoordinates = useDebounced(() => {
-		// console.log('placemarkRef.current-', placemarkRef.current?.geometry.getCoordinates());
+		// console('placemarkRef.current-', placemarkRef.current?.geometry.getCoordinates());
 		// placemarkRef.current?.geometry.getCoordinates()
 		setPolyline(placemarkRef.current?.geometry.getCoordinates());
 	}, 400);
@@ -162,11 +163,11 @@ const RoutesOnMap = ({hasError, label, labelMap, coordinatesObjects = constcoord
 					) : null}
 				</div>
 			</Grid>
-			<Grid container direction="column" xs={12} md={12}>
+			<Grid container item direction="column" xs={12} md={12}>
 				{labelMap && <Typography className={style.label}>{labelMap}</Typography>}
 				<div className={style.containerMap}>
 					<Map
-						modules={['geoObject.addon.editor', 'Polyline', 'geoObject.addon.balloon']}
+						modules={['geoObject.addon.editor', 'Polyline', 'geoObject.addon.balloon', 'MultiRoute']}
 						onLoad={(ympasInstance) => {
 							ymaps.current = ympasInstance;
 							setIsReadyYmaps(true);
@@ -186,6 +187,8 @@ type TRoutesOnMapProps = {
 	label?: string;
 	labelMap?: string;
 	coordinatesObjects?: number[][];
+	setValue: PropertyHandler<{placeId?: number; sequenceNumber?: number}[]>;
+	value?: {placeId?: number; sequenceNumber?: number};
 };
 
 export default RoutesOnMap;

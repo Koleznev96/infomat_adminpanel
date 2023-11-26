@@ -1,16 +1,14 @@
 import React from 'react';
-import _ from 'lodash';
 
 import {useStoreSelector} from '@infomat/core/src/Hooks/useStoreSelector';
+import {selectLogin} from '@infomat/core/src/Redux/User/Selectors/selectLogin';
+import useActionDispatcher from '@infomat/core/src/Hooks/useActionDispatcher';
+import {userClientOnlyActions} from '@infomat/core/src/Redux/User/Actions/userClientOnlyActions';
 
 import Profile from './Profile';
 
-const ProfileContainer = () => {
-	// const chatTime = useStoreSelector(selectRunningChatsVideoTimeById, {chatId: chatId ?? ''});
-
-	const onLogout = () => console.log('log');
-
-	return <Profile login={'admin@mail.ru'} onLogout={onLogout} />;
-};
+const ProfileContainer = () => (
+	<Profile login={useStoreSelector(selectLogin)} onLogout={useActionDispatcher(userClientOnlyActions.logout)} />
+);
 
 export default ProfileContainer;

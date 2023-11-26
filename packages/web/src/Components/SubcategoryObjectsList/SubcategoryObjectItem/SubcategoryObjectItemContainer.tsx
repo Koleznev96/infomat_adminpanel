@@ -4,30 +4,23 @@ import _ from 'lodash';
 import {useStoreSelector} from '@infomat/core/src/Hooks/useStoreSelector';
 
 import SubcategoryObjectItem from './SubcategoryObjectItem';
-
-const categoryObjectVMConst = {
-	id: 'sfs',
-	background: 'https://coolsen.ru/wp-content/uploads/2021/12/NO-20211223_142620-6.jpg',
-	icon: 'https://e7.pngegg.com/pngimages/324/887/png-clipart-computer-icons-house-graphics-home-house.png',
-	label: 'счмисчмисчмичмси',
-};
+import {selectSubcategoryObjectVMById} from '@infomat/core/src/Redux/SubcategoryObject/Selectors/defaultSelectors';
+import useActionDispatcher from '@infomat/core/src/Hooks/useActionDispatcher';
+import {subcategoryObjectClientToServerActions} from '@infomat/core/src/Redux/SubcategoryObject/Actions/subcategoryObjectClientToServerActions';
 
 const SubcategoryObjectItemContainer = ({id}: TSubcategoryObjectItemContainerProps) => {
-	// const chatTime = useStoreSelector(selectRunningChatsVideoTimeById, {chatId: chatId ?? ''});
+	const subcategoryObjectVM = useStoreSelector(selectSubcategoryObjectVMById, id);
+	const onDelete = useActionDispatcher(subcategoryObjectClientToServerActions.deleteCategory);
 
-	const categoryObjectVM = categoryObjectVMConst;
-
-	if (_.isUndefined(categoryObjectVM)) {
+	if (_.isUndefined(subcategoryObjectVM)) {
 		return null;
 	}
 
-	const onDelete = () => console.log('log');
-
-	return <SubcategoryObjectItem categoryObjectVM={categoryObjectVMConst} onDelete={onDelete} />;
+	return <SubcategoryObjectItem id={id} subcategoryObjectVM={subcategoryObjectVM} onDelete={onDelete} />;
 };
 
 type TSubcategoryObjectItemContainerProps = {
-	id: string;
+	id: number;
 };
 
 export default SubcategoryObjectItemContainer;

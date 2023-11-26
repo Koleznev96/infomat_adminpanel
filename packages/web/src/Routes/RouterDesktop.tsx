@@ -5,7 +5,7 @@ import LoginPage from 'src/Routes/Pages/Desktop/LoginPage';
 import ProtectedRoute from 'src/Routes/ProtectedRoute/ProtectedRoute';
 import PublicRoute from 'src/Routes/PublicRoute/PublicRoute';
 import store from 'src/Redux/store';
-import {bulkPageLoader, pageLoader} from 'src/Routes/PageLoaders';
+import {pageLoader} from 'src/Routes/PageLoaders';
 import {EnumRouteSlugs} from 'src/Routes/EnumRouteSlugs';
 
 const BaseChatPage = lazy(() => import('src/Routes/Pages/Desktop/BaseChatPage'));
@@ -43,7 +43,7 @@ const RouterDesktop = createBrowserRouter(
 			</Route>
 			<Route element={<ProtectedRoute Comp={BaseChatPage} />}>
 				<Route
-					loader={bulkPageLoader(store)}
+					loader={(args) => pageLoader(store, EnumRouteSlugs.INFORMATION, args)(args)}
 					path={EnumRouteSlugs.INFORMATION}
 					element={
 						<Suspense>
@@ -52,7 +52,7 @@ const RouterDesktop = createBrowserRouter(
 					}
 				/>
 				<Route
-					loader={bulkPageLoader(store)}
+					loader={(args) => pageLoader(store, EnumRouteSlugs.EVENT, args)(args)}
 					path={EnumRouteSlugs.EVENT}
 					element={
 						<Suspense>
@@ -61,7 +61,7 @@ const RouterDesktop = createBrowserRouter(
 					}
 				/>
 				<Route
-					loader={bulkPageLoader(store)}
+					loader={(args) => pageLoader(store, EnumRouteSlugs.EVENTS, args)(args)}
 					path={EnumRouteSlugs.EVENTS}
 					element={
 						<Suspense>
@@ -70,7 +70,7 @@ const RouterDesktop = createBrowserRouter(
 					}
 				/>
 				<Route
-					loader={bulkPageLoader(store)}
+					loader={(args) => pageLoader(store, EnumRouteSlugs.RECOMMEND, args)(args)}
 					path={EnumRouteSlugs.RECOMMEND}
 					element={
 						<Suspense>
@@ -79,7 +79,7 @@ const RouterDesktop = createBrowserRouter(
 					}
 				/>
 				<Route
-					loader={bulkPageLoader(store)}
+					loader={(args) => pageLoader(store, EnumRouteSlugs.TOURIST_ROUT, args)(args)}
 					path={EnumRouteSlugs.TOURIST_ROUT}
 					element={
 						<Suspense>
@@ -88,7 +88,7 @@ const RouterDesktop = createBrowserRouter(
 					}
 				/>
 				<Route
-					loader={bulkPageLoader(store)}
+					loader={(args) => pageLoader(store, EnumRouteSlugs.TOURIST_ROUTES, args)(args)}
 					path={EnumRouteSlugs.TOURIST_ROUTES}
 					element={
 						<Suspense>
@@ -97,7 +97,7 @@ const RouterDesktop = createBrowserRouter(
 					}
 				/>
 				<Route
-					loader={bulkPageLoader(store)}
+					loader={(args) => pageLoader(store, EnumRouteSlugs.SUBCATEGORY_OBJECT, args)(args)}
 					path={EnumRouteSlugs.SUBCATEGORY_OBJECT}
 					element={
 						<Suspense>
@@ -106,7 +106,7 @@ const RouterDesktop = createBrowserRouter(
 					}
 				/>
 				<Route
-					loader={bulkPageLoader(store)}
+					loader={(args) => pageLoader(store, EnumRouteSlugs.SUBCATEGORIES_OBJECTS, args)(args)}
 					path={EnumRouteSlugs.SUBCATEGORIES_OBJECTS}
 					element={
 						<Suspense>
@@ -115,7 +115,7 @@ const RouterDesktop = createBrowserRouter(
 					}
 				/>
 				<Route
-					loader={bulkPageLoader(store)}
+					loader={(args) => pageLoader(store, EnumRouteSlugs.CATEGORY_OBJECT, args)(args)}
 					path={EnumRouteSlugs.CATEGORY_OBJECT}
 					element={
 						<Suspense>
@@ -124,7 +124,7 @@ const RouterDesktop = createBrowserRouter(
 					}
 				/>
 				<Route
-					loader={bulkPageLoader(store)}
+					loader={(args) => pageLoader(store, EnumRouteSlugs.CATEGORIES_OBJECTS, args)(args)}
 					path={EnumRouteSlugs.CATEGORIES_OBJECTS}
 					element={
 						<Suspense>
@@ -134,7 +134,7 @@ const RouterDesktop = createBrowserRouter(
 				/>
 
 				<Route
-					loader={bulkPageLoader(store)}
+					loader={(args) => pageLoader(store, EnumRouteSlugs.TOURIST_OBJECT, args)(args)}
 					path={EnumRouteSlugs.TOURIST_OBJECT}
 					element={
 						<Suspense>
@@ -143,7 +143,7 @@ const RouterDesktop = createBrowserRouter(
 					}
 				/>
 				<Route
-					loader={bulkPageLoader(store)}
+					loader={(args) => pageLoader(store, EnumRouteSlugs.TOURIST_OBJECTS, args)(args)}
 					path={EnumRouteSlugs.TOURIST_OBJECTS}
 					element={
 						<Suspense>
@@ -153,7 +153,14 @@ const RouterDesktop = createBrowserRouter(
 				/>
 			</Route>
 
-			<Route element={<NotFound />} path="*" />
+			<Route
+				element={
+					<Suspense>
+						<NotFound />
+					</Suspense>
+				}
+				path="*"
+			/>
 		</>,
 	),
 );

@@ -39,18 +39,6 @@
 }
 
 .paper {
-	// :global(.MuiPaper-root) {
-	// 	border-radius: 6px;
-	// 	box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.09);
-	// 	overflow-y: auto;
-	// 	max-height: 150px;
-
-	// 	:global(.MuiList-root) {
-	// 		padding: 5px;
-	// 		border-radius: 6px;
-	// 	}
-	// }
-
 	border-radius: 6px;
 	box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.09);
 	overflow-y: auto;
@@ -61,10 +49,3 @@
 		border-radius: 6px;
 	}
 }
-
-// .popper {
-// 	:global(.MuiPopperUnstyled-root) {
-// 		z-index: 3000;
-// 		background-color: white;
-// 	}
-// }

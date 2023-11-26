@@ -3,7 +3,7 @@ import {Button as MuiButton, ButtonProps, CircularProgress} from '@mui/material'
 import _ from 'lodash';
 import classNames from 'classnames';
 
-import {Icon, IconSize, IconType} from '@infomat/uikit/src/Icon';
+import {Icon, IconColor, IconSize, IconType} from '@infomat/uikit/src/Icon';
 
 const Button = forwardRef(
 	(
@@ -16,6 +16,7 @@ const Button = forwardRef(
 			iconSize = IconSize.inherit,
 			isInProgress = false,
 			isTextTransform = false,
+			iconColor,
 			...props
 		}: TButtonProps,
 		ref: ForwardedRef<HTMLButtonElement>,
@@ -29,7 +30,7 @@ const Button = forwardRef(
 					isInProgress ? (
 						<CircularProgress color="primary" size={16} />
 					) : (
-						startIconType && <Icon type={startIconType} size={iconSize} />
+						startIconType && <Icon color={iconColor} type={startIconType} size={iconSize} />
 					)
 				}
 				endIcon={
@@ -71,6 +72,7 @@ export type TButtonProps = Pick<
 	target?: '_blank';
 	rel?: string;
 	isTextTransform?: boolean;
+	iconColor?: IconColor;
 };
 
 export default Button;

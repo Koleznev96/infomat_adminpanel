@@ -1,28 +1,42 @@
 import React, {useCallback} from 'react';
 import {useDispatch} from 'react-redux';
-import {useLocation} from 'react-router';
+import {Navigate} from 'react-router';
 import _ from 'lodash';
+
+import {userClientToServerActions} from '@infomat/core/src/Redux/User/Actions/userClientToServerActions';
+import {selectIsNetworkAvailable} from '@infomat/core/src/Redux/User/Selectors/selectIsNetworkAvailable';
+import {selectIsLoggedIn} from '@infomat/core/src/Redux/User/Selectors/selectIsLoggedIn';
+import {selectErrorLogin} from '@infomat/core/src/Redux/User/Selectors/selectErrorLogin';
+import {selectIsLoading} from '@infomat/core/src/Redux/User/Selectors/selectIsLoading';
+import {useStoreSelector} from '@infomat/core/src/Hooks/useStoreSelector';
+import Spinner from '@infomat/uikit/src/Spinner/Spinner';
+
+import {Routes} from 'src/Routes/Routes';
 
 import LoginDesktop from './Desktop/LoginDesktop';
 
 const LoginContainer = () => {
-	const location = useLocation();
 	const dispatch = useDispatch();
-	const searchParams = new URLSearchParams(location.search);
 
-	const onLogin = useCallback((modelName: string, password: string) => console.log('dfds'), [dispatch]);
+	const isNetworkAvailable = useStoreSelector(selectIsNetworkAvailable);
+	const isLoggedIn = useStoreSelector(selectIsLoggedIn);
+	const isLoading = useStoreSelector(selectIsLoading);
+	const error = useStoreSelector(selectErrorLogin);
 
-	// if (isLoggedIn) {
-	// 	return <Navigate to={{pathname: Routes.chatsAll, search: searchParams.toString()}} />;
-	// }
+	const onLogin = useCallback(
+		(login: string, password: string) => dispatch(userClientToServerActions.login({login, password})),
+		[dispatch],
+	);
 
-	// return isAutoLoginRequired || (_.isUndefined(isLoggedIn) && !isLoginSent) ? (
-	// 	<Spinner />
-	// ) : (
-	// 	<DeviceBasedComponentSwitcher desktop={LoginDesktop} props={{onLogin}} />
-	// );
+	if (isLoggedIn) {
+		return <Navigate to={{pathname: Routes.information}} />;
+	}
 
-	return <LoginDesktop onLogin={onLogin} />;
+	return isLoading ? (
+		<Spinner />
+	) : (
+		<LoginDesktop error={error} isLoggingIn={isLoggedIn} isNetworkAvailable={isNetworkAvailable} onLogin={onLogin} />
+	);
 };
 
 export default LoginContainer;

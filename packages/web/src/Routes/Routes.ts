@@ -8,21 +8,23 @@ export const Routes = {
 	information: `/${EnumRouteSlugs.INFORMATION}`,
 
 	events: `/${EnumRouteSlugs.EVENTS}`,
-	event: (id?: string) => generatePath(`/${EnumRouteSlugs.EVENT}`, {id: isUndefined(id) ? 'new' : id}),
+	event: (id?: number) => generatePath(`/${EnumRouteSlugs.EVENT}`, {id: isUndefined(id) ? 'new' : String(id)}),
 
 	recommend: `/${EnumRouteSlugs.RECOMMEND}`,
 
 	touristRoutes: `/${EnumRouteSlugs.TOURIST_ROUTES}`,
-	touristRout: (id?: string) => generatePath(`/${EnumRouteSlugs.TOURIST_ROUT}`, {id: isUndefined(id) ? 'new' : id}),
+	touristRout: (id?: number) =>
+		generatePath(`/${EnumRouteSlugs.TOURIST_ROUT}`, {id: isUndefined(id) ? 'new' : String(id)}),
 
 	subcategoriesObjects: `/${EnumRouteSlugs.SUBCATEGORIES_OBJECTS}`,
-	subcategoryObject: (id?: string) =>
-		generatePath(`/${EnumRouteSlugs.SUBCATEGORY_OBJECT}`, {id: isUndefined(id) ? 'new' : id}),
+	subcategoryObject: (id?: number) =>
+		generatePath(`/${EnumRouteSlugs.SUBCATEGORY_OBJECT}`, {id: isUndefined(id) ? 'new' : String(id)}),
 
 	categoriesObjects: `/${EnumRouteSlugs.CATEGORIES_OBJECTS}`,
-	categoryObject: (id?: string) =>
-		generatePath(`/${EnumRouteSlugs.CATEGORY_OBJECT}`, {id: isUndefined(id) ? 'new' : id}),
+	categoryObject: (id?: number) =>
+		generatePath(`/${EnumRouteSlugs.CATEGORY_OBJECT}`, {id: isUndefined(id) ? 'new' : String(id)}),
 
 	touristObjects: `/${EnumRouteSlugs.TOURIST_OBJECTS}`,
-	touristObject: (id?: string) => generatePath(`/${EnumRouteSlugs.TOURIST_OBJECT}`, {id: isUndefined(id) ? 'new' : id}),
+	touristObject: (id?: number) =>
+		generatePath(`/${EnumRouteSlugs.TOURIST_OBJECT}`, {id: isUndefined(id) ? 'new' : String(id)}),
 };

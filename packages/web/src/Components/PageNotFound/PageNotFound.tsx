@@ -12,7 +12,7 @@ const PageNotFound = () => {
 	const toggleRedirect = () => setShouldRedirect(!shouldRedirect);
 
 	if (shouldRedirect) {
-		return <Navigate to={Routes.home} />;
+		return <Navigate to={Routes.information} />;
 	}
 
 	return (
@@ -25,11 +25,14 @@ const PageNotFound = () => {
 			onClick={toggleRedirect}
 		>
 			<DialogTitle id="page-not-found-title" className="page-not-found__title">
-				<img src={Infomat} alt="VX Live" />
+				<img src={Infomat} alt="Infomat" />
 			</DialogTitle>
 			<DialogContent>
 				<DialogContentText className="login__hint">
-					<span>{'common:page_not_found'}</span>
+					<span>{'Страница не найдена'}</span>
+				</DialogContentText>
+				<DialogContentText className="login__hint">
+					<span>{'Нажмите тут чтоб перейти на главную страницу'}</span>
 				</DialogContentText>
 			</DialogContent>
 		</Dialog>

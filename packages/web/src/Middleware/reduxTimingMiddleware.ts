@@ -2,7 +2,6 @@ import {Dispatch, PayloadAction} from '@reduxjs/toolkit';
 import {Middleware} from 'redux';
 
 import IRootState from '@infomat/core/src/Redux/IRootState';
-import ServiceFactory from '@infomat/core/src/Services/ServiceFactory';
 
 const reduxTimingMiddleware: Middleware<{}, IRootState, Dispatch> =
 	(_store: any) => (next: Dispatch<PayloadAction>) => (action: PayloadAction) => {

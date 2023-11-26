@@ -2,39 +2,34 @@ import React from 'react';
 import _ from 'lodash';
 
 import {useStoreSelector} from '@infomat/core/src/Hooks/useStoreSelector';
+import {selectPlacesVMById} from '@infomat/core/src/Redux/Places/Selectors/defaultSelectors';
+import useActionDispatcher from '@infomat/core/src/Hooks/useActionDispatcher';
+import {placesClientToServerActions} from '@infomat/core/src/Redux/Places/Actions/placesClientToServerActions';
 
 import TouristObjectItem from './TouristObjectItem';
 
-const categoryObjectVMConst = {
-	id: 'sfs',
-	background: 'https://coolsen.ru/wp-content/uploads/2021/12/NO-20211223_142620-6.jpg',
-	icon: 'https://e7.pngegg.com/pngimages/324/887/png-clipart-computer-icons-house-graphics-home-house.png',
-	label: 'счмисчмисчмичмси',
-};
-
 const TouristObjectItemContainer = ({id, isRemoveRecommend}: TTouristObjectItemContainerProps) => {
-	// const chatTime = useStoreSelector(selectRunningChatsVideoTimeById, {chatId: chatId ?? ''});
-	const touristObjectVM = categoryObjectVMConst;
+	const touristObjectVM = useStoreSelector(selectPlacesVMById, id);
+	const onDelete = useActionDispatcher(placesClientToServerActions.deleteCategory);
+	const onDeleteRecommend = useActionDispatcher(placesClientToServerActions.deleteRecommend);
 
 	if (_.isUndefined(touristObjectVM)) {
 		return null;
 	}
 
-	const onDelete = () => console.log('log');
-
-	const onDeleteRecommend = () => console.log('log');
-
 	return (
 		<TouristObjectItem
+			id={id}
 			isRemoveRecommend={isRemoveRecommend}
 			touristObjectVM={touristObjectVM}
-			onDelete={isRemoveRecommend ? onDeleteRecommend : onDelete}
+			onDelete={onDelete}
+			onDeleteRecommend={onDeleteRecommend}
 		/>
 	);
 };
 
 type TTouristObjectItemContainerProps = {
-	id: string;
+	id: number;
 	isRemoveRecommend?: boolean;
 };
 

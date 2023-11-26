@@ -1,40 +1,34 @@
 import {fork} from 'typed-redux-saga';
 
-import ServiceFactory from '@infomat/core/src/Services/ServiceFactory';
 import startRootSaga from '@infomat/core/src/Redux/startRootSaga';
 import sagaMiddleware from '@infomat/core/src/Middleware/sagaMiddleware';
 import geocodingSagaWatcher from '@infomat/core/src/Redux/Geocoding/geocodingSagaWatcher';
+import userSagaWatcher from '@infomat/core/src/Redux/User/userSagaWatcher';
+import categoryObjectSagaWatcher from '@infomat/core/src/Redux/CategoryObject/categoryObjectSagaWatcher';
+import notificationsSagaWatcher from '@infomat/core/src/Redux/Notifications/notificationsSagaWatcher';
+import informationSagaWatcher from '@infomat/core/src/Redux/Information/informationSagaWatcher';
+import subcategoryObjectSagaWatcher from '@infomat/core/src/Redux/SubcategoryObject/subcategoryObjectSagaWatcher';
+import placesSagaWatcher from '@infomat/core/src/Redux/Places/placesSagaWatcher';
+import eventsSagaWatcher from '@infomat/core/src/Redux/Events/eventsSagaWatcher';
+import routesSagaWatcher from '@infomat/core/src/Redux/Routes/routesSagaWatcher';
 
-// import clientSagaWatcher from 'src/Redux/Client/clientSagaWatcher';
-// import messagesSagaWatcher from 'src/Redux/Messages/messagesSagaWatcher';
-// import previewSagaWatcher from 'src/Redux/Preview/previewSagaWatcher';
-// import sessionSagaWatcher from 'src/Redux/Session/sessionSagaWatcher';
-// import streamSagaWatcher from 'src/Redux/Stream/streamSagaWatcher';
-// import loginFormSagaWatcher from 'src/Redux/LoginForm/loginFormSagaWatcher';
-// import mediaPricesSagaWatcher from 'src/Redux/MediaPrices/mediaPricesSagaWatcher';
-// import attachmentSagaWatcher from 'src/Redux/Attachment/attachmentSagaWatcher';
-// import chatSagaWatcher from 'src/Redux/Chat/chatSagaWatcher';
-// import mediaSagaWatcher from 'src/Redux/Media/mediaSagaWatcher';
+import routingSagaWatcher from './Routing/routingSagaWatcher';
 
 /**
  * @link https://words.thisishugo.com/how-to-pass-an-api-client-to-a-redux-saga-f35170356c53
  * @constructor
  */
 function* rootSaga() {
-	const uiContainer = ServiceFactory.uiContainer;
-
 	yield* fork(geocodingSagaWatcher);
-
-	// yield* fork(clientSagaWatcher, uiContainer);
-	// yield* fork(loginFormSagaWatcher);
-	// yield* fork(sessionSagaWatcher);
-	// yield* fork(messagesSagaWatcher, uiContainer);
-	// yield* fork(streamSagaWatcher);
-	// yield* fork(previewSagaWatcher);
-	// yield* fork(attachmentSagaWatcher);
-	// yield* fork(mediaPricesSagaWatcher);
-	// yield* fork(chatSagaWatcher);
-	// yield* fork(mediaSagaWatcher);
+	yield* fork(userSagaWatcher);
+	yield* fork(routingSagaWatcher);
+	yield* fork(categoryObjectSagaWatcher);
+	yield* fork(notificationsSagaWatcher);
+	yield* fork(informationSagaWatcher);
+	yield* fork(subcategoryObjectSagaWatcher);
+	yield* fork(placesSagaWatcher);
+	yield* fork(eventsSagaWatcher);
+	yield* fork(routesSagaWatcher);
 }
 
 const sagaRunner = startRootSaga(sagaMiddleware, rootSaga);

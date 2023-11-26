@@ -37,6 +37,8 @@ class EnvInterfaceService {
 		this._env = envService.getAll();
 	}
 
+	getURLApi = (): string => get(this._env, 'REACT_APP_URL_API', 'http://5f8104486938.vps.myjino.ru/api');
+
 	getVersion = (): string => get(this._env, 'REACT_APP_VERSION', '2.0.0');
 
 	getName = (): string => get(this._env, 'REACT_APP_NAME', 'infomat');

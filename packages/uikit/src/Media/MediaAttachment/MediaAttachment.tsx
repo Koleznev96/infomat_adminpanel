@@ -8,6 +8,7 @@ import {IconSize} from '@infomat/uikit/src/Icon';
 
 const MediaAttachment = ({
 	isDisabled = false,
+	isIconAllowed = false,
 	isImageAllowed = true,
 	isAudioAllowed = true,
 	isVideoAllowed = true,
@@ -33,6 +34,11 @@ const MediaAttachment = ({
 	const supportedMimeTypes = useMemo((): Accept => {
 		const supportedMimeTypes: Accept = {};
 
+		if (isIconAllowed) {
+			supportedMimeTypes['image/png'] = ['.png'];
+			supportedMimeTypes['image/svg'] = ['.svg'];
+		}
+
 		if (isImageAllowed) {
 			supportedMimeTypes['image/bmp'] = ['.bmp'];
 			supportedMimeTypes['image/avif'] = ['.avif'];
@@ -53,7 +59,7 @@ const MediaAttachment = ({
 		}
 
 		return supportedMimeTypes;
-	}, [isImageAllowed, isAudioAllowed, isVideoAllowed]);
+	}, [isImageAllowed, isAudioAllowed, isVideoAllowed, isIconAllowed]);
 
 	const onDrop = useCallback(
 		(acceptedFiles: File[], fileRejections: FileRejection[]) => {
@@ -80,7 +86,7 @@ const MediaAttachment = ({
 				}
 			}
 		},
-		[onSuccess, onError, isImageAllowed, isVideoAllowed, isAudioAllowed],
+		[onSuccess, onError, isImageAllowed, isVideoAllowed, isAudioAllowed, isIconAllowed],
 	);
 	return (
 		<Dropzone
@@ -111,6 +117,7 @@ const MediaAttachment = ({
 
 type TMediaAttachmentProps = {
 	isDisabled?: boolean;
+	isIconAllowed?: boolean;
 	isImageAllowed?: boolean;
 	isVideoAllowed?: boolean;
 	isAudioAllowed?: boolean;

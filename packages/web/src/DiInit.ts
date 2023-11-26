@@ -6,7 +6,6 @@ import 'src/Services/EnvService';
 import '@infomat/core/src/DiInit'; // it needs to be after EnvService
 
 import 'src/Redux/store';
-import 'src/Utils/Browser';
 import 'src/Services/SelectorCreator';
 import 'src/Services/StoreService';
 import 'src/Services/FileProcessingService';

@@ -40,7 +40,6 @@ module.exports = {
 				'react',
 				'@typescript-eslint',
 				'redux-saga',
-				'immutablejs',
 				'import',
 				'no-expectsaga-without-return',
 				'@jambit/typed-redux-saga',
@@ -60,7 +59,6 @@ module.exports = {
 				'no-console': ['warn', {allow: ['warn', 'error']}],
 				'prefer-spread': 'warn',
 				'prefer-const': 'warn',
-				'immutablejs/no-native-map-set': 'error',
 				'import/order': [
 					'warn',
 					{
@@ -92,12 +90,8 @@ module.exports = {
 				'no-restricted-imports': [
 					'error',
 					{
-						paths: ['@material-ui', '@mui/icons-material', '@mdi/js'],
+						paths: ['@material-ui', '@mui/icons-material'],
 						patterns: [
-							{
-								group: ['@material-ui/*', '@mdi/js/*'],
-								message: 'Do not use mui v4 and mdi',
-							},
 							{
 								group: ['@mui/material'],
 								importNames: ['Button', 'ButtonProps', 'IconButton', 'IconButtonProps'],
