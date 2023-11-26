@@ -1,4 +1,4 @@
-smolensk-adminka
+# smolensk-adminka
 
 This monorepo using [Yarn Workspaces](https://yarnpkg.com/features/workspaces)
 
