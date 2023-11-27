@@ -20,6 +20,7 @@ export type TPlacesCreate = {
 	description?: string;
 	descriptionEn?: string;
 	workingHours?: string;
+	workingHoursEn?: string;
 	cover?: TFileCrop;
 	photos?: TFileCrop[];
 	frames?: TFrameCrop[];
@@ -28,6 +29,7 @@ export type TPlacesCreate = {
 	linkForQrCode?: string;
 	address?: {
 		address?: string;
+		addressEn?: string;
 		latitude?: number;
 		longitude?: number;
 	};
@@ -43,6 +45,7 @@ export type TPlacesVM = {
 	descriptionEn: string;
 	address?: {
 		address?: string;
+		addressEn?: string;
 		latitude?: number;
 		longitude?: number;
 	};

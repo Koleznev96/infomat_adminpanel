@@ -1,5 +1,5 @@
 import {isUndefined} from 'lodash';
-import api from './moduleAxios';
+import api, {replaceEmptyStringsWithUndefined} from './moduleAxios';
 
 import {TCategoryObjectCreate} from '../../Redux/CategoryObject/entityAdapter';
 import {TSubcategoryObjectCreate} from '../../Redux/SubcategoryObject/entityAdapter';
@@ -24,11 +24,11 @@ async function deleteItem(id: number) {
 	return api.delete(`/subcategories/${id}`);
 }
 
-async function updateItem({id, title, titleEn, icon, categoryId}: TSubcategoryObjectCreate & {categoryId?: number}) {
+async function updateItem({id, icon, ...data}: TSubcategoryObjectCreate & {categoryId?: number}) {
 	const formData = new FormData();
 	formData.append(
 		'placeSubcategory',
-		new Blob([JSON.stringify({title, titleEn, categoryId})], {type: 'application/json'}),
+		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(data))], {type: 'application/json'}),
 	);
 	if (icon?.url instanceof File) {
 		formData.append('icon', icon.url);
@@ -37,11 +37,11 @@ async function updateItem({id, title, titleEn, icon, categoryId}: TSubcategoryOb
 	return api.patch(`/subcategories/${id}`, formData);
 }
 
-async function createItem({id, title, titleEn, categoryId, icon}: TCategoryObjectCreate & {categoryId?: number}) {
+async function createItem({id, icon, ...data}: TCategoryObjectCreate & {categoryId?: number}) {
 	const formData = new FormData();
 	formData.append(
 		'placeSubcategory',
-		new Blob([JSON.stringify({title, titleEn, categoryId})], {type: 'application/json'}),
+		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(data))], {type: 'application/json'}),
 	);
 	if (icon?.url instanceof File) {
 		formData.append('icon', icon.url);

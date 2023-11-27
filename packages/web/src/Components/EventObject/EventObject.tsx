@@ -19,6 +19,7 @@ import TimeRangField from '@infomat/uikit/src/Fields/TimeRangField/TimeRangField
 
 import style from './EventObject.module.scss';
 import GeocodingMapContainer from '../TouristObject/GeocodingMap/GeocodingMapContainer';
+import {checkUrlsNull} from 'src/Utils/checkFile';
 
 const names = [
 	{title: 'Черновик', id: 'DRAFT'},
@@ -53,12 +54,8 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 	const setDescriptionValue = leng === 'ru' ? setDescription : setDescriptionEn;
 
 	const isDisabledSave =
+		checkUrlsNull([cover]) ||
 		!title.length ||
-		!status.length ||
-		!phone.length ||
-		!email.length ||
-		!website.length ||
-		!description.length ||
 		_.isUndefined(address) ||
 		!address.address?.length ||
 		!startDate.length ||
@@ -174,7 +171,7 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 					totalFiles={1}
 					isImageAllowed
 					onAttachAndCrop={onAttachAndCropBackground}
-					label="Обложка объекта"
+					label="Обложка объекта*"
 					files={[cover]}
 				/>
 			</Grid>
@@ -229,14 +226,14 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 					</Grid>
 					<Grid item container xs={12} md={6} direction="column" gap={1.5}>
 						<DateRangField
-							label="Дата мероприятия"
+							label="Дата мероприятия*"
 							startValue={startDate}
 							endValue={endDate}
 							setEndValue={setendDate}
 							setStartValue={setstartDate}
 						/>
 						<TimeRangField
-							label="Время мероприятия"
+							label="Время мероприятия*"
 							startValue={startTime}
 							endValue={endTime}
 							setEndValue={setendTime}
@@ -255,7 +252,7 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 			</Grid>
 			<Grid item container xs={12} md={12}>
 				<TextField
-					label={leng === 'ru' ? 'Описание на русском языке*' : 'Описание на английском языке'}
+					label={leng === 'ru' ? 'Описание на русском языке' : 'Описание на английском языке'}
 					variant="outlined"
 					multiline
 					tabIndex={1}

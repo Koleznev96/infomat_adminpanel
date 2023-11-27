@@ -1,5 +1,5 @@
 import {isUndefined} from 'lodash';
-import api from './moduleAxios';
+import api, {replaceEmptyStringsWithUndefined} from './moduleAxios';
 import _ from 'lodash';
 
 import {TPlacesVM, TPlacesCreate} from '../../Redux/Places/entityAdapter';
@@ -47,7 +47,7 @@ async function updateItem({id, cover, photos, frames, ...data}: TPlacesCreate) {
 	const dataValid = {...data, frames: _.filter(frames, (item) => !_.isUndefined(item))};
 	formData.append(
 		'place',
-		new Blob([JSON.stringify(dataValid)], {
+		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(dataValid))], {
 			type: 'application/json',
 		}),
 	);
@@ -67,7 +67,10 @@ async function updateItem({id, cover, photos, frames, ...data}: TPlacesCreate) {
 
 async function createItem({cover, photos, ...data}: TPlacesCreate) {
 	const formData = new FormData();
-	formData.append('place', new Blob([JSON.stringify({...data})], {type: 'application/json'}));
+	formData.append(
+		'place',
+		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(data))], {type: 'application/json'}),
+	);
 	if (cover?.url3x2Original instanceof File) {
 		formData.append('cover', cover.url3x2Original);
 	}

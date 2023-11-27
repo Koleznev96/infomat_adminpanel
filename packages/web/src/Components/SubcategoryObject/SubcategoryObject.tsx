@@ -31,7 +31,7 @@ const SubcategoryObject = ({onSubmit, onDelete, subcategoryObjectVM, id}: TSubca
 	return (
 		<Grid container spacing={3}>
 			<Grid item container xs={12} md={12} gap={3}>
-				<IconFiledWithPreview onAttach={onIcon} file={icon} label="Загрузить иконку 24х24" />
+				<IconFiledWithPreview onAttach={onIcon} file={icon} label="Загрузить иконку 24х24*" />
 			</Grid>
 			<Grid item xs={12} md={6}>
 				<TextField

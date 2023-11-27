@@ -1,5 +1,5 @@
 import {isUndefined} from 'lodash';
-import api from './moduleAxios';
+import api, {replaceEmptyStringsWithUndefined} from './moduleAxios';
 import _ from 'lodash';
 
 import {TEventsCreate} from '@infomat/core/src/Redux/Events/entityAdapter';
@@ -46,7 +46,7 @@ async function updateItem({id, cover, photos, frames, ...data}: TEventsCreate) {
 	const dataValid = {...data, frames: _.filter(frames, (item) => !_.isUndefined(item))};
 	formData.append(
 		'event',
-		new Blob([JSON.stringify(dataValid)], {
+		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(dataValid))], {
 			type: 'application/json',
 		}),
 	);
@@ -69,7 +69,7 @@ async function createItem({id, cover, photos, frames, ...data}: TEventsCreate) {
 	const dataValid = {...data, frames: _.filter(frames, (item) => !_.isUndefined(item))};
 	formData.append(
 		'event',
-		new Blob([JSON.stringify(dataValid)], {
+		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(dataValid))], {
 			type: 'application/json',
 		}),
 	);

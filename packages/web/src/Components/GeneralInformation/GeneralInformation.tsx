@@ -10,6 +10,7 @@ import {TInformationVM} from '@infomat/core/src/Redux/Information/type';
 import FileFiledWithPreview from '@infomat/uikit/src/Fields/FileFiledWithPreview/FileFiledWithPreview';
 
 import style from './GeneralInformation.module.scss';
+import {checkUrlsNull} from 'src/Utils/checkFile';
 
 const GeneralInformation = ({onSubmit, data}: TGeneralInformationProps) => {
 	const [yandex, setYandex] = useState(data?.yandexMetricCode || '');
@@ -18,7 +19,7 @@ const GeneralInformation = ({onSubmit, data}: TGeneralInformationProps) => {
 	const [videos, setVideos] = useState<TVideo[]>(data?.videos || []);
 	const [videoIdsForRemoving, setVideoIdsForRemoving] = useState<number[]>([]);
 
-	const isDisabledSave = !yandex.length || !labelRu.length || !labelEng.length;
+	const isDisabledSave = !labelRu.length || checkUrlsNull(videos);
 
 	const onSave = useCallback(() => {
 		onSubmit({
@@ -66,7 +67,7 @@ const GeneralInformation = ({onSubmit, data}: TGeneralInformationProps) => {
 			</Grid>
 			<Grid item xs={12} md={6}>
 				<TextField
-					label={'Заголовок на русском языке'}
+					label={'Заголовок на русском языке*'}
 					variant="outlined"
 					tabIndex={2}
 					onChange={(e) => setLabelRu(e.target.value)}
@@ -89,7 +90,7 @@ const GeneralInformation = ({onSubmit, data}: TGeneralInformationProps) => {
 					isVideoAllowed
 					onAttach={onAttach}
 					files={videos}
-					label="Видео на главном экране"
+					label="Видео на главном экране*"
 				/>
 			</Grid>
 			<Grid item>

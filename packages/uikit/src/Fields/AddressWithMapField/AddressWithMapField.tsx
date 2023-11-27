@@ -39,6 +39,7 @@ const AddressWithMapField = ({
 	const placemarkRef = useRef<any>(null);
 	const mapRef = useRef<ymaps.Map | undefined>(undefined);
 	const [address, setAddress] = useState(value?.address || '');
+	const [addressEn, setAddressEn] = useState(value?.addressEn || '');
 	const anchorEl = useRef<HTMLDivElement>(null);
 	const [isShow, open, close] = useBooleanState(false);
 	const [popperWidth, setPopperWidth] = useState(0);
@@ -47,6 +48,7 @@ const AddressWithMapField = ({
 	const onSelect = (value: TAddress) => {
 		if (value.address && !_.isUndefined(value.latitude) && !_.isUndefined(value.longitude)) {
 			setAddress(value.address);
+			setAddressEn(value.addressEn || '');
 			close();
 			placemarkRef.current = createPlacemark([value.latitude, value.longitude], value.address);
 			mapRef.current?.geoObjects.add(placemarkRef.current);
@@ -84,6 +86,7 @@ const AddressWithMapField = ({
 			!_.isUndefined(addressForPoint.longitude)
 		) {
 			setAddress(addressForPoint.address);
+			setAddressEn(addressForPoint.addressEn || '');
 
 			placemarkRef.current?.properties.set({
 				iconCaption: addressForPoint.address,
@@ -156,7 +159,7 @@ const AddressWithMapField = ({
 			{label && <Typography className={style.label}>{label}</Typography>}
 			<Grid container spacing={3}>
 				<Grid item xs={12} md={6}>
-					<div ref={anchorEl}>
+					<div ref={anchorEl} style={{paddingBottom: 20}}>
 						<TextField
 							// ref={anchorEl}
 							onChange={(e) => serachChange(e.target.value)}
@@ -166,6 +169,7 @@ const AddressWithMapField = ({
 							error={hasError}
 						/>
 					</div>
+					<TextField label={'Адрес на английском языке'} disabled value={addressEn} placeholder={placeholder} />
 					<Popper
 						popperOptions={popperOptions}
 						placement={'bottom-start'}

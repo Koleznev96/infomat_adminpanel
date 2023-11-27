@@ -27,6 +27,7 @@ export type TEventsCreate = {
 	linkForQrCode?: string;
 	address?: {
 		address?: string;
+		addressEn?: string;
 		latitude?: number;
 		longitude?: number;
 	};

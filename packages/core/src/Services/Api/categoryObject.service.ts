@@ -1,5 +1,5 @@
 import {isUndefined} from 'lodash';
-import api from './moduleAxios';
+import api, {replaceEmptyStringsWithUndefined} from './moduleAxios';
 
 import {TCategoryObjectCreate} from '../../Redux/CategoryObject/entityAdapter';
 
@@ -23,19 +23,11 @@ async function deleteItem(id: number) {
 	return api.delete(`/categories/${id}`);
 }
 
-async function updateItem({
-	id,
-	title,
-	titleEn,
-	backgroundColor,
-	description,
-	descriptionEn,
-	icon,
-}: TCategoryObjectCreate) {
+async function updateItem({id, icon, ...data}: TCategoryObjectCreate) {
 	const formData = new FormData();
 	formData.append(
 		'placeCategory',
-		new Blob([JSON.stringify({title, titleEn, backgroundColor, description, descriptionEn})], {
+		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(data))], {
 			type: 'application/json',
 		}),
 	);
@@ -46,11 +38,11 @@ async function updateItem({
 	return api.patch(`/categories/${id}`, formData);
 }
 
-async function createItem({title, titleEn, backgroundColor, description, descriptionEn, icon}: TCategoryObjectCreate) {
+async function createItem({id, icon, ...data}: TCategoryObjectCreate) {
 	const formData = new FormData();
 	formData.append(
 		'placeCategory',
-		new Blob([JSON.stringify({title, titleEn, backgroundColor, description, descriptionEn})], {
+		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(data))], {
 			type: 'application/json',
 		}),
 	);

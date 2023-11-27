@@ -1,5 +1,5 @@
 import {isUndefined} from 'lodash';
-import api from './moduleAxios';
+import api, {replaceEmptyStringsWithUndefined} from './moduleAxios';
 
 import {TCategoryObjectCreate} from '../../Redux/CategoryObject/entityAdapter';
 import {TRoutesCreate} from '../../Redux/Routes/entityAdapter';
@@ -40,7 +40,10 @@ async function deleteItem(id: number) {
 
 async function updateItem({id, icon, ...data}: TRoutesCreate) {
 	const formData = new FormData();
-	formData.append('route', new Blob([JSON.stringify(data)], {type: 'application/json'}));
+	formData.append(
+		'route',
+		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(data))], {type: 'application/json'}),
+	);
 	if (icon?.url instanceof File) {
 		formData.append('icon', icon.url);
 	}
@@ -50,7 +53,10 @@ async function updateItem({id, icon, ...data}: TRoutesCreate) {
 
 async function createItem({id, icon, ...data}: TRoutesCreate) {
 	const formData = new FormData();
-	formData.append('route', new Blob([JSON.stringify(data)], {type: 'application/json'}));
+	formData.append(
+		'route',
+		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(data))], {type: 'application/json'}),
+	);
 	if (icon?.url instanceof File) {
 		formData.append('icon', icon.url);
 	}

@@ -19,6 +19,7 @@ import {TFileCrop, TFrameCrop} from '@infomat/core/src/Types/media';
 import style from './TouristObject.module.scss';
 import SelectCategoryFieldContainer from '../SelectCategoryField/SelectCategoryFieldContainer';
 import GeocodingMapContainer from './GeocodingMap/GeocodingMapContainer';
+import {checkUrlsNull} from 'src/Utils/checkFile';
 
 const names = [
 	{title: 'Черновик', id: 'DRAFT'},
@@ -38,6 +39,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 	const [descriptionEn, setDescriptionEn] = useState(placesObjectVM?.descriptionEn || '');
 	const [address, setAddress] = useState(placesObjectVM?.address || undefined);
 	const [workingHours, setWorkingHours] = useState(placesObjectVM?.workingHours || '');
+	const [workingHoursEn, setWorkingHoursEn] = useState(placesObjectVM?.workingHoursEn || '');
 	const [frames, setFrames] = useState<TFrameCrop[]>([]);
 	const [cover, setCover] = useState<TFileCrop>(placesObjectVM?.cover || {url3x2Original: null});
 	const [photos, setPhotos] = useState<TFileCrop[]>(placesObjectVM?.photos || []);
@@ -50,17 +52,15 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 	const setTitleValue = leng === 'ru' ? setTitle : setTitleEn;
 	const descriptionValue = leng === 'ru' ? description : descriptionEn;
 	const setDescriptionValue = leng === 'ru' ? setDescription : setDescriptionEn;
+	const workingHoursValue = leng === 'ru' ? workingHours : workingHoursEn;
+	const setWorkingHoursValue = leng === 'ru' ? setWorkingHours : setWorkingHoursEn;
 
 	const isDisabledSave =
+		checkUrlsNull([cover]) ||
 		!title.length ||
-		!status.length ||
-		!phone.length ||
-		!email.length ||
-		!website.length ||
-		!description.length ||
 		_.isUndefined(address) ||
 		!address.address?.length ||
-		!workingHours.length;
+		_.isUndefined(subcategoryId);
 
 	const onSave = useCallback(() => {
 		onSubmit({
@@ -82,6 +82,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 			website,
 			address,
 			linkForQrCode,
+			workingHoursEn,
 		});
 	}, [
 		id,
@@ -104,6 +105,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 		workingHours,
 		address,
 		linkForQrCode,
+		workingHoursEn,
 	]);
 
 	const onAttachAndCrop = useCallback(
@@ -177,7 +179,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 					totalFiles={1}
 					isImageAllowed
 					onAttachAndCrop={onAttachAndCropBackground}
-					label="Обложка объекта"
+					label="Обложка объекта*"
 					files={[cover]}
 				/>
 			</Grid>
@@ -240,11 +242,11 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 							placeholder="Категория объекта"
 						/>
 						<TextField
-							label={'Режим работы'}
+							label={leng === 'ru' ? 'Режим работы на русском языке' : 'Режим работы на английском языке'}
 							variant="outlined"
 							tabIndex={2}
-							onChange={(e) => setWorkingHours(e.target.value)}
-							value={workingHours}
+							onChange={(e) => setWorkingHoursValue(e.target.value)}
+							value={workingHoursValue}
 							placeholder="Режим работы"
 						/>
 						<TextField
@@ -260,7 +262,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 			</Grid>
 			<Grid item container xs={12} md={12}>
 				<TextField
-					label={leng === 'ru' ? 'Описание на русском языке*' : 'Описание на английском языке'}
+					label={leng === 'ru' ? 'Описание на русском языке' : 'Описание на английском языке'}
 					variant="outlined"
 					multiline
 					tabIndex={1}

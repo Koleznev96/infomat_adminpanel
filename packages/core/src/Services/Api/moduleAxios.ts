@@ -1,4 +1,5 @@
 import axios, {AxiosError} from 'axios';
+import _ from 'lodash';
 
 import {userClientOnlyActions} from '@infomat/core/src/Redux/User/Actions/userClientOnlyActions';
 import store from '@infomat/web/src/Redux/store';
@@ -15,7 +16,6 @@ const baseUrl = parsedUrl.origin;
 
 const config = {
 	baseURL: `${baseUrl}/api`,
-	timeout: 5000,
 	withCredentials: true,
 	headers: {
 		Accept: 'application/json',
@@ -53,5 +53,26 @@ api.interceptors.response.use(
 		return Promise.reject(error);
 	},
 );
+
+export function replaceEmptyStringsWithUndefined(obj: any) {
+	// Используем рекурсивную функцию для обхода всех ключей объекта
+	function recursiveUpdate(obj: any) {
+		_.forOwn(obj, (value, key) => {
+			if (_.isObject(value)) {
+				recursiveUpdate(value); // Рекурсивно вызываем функцию для вложенных объектов
+			} else if (value === '') {
+				obj[key] = undefined; // Заменяем пустую строку на undefined
+			}
+		});
+	}
+
+	// Клонируем исходный объект для избегания мутации
+	const clonedObj = _.cloneDeep(obj);
+
+	// Вызываем рекурсивную функцию для обновления ключей
+	recursiveUpdate(clonedObj);
+
+	return clonedObj;
+}
 
 export default api;

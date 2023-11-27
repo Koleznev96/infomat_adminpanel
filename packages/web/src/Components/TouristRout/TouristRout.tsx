@@ -16,6 +16,7 @@ import {TFile, TFileLocal} from '@infomat/core/src/Types/media';
 import ItemRoutesMapContainer from 'src/Components/ItemRoutesMap/ItemRoutesMapContainer';
 
 import style from './TouristRout.module.scss';
+import {checkUrlsNull} from 'src/Utils/checkFile';
 
 const names = [
 	{title: 'Черновик', id: 'DRAFT'},
@@ -60,16 +61,18 @@ const TouristRout = ({onSubmit, onDelete, routesVM, id}: TTouristRoutProps) => {
 	const setTypeValue = leng === 'ru' ? setType : setTypeEn;
 
 	const isDisabledSave =
+		checkUrlsNull([icon]) ||
 		!title.length ||
-		!status.length ||
-		!description.length ||
-		!backgroundColor.length ||
 		!routeColor.length ||
+		!backgroundColor.length ||
 		!length.length ||
 		!duration?.length ||
-		!type.length;
-	// _.isEmpty(stops) ||
-	// icon.url === null;
+		!type.length ||
+		_.isEmpty(stops) ||
+		!stops.length ||
+		stops.length < 2 ||
+		_.isUndefined(stops[0].place) ||
+		_.isUndefined(stops[1].place);
 
 	const onSave = useCallback(() => {
 		onSubmit({
@@ -122,7 +125,7 @@ const TouristRout = ({onSubmit, onDelete, routesVM, id}: TTouristRoutProps) => {
 				</Grid>
 			</Grid>
 			<Grid item container xs={12} md={12} gap={3}>
-				<IconFiledWithPreview onAttach={onIcon} file={icon} label="Загрузить иконку 30х30" />
+				<IconFiledWithPreview onAttach={onIcon} file={icon} label="Загрузить иконку 30х30*" />
 			</Grid>
 			<Grid item container spacing={1.5}>
 				<Grid item xs={12} md={6}>
@@ -139,7 +142,7 @@ const TouristRout = ({onSubmit, onDelete, routesVM, id}: TTouristRoutProps) => {
 				<Grid item container spacing={3}>
 					<Grid item container xs={12} md={6} direction="column" gap={1.5}>
 						<TextField
-							label={'Название*'}
+							label={leng === 'ru' ? 'Название на русском языке*' : 'Название на английском языке'}
 							variant="outlined"
 							tabIndex={1}
 							onChange={(e) => setTitleValue(e.target.value)}
@@ -147,7 +150,7 @@ const TouristRout = ({onSubmit, onDelete, routesVM, id}: TTouristRoutProps) => {
 							placeholder="Название маршрута"
 						/>
 						<TextField
-							label={'Продолжительность*'}
+							label={leng === 'ru' ? 'Продолжительность на русском языке*' : 'Продолжительность на английском языке'}
 							variant="outlined"
 							tabIndex={2}
 							onChange={(e) => setDurationValue(e.target.value)}
@@ -157,7 +160,7 @@ const TouristRout = ({onSubmit, onDelete, routesVM, id}: TTouristRoutProps) => {
 					</Grid>
 					<Grid item container xs={12} md={6} direction="column" gap={1.5}>
 						<TextField
-							label={'Протяженность*'}
+							label={leng === 'ru' ? 'Протяженность на русском языке*' : 'Протяженность на английском языке'}
 							variant="outlined"
 							tabIndex={3}
 							onChange={(e) => setLengthValue(e.target.value)}
@@ -165,7 +168,7 @@ const TouristRout = ({onSubmit, onDelete, routesVM, id}: TTouristRoutProps) => {
 							placeholder="Например: 5 км"
 						/>
 						<TextField
-							label={'Тип маршрута*'}
+							label={leng === 'ru' ? 'Тип маршрута на русском языке*' : 'Тип маршрута на английском языке'}
 							variant="outlined"
 							tabIndex={4}
 							onChange={(e) => setTypeValue(e.target.value)}
@@ -190,7 +193,7 @@ const TouristRout = ({onSubmit, onDelete, routesVM, id}: TTouristRoutProps) => {
 			<Grid item container xs={12} md={12}>
 				<ItemRoutesMapContainer
 					labelMap="Маршрут на карте"
-					label="Создание маршрута"
+					label="Создание маршрута*"
 					value={stops}
 					setValue={setStops}
 					routeColor={routeColor}

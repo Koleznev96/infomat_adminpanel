@@ -89,7 +89,7 @@ const FileFiledWithPreview = ({
 						>
 							{({getRootProps, open, dropZoneOverlay}) => (
 								<section {...getRootProps()}>
-									<Grid item className={classNames(style.item, {[style.isActive]: file !== null})} onClick={open}>
+									<Grid item className={classNames(style.item, {[style.isActive]: file === null})} onClick={open}>
 										{dropZoneOverlay}
 										{file !== null ? (
 											<>

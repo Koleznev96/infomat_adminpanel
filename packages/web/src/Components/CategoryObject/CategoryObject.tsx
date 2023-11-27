@@ -18,7 +18,8 @@ const CategoryObject = ({onSubmit, onDelete, categoryObjectVM, id}: TCategoryObj
 	const [backgroundColor, onBackgroundColor] = useState(categoryObjectVM?.backgroundColor || undefined);
 	const [icon, onIcon] = useState(categoryObjectVM?.icon || {url: null});
 
-	const isDisabledSave = !title.length || !titleEn.length || icon.url === null || backgroundColor === undefined;
+	const isDisabledSave =
+		!title.length || !titleEn.length || icon.url === null || backgroundColor === undefined || !backgroundColor.length;
 
 	const onSave = useCallback(() => {
 		onSubmit({id, title, titleEn, backgroundColor, icon, description, descriptionEn});
@@ -27,7 +28,7 @@ const CategoryObject = ({onSubmit, onDelete, categoryObjectVM, id}: TCategoryObj
 	return (
 		<Grid container spacing={3}>
 			<Grid item container xs={12} md={12} gap={3}>
-				<IconFiledWithPreview onAttach={onIcon} file={icon} label="Загрузить иконку 30х30" />
+				<IconFiledWithPreview onAttach={onIcon} file={icon} label="Загрузить иконку 30х30*" />
 			</Grid>
 			<Grid item container xs={12} md={12}>
 				<Grid item xs={12} md={6}>
@@ -37,7 +38,7 @@ const CategoryObject = ({onSubmit, onDelete, categoryObjectVM, id}: TCategoryObj
 			</Grid>
 			<Grid item xs={12} md={6}>
 				<TextField
-					label={'Название на русском языке'}
+					label={'Название на русском языке*'}
 					variant="outlined"
 					tabIndex={1}
 					onChange={(e) => setTitle(e.target.value)}
@@ -47,7 +48,7 @@ const CategoryObject = ({onSubmit, onDelete, categoryObjectVM, id}: TCategoryObj
 			</Grid>
 			<Grid item xs={12} md={6}>
 				<TextField
-					label={'Название на английском языке'}
+					label={'Название на английском языке*'}
 					variant="outlined"
 					tabIndex={2}
 					onChange={(e) => setTitleEn(e.target.value)}
