@@ -7,7 +7,7 @@ import {EnumNotificationSeverity} from '@infomat/uikit/src/Notification/EnumNoti
 import ServiceFactory from '../ServiceFactory';
 
 const config = {
-	baseURL: process.env.REACT_APP_URL_API || 'http://5f8104486938.vps.myjino.ru/api',
+	baseURL: 'api',
 	timeout: 5000,
 	withCredentials: true,
 	headers: {

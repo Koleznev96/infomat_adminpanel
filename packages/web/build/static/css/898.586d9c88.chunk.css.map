@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/898.586d9c88.chunk.css","mappings":"AACC,uBACC,iBAAkB","sources":["Components/PageNotFound/_PageNotFound.scss"],"sourcesContent":[".page-not-found {\r\n\t&__title {\r\n\t\ttext-align: center;\r\n\t}\r\n}\r\n"],"names":[],"sourceRoot":""}
