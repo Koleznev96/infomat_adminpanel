@@ -9,11 +9,19 @@ const {
 	addDecoratorsLegacy,
 	addBundleVisualizer,
 	addWebpackPlugin,
+	disableChunk,
 } = require('customize-cra');
 const webpack = require('webpack');
 
 module.exports = {
 	webpack: function (config) {
+		config.optimization.splitChunks = {
+			cacheGroups: {
+				default: false,
+			},
+		};
+		config.optimization.runtimeChunk = false;
+
 		const ignoreSourceMapWarnings = (config) => {
 			if (process.env.REACT_APP_ENV === 'development') {
 				config.ignoreWarnings = [
@@ -79,6 +87,7 @@ module.exports = {
 					Buffer: ['buffer', 'Buffer'],
 				}),
 			),
+			disableChunk(),
 		)(config);
 
 		const rules = newConfig.module.rules.find((obj) => 'oneOf' in obj).oneOf;
