@@ -42,6 +42,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 	const [cover, setCover] = useState<TFileCrop>(placesObjectVM?.cover || {url3x2Original: null});
 	const [photos, setPhotos] = useState<TFileCrop[]>(placesObjectVM?.photos || []);
 	const [photoIdsForRemoving, setPhotoIdsForRemoving] = useState<number[]>([]);
+	const [linkForQrCode, setLinkForQrCode] = useState(placesObjectVM?.linkForQrCode || '');
 	const [leng, setLeng] = useState('ru');
 	const [frameCover, setFrameCover] = useState<TFrameCrop | undefined>(undefined);
 
@@ -80,6 +81,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 			email,
 			website,
 			address,
+			linkForQrCode,
 		});
 	}, [
 		id,
@@ -101,6 +103,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 		frameCover,
 		workingHours,
 		address,
+		linkForQrCode,
 	]);
 
 	const onAttachAndCrop = useCallback(
@@ -219,14 +222,14 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 							type="email"
 							placeholder="Почта"
 						/>
-						{/* <TextField
-							label={'QR-код на мобильное приложение «Мой Смоленск»'}
+						<TextField
+							label={'QR-код (ссылка) на объект в приложении «Мой Смоленск»'}
 							variant="outlined"
 							tabIndex={2}
-							onChange={(e) => setLabelEng(e.target.value)}
-							value={labelEng}
-							placeholder="Адрес ссылки для генерации QR-кода"
-						/> */}
+							onChange={(e) => setLinkForQrCode(e.target.value)}
+							value={linkForQrCode}
+							placeholder="QR-код (ссылка)"
+						/>
 					</Grid>
 					<Grid item container xs={12} md={6} direction="column" gap={1.5}>
 						<SelectCategoryFieldContainer

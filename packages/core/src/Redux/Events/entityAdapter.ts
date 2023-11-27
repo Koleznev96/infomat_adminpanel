@@ -24,6 +24,7 @@ export type TEventsCreate = {
 	photos?: TFileCrop[];
 	frames?: TFrameCrop[];
 	photoIdsForRemoving?: number[];
+	linkForQrCode?: string;
 	address?: {
 		address?: string;
 		latitude?: number;

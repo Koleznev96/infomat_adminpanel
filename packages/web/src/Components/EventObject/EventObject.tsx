@@ -45,6 +45,7 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 	const [endDate, setendDate] = useState(eventsObjectVM?.endDate || '');
 	const [startTime, setstartTime] = useState(eventsObjectVM?.startTime || '');
 	const [endTime, setendTime] = useState(eventsObjectVM?.endTime || '');
+	const [linkForQrCode, setLinkForQrCode] = useState(eventsObjectVM?.linkForQrCode || '');
 
 	const titleValue = leng === 'ru' ? title : titleEn;
 	const setTitleValue = leng === 'ru' ? setTitle : setTitleEn;
@@ -83,6 +84,7 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 			startTime,
 			endDate: endDate.length ? endDate : undefined,
 			endTime: endTime.length ? endTime : undefined,
+			linkForQrCode,
 		});
 	}, [
 		id,
@@ -105,6 +107,7 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 		startTime,
 		endDate,
 		endTime,
+		linkForQrCode,
 	]);
 
 	const onAttachAndCrop = useCallback(
@@ -214,6 +217,14 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 							value={email}
 							type="email"
 							placeholder="Почта"
+						/>
+						<TextField
+							label={'QR-код (ссылка) на объект в приложении «Мой Смоленск»'}
+							variant="outlined"
+							tabIndex={2}
+							onChange={(e) => setLinkForQrCode(e.target.value)}
+							value={linkForQrCode}
+							placeholder="QR-код (ссылка)"
 						/>
 					</Grid>
 					<Grid item container xs={12} md={6} direction="column" gap={1.5}>

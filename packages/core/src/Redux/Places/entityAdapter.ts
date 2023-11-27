@@ -25,6 +25,7 @@ export type TPlacesCreate = {
 	frames?: TFrameCrop[];
 	subcategory?: TSubcategoryObjectVM;
 	photoIdsForRemoving?: number[];
+	linkForQrCode?: string;
 	address?: {
 		address?: string;
 		latitude?: number;
