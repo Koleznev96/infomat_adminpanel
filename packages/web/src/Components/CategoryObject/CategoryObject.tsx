@@ -13,14 +13,16 @@ import ColorPicker from '@infomat/uikit/src/Fields/ColorPicker/ColorPicker';
 const CategoryObject = ({onSubmit, onDelete, categoryObjectVM, id}: TCategoryObjectProps) => {
 	const [title, setTitle] = useState(categoryObjectVM?.title || '');
 	const [titleEn, setTitleEn] = useState(categoryObjectVM?.titleEn || '');
+	const [description, setDescription] = useState(categoryObjectVM?.description || '');
+	const [descriptionEn, setDescriptionEn] = useState(categoryObjectVM?.descriptionEn || '');
 	const [backgroundColor, onBackgroundColor] = useState(categoryObjectVM?.backgroundColor || undefined);
 	const [icon, onIcon] = useState(categoryObjectVM?.icon || {url: null});
 
 	const isDisabledSave = !title.length || !titleEn.length || icon.url === null || backgroundColor === undefined;
 
 	const onSave = useCallback(() => {
-		onSubmit({id, title, titleEn, backgroundColor, icon});
-	}, [id, title, titleEn, backgroundColor, icon, onSubmit]);
+		onSubmit({id, title, titleEn, backgroundColor, icon, description, descriptionEn});
+	}, [id, title, titleEn, backgroundColor, icon, onSubmit, description, descriptionEn]);
 
 	return (
 		<Grid container spacing={3}>
@@ -51,6 +53,30 @@ const CategoryObject = ({onSubmit, onDelete, categoryObjectVM, id}: TCategoryObj
 					onChange={(e) => setTitleEn(e.target.value)}
 					value={titleEn}
 					placeholder="Название на английском языке"
+				/>
+			</Grid>
+			<Grid item xs={12} md={6}>
+				<TextField
+					label={'Описание на русском языке'}
+					variant="outlined"
+					multiline
+					tabIndex={1}
+					onChange={(e) => setDescription(e.target.value)}
+					value={description}
+					rows={8}
+					placeholder="Описание"
+				/>
+			</Grid>
+			<Grid item xs={12} md={6}>
+				<TextField
+					label={'Описание на английском языке'}
+					variant="outlined"
+					multiline
+					tabIndex={1}
+					onChange={(e) => setDescriptionEn(e.target.value)}
+					value={descriptionEn}
+					rows={8}
+					placeholder="Описание"
 				/>
 			</Grid>
 			<Grid item container gap={1.5}>

@@ -12,6 +12,8 @@ export type TCategoryObjectCreate = {
 	title?: string;
 	titleEn?: string;
 	icon?: TFile | TFileLocal;
+	description?: string;
+	descriptionEn?: string;
 };
 
 export type TCategoryObjectVM = {

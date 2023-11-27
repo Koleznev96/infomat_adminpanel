@@ -6,8 +6,15 @@ import notificationsClientOnlyActions from '@infomat/core/src/Redux/Notification
 import {EnumNotificationSeverity} from '@infomat/uikit/src/Notification/EnumNotificationSeverity';
 import ServiceFactory from '../ServiceFactory';
 
+// Получаем текущий URL
+const currentUrl = window.location.href;
+
+// Обрабатываем текущий URL, чтобы получить основной URL
+const parsedUrl = new URL(currentUrl);
+const baseUrl = parsedUrl.origin;
+
 const config = {
-	baseURL: 'api',
+	baseURL: `${baseUrl}/api`,
 	timeout: 5000,
 	withCredentials: true,
 	headers: {

@@ -23,11 +23,21 @@ async function deleteItem(id: number) {
 	return api.delete(`/categories/${id}`);
 }
 
-async function updateItem({id, title, titleEn, backgroundColor, icon}: TCategoryObjectCreate) {
+async function updateItem({
+	id,
+	title,
+	titleEn,
+	backgroundColor,
+	description,
+	descriptionEn,
+	icon,
+}: TCategoryObjectCreate) {
 	const formData = new FormData();
 	formData.append(
 		'placeCategory',
-		new Blob([JSON.stringify({title, titleEn, backgroundColor})], {type: 'application/json'}),
+		new Blob([JSON.stringify({title, titleEn, backgroundColor, description, descriptionEn})], {
+			type: 'application/json',
+		}),
 	);
 	if (icon?.url instanceof File) {
 		formData.append('icon', icon.url);
@@ -36,11 +46,13 @@ async function updateItem({id, title, titleEn, backgroundColor, icon}: TCategory
 	return api.patch(`/categories/${id}`, formData);
 }
 
-async function createItem({title, titleEn, backgroundColor, icon}: TCategoryObjectCreate) {
+async function createItem({title, titleEn, backgroundColor, description, descriptionEn, icon}: TCategoryObjectCreate) {
 	const formData = new FormData();
 	formData.append(
 		'placeCategory',
-		new Blob([JSON.stringify({title, titleEn, backgroundColor})], {type: 'application/json'}),
+		new Blob([JSON.stringify({title, titleEn, backgroundColor, description, descriptionEn})], {
+			type: 'application/json',
+		}),
 	);
 	if (icon?.url instanceof File) {
 		formData.append('icon', icon.url);
