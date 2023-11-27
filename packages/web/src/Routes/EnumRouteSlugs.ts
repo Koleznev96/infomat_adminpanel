@@ -2,22 +2,22 @@ export enum EnumRouteSlugs {
 	NEW = 'new',
 	PARAM_ID = ':id',
 
-	INFORMATION = 'admin/information',
+	INFORMATION = 'information',
 
-	EVENTS = 'admin/events',
-	EVENT = 'admin/events/:id',
+	EVENTS = 'events',
+	EVENT = 'events/:id',
 
-	RECOMMEND = 'admin/recommend',
+	RECOMMEND = 'recommend',
 
-	TOURIST_ROUTES = 'admin/tourist-routes',
-	TOURIST_ROUT = 'admin/tourist-routes/:id',
+	TOURIST_ROUTES = 'tourist-routes',
+	TOURIST_ROUT = 'tourist-routes/:id',
 
-	SUBCATEGORIES_OBJECTS = 'admin/subcategories-objects',
-	SUBCATEGORY_OBJECT = 'admin/subcategories-objects/:id',
+	SUBCATEGORIES_OBJECTS = 'subcategories-objects',
+	SUBCATEGORY_OBJECT = 'subcategories-objects/:id',
 
-	CATEGORIES_OBJECTS = 'admin/categories-objects',
-	CATEGORY_OBJECT = 'admin/categories-objects/:id',
+	CATEGORIES_OBJECTS = 'categories-objects',
+	CATEGORY_OBJECT = 'categories-objects/:id',
 
-	TOURIST_OBJECTS = 'admin/tourist-objects',
-	TOURIST_OBJECT = 'admin/tourist-objects/:id',
+	TOURIST_OBJECTS = 'tourist-objects',
+	TOURIST_OBJECT = 'tourist-objects/:id',
 }
