@@ -1,4 +1,4 @@
-import {put, call} from 'typed-redux-saga';
+import {put, call, take} from 'typed-redux-saga';
 import {AxiosResponse} from 'axios';
 
 import {placesClientOnlyActions} from '@infomat/core/src/Redux/Places/Actions/placesClientOnlyActions';
@@ -16,10 +16,10 @@ const createItemSaga = function* ({payload}: ReturnType<typeof placesClientToSer
 
 		const response: AxiosResponse = yield placesService.createItem(payload);
 		const data: TRespounseData<TPlacesVM> = response.data;
-		yield* put(placesClientOnlyActions.setData(data.data));
 
 		yield* call(goTouristObject, data.data.id);
 
+		yield* take(placesClientOnlyActions.setData.type);
 		yield put(
 			notificationsClientOnlyActions.enqueuePersistent({
 				notificationTitle: 'Туристический объект успешно создан',

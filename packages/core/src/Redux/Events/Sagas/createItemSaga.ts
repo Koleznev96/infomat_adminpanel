@@ -1,4 +1,4 @@
-import {put, call} from 'typed-redux-saga';
+import {put, call, take} from 'typed-redux-saga';
 import {AxiosResponse} from 'axios';
 
 import {eventsClientOnlyActions} from '@infomat/core/src/Redux/Events/Actions/eventsClientOnlyActions';
@@ -16,10 +16,10 @@ const createItemSaga = function* ({payload}: ReturnType<typeof eventsClientToSer
 
 		const response: AxiosResponse = yield eventsService.createItem(payload);
 		const data: TRespounseData<TEventsVM> = response.data;
-		yield* put(eventsClientOnlyActions.setData(data.data));
 
 		yield* call(goEvent, data.data.id);
 
+		yield* take(eventsClientOnlyActions.setData.type);
 		yield put(
 			notificationsClientOnlyActions.enqueuePersistent({
 				notificationTitle: 'Мероприятие успешно создано',

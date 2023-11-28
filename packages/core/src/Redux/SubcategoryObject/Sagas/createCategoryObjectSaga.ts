@@ -1,4 +1,4 @@
-import {put, call} from 'typed-redux-saga';
+import {put, call, take} from 'typed-redux-saga';
 import {AxiosResponse} from 'axios';
 
 import {getNavigationContext} from '@infomat/core/src/Redux/sagaContext';
@@ -15,13 +15,12 @@ const createCategoryObjectSaga = function* ({
 }: ReturnType<typeof subcategoryObjectClientToServerActions.createCategory>) {
 	try {
 		const {goSubcategoryObject} = yield* getNavigationContext();
-
 		const response: AxiosResponse = yield subcategoryObject.createItem(payload);
 		const data: TRespounseData<TSubcategoryObjectVM> = response.data;
-		yield* put(subcategoryObjectClientOnlyActions.setData(data.data));
 
 		yield* call(goSubcategoryObject, data.data.id);
 
+		yield* take(subcategoryObjectClientOnlyActions.setData.type);
 		yield put(
 			notificationsClientOnlyActions.enqueuePersistent({
 				notificationTitle: 'Подкатегория успешно создана',

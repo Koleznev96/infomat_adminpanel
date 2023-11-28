@@ -9,11 +9,6 @@ import {subcategoryObjectClientToServerActions} from '@infomat/core/src/Redux/Su
 import {placesClientToServerActions} from '@infomat/core/src/Redux/Places/Actions/placesClientToServerActions';
 import {eventsClientToServerActions} from '@infomat/core/src/Redux/Events/Actions/eventsClientToServerActions';
 import {routesClientToServerActions} from '@infomat/core/src/Redux/Routes/Actions/routesClientToServerActions';
-import {selectCategoryObjectData} from '@infomat/core/src/Redux/CategoryObject/Selectors/selectCategoryObjectData';
-import {selectSubcategoryObjectData} from '@infomat/core/src/Redux/SubcategoryObject/Selectors/selectSubcategoryObjectData';
-import {selectPlacesData} from '@infomat/core/src/Redux/Places/Selectors/selectPlacesData';
-import {selectEventsData} from '@infomat/core/src/Redux/Events/Selectors/selectEventsData';
-import {selectRoutesData} from '@infomat/core/src/Redux/Routes/Selectors/selectRoutesData';
 
 import {EnumRouteSlugs} from 'src/Routes/EnumRouteSlugs';
 
@@ -57,47 +52,29 @@ export const updateStateOnChatNavigationSaga = function* ({
 		}
 
 		if (path === EnumRouteSlugs.TOURIST_ROUT && id !== 'new') {
-			const touristRoutVM = yield* select(selectRoutesData);
-
-			if (_.isUndefined(touristRoutVM) || touristRoutVM?.id !== Number(id)) {
-				yield* put(routesClientToServerActions.get(Number(id)));
-			}
+			yield* put(routesClientToServerActions.get(Number(id)));
 		}
 
 		if (path === EnumRouteSlugs.EVENT && id !== 'new') {
-			const eventObjectVM = yield* select(selectEventsData);
-
-			if (_.isUndefined(eventObjectVM) || eventObjectVM?.id !== Number(id)) {
-				yield* put(eventsClientToServerActions.get(Number(id)));
-			}
+			yield* put(eventsClientToServerActions.get(Number(id)));
 		}
 
 		if (path === EnumRouteSlugs.CATEGORY_OBJECT && id !== 'new') {
-			const categoryObjectVM = yield* select(selectCategoryObjectData);
-
-			if (_.isUndefined(categoryObjectVM) || categoryObjectVM?.id !== Number(id)) {
-				yield* put(categoryObjectClientToServerActions.get(Number(id)));
-			}
+			yield* put(categoryObjectClientToServerActions.get(Number(id)));
 		}
 
 		if (path === EnumRouteSlugs.SUBCATEGORY_OBJECT) {
-			const subcategoryObjectVM = yield* select(selectSubcategoryObjectData);
-
-			if (id !== 'new' && (_.isUndefined(subcategoryObjectVM) || subcategoryObjectVM?.id !== Number(id))) {
+			yield* put(categoryObjectClientToServerActions.getAllList());
+			if (id !== 'new') {
 				yield* put(subcategoryObjectClientToServerActions.get(Number(id)));
 			}
-
-			yield* put(categoryObjectClientToServerActions.getAllList());
 		}
 
 		if (path === EnumRouteSlugs.TOURIST_OBJECT) {
-			const touristObjectVM = yield* select(selectPlacesData);
-
-			if (id !== 'new' && (_.isUndefined(touristObjectVM) || touristObjectVM?.id !== Number(id))) {
+			yield* put(subcategoryObjectClientToServerActions.getAllList());
+			if (id !== 'new') {
 				yield* put(placesClientToServerActions.get(Number(id)));
 			}
-
-			yield* put(subcategoryObjectClientToServerActions.getAllList());
 		}
 	} catch (error) {}
 };
