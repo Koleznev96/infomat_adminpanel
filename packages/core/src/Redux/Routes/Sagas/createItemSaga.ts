@@ -1,4 +1,4 @@
-import {put, call, take} from 'typed-redux-saga';
+import {put, call} from 'typed-redux-saga';
 import {AxiosResponse} from 'axios';
 
 import {routesClientOnlyActions} from '@infomat/core/src/Redux/Routes/Actions/routesClientOnlyActions';
@@ -16,10 +16,10 @@ const createItemSaga = function* ({payload}: ReturnType<typeof routesClientToSer
 
 		const response: AxiosResponse = yield routesService.createItem(payload);
 		const data: TRespounseData<TRoutesVM> = response.data;
+		yield* put(routesClientOnlyActions.setData(data.data));
 
 		yield* call(goTouristRout, data.data.id);
 
-		yield* take(routesClientOnlyActions.setData.type);
 		yield put(
 			notificationsClientOnlyActions.enqueuePersistent({
 				notificationTitle: 'Туристический маршрут успешно создан',

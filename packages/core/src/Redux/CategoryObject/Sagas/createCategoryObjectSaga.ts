@@ -1,4 +1,4 @@
-import {put, call, take} from 'typed-redux-saga';
+import {put, call} from 'typed-redux-saga';
 import {AxiosResponse} from 'axios';
 
 import {categoryObjectClientToServerActions} from '@infomat/core/src/Redux/CategoryObject/Actions/categoryObjectClientToServerActions';
@@ -18,10 +18,10 @@ const createCategoryObjectSaga = function* ({
 
 		const response: AxiosResponse = yield categoryObjectService.createItem(payload);
 		const data: TRespounseData<TCategoryObjectVM> = response.data;
+		yield* put(categoryObjectClientOnlyActions.setData(data.data));
 
 		yield* call(goCategoryObject, data.data.id);
 
-		yield* take(categoryObjectClientOnlyActions.setData.type);
 		yield put(
 			notificationsClientOnlyActions.enqueuePersistent({
 				notificationTitle: 'Категория успешно создана',
