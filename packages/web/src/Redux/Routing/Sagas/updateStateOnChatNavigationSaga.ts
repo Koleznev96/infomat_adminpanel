@@ -35,8 +35,12 @@ export const updateStateOnChatNavigationSaga = function* ({
 			yield* put(subcategoryObjectClientToServerActions.getList({}));
 		}
 
-		if (path === EnumRouteSlugs.TOURIST_OBJECTS || path === EnumRouteSlugs.RECOMMEND) {
+		if (path === EnumRouteSlugs.TOURIST_OBJECTS) {
 			yield* put(placesClientToServerActions.getList({recommendedOnly: null, page: 0, search: '', status: null}));
+		}
+
+		if (path === EnumRouteSlugs.RECOMMEND) {
+			yield* put(placesClientToServerActions.getList({recommendedOnly: true, page: 0, search: '', status: null}));
 		}
 
 		if (path === EnumRouteSlugs.EVENTS) {

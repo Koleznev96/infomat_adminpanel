@@ -143,16 +143,16 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 		[setPhotos, photos, photoIdsForRemoving, setPhotoIdsForRemoving, setFrames, frames],
 	);
 
-	const onAttachAndCropBackground = useCallback(
-		(index: number, file: File | null, crop?: Crop) => {
+	const onAttachBackground = useCallback(
+		(index: number, file: File | null) => {
 			setCover({url3x2Original: file});
-			if (file !== null && crop) {
-				setFrameCover({partName: 'cover', x: crop.x, y: crop.y, width: crop?.width, height: crop.height});
-			} else {
-				setFrameCover(undefined);
-			}
+			// if (file !== null && crop) {
+			// 	setFrameCover({partName: 'cover', x: crop.x, y: crop.y, width: crop?.width, height: crop.height});
+			// } else {
+			// 	setFrameCover(undefined);
+			// }
 		},
-		[setCover, setFrameCover],
+		[setCover],
 	);
 
 	return (
@@ -164,8 +164,10 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 					</Grid>
 					<Grid item xs={12} md={6}>
 						<SwitchField
-							defaultChecked={recommended}
-							onChange={(e) => setRecommended(Boolean(e.target.value))}
+							checked={recommended}
+							onChange={(e) => {
+								setRecommended(Boolean(e.target.checked));
+							}}
 							label="Добавить в «Рекомендуем»"
 						/>
 					</Grid>
@@ -178,7 +180,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 				<FileFiledWithPreview
 					totalFiles={1}
 					isImageAllowed
-					onAttachAndCrop={onAttachAndCropBackground}
+					onAttach={onAttachBackground}
 					label="Обложка объекта*"
 					files={[cover]}
 				/>

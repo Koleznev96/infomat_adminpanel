@@ -156,20 +156,24 @@ const AddressWithMapField = ({
 
 	return (
 		<Grid container direction="column">
-			{label && <Typography className={style.label}>{label}</Typography>}
+			{/* {label && <Typography className={style.label}>{label}</Typography>} */}
 			<Grid container spacing={3}>
-				<Grid item xs={12} md={6}>
-					<div ref={anchorEl} style={{paddingBottom: 20}}>
-						<TextField
-							// ref={anchorEl}
-							onChange={(e) => serachChange(e.target.value)}
-							value={address}
-							onFocus={openMenu}
-							placeholder={placeholder}
-							error={hasError}
-						/>
-					</div>
-					<TextField label={'Адрес на английском языке'} disabled value={addressEn} placeholder={placeholder} />
+				<Grid item container xs={12} md={12} spacing={3}>
+					<Grid item xs={12} md={6}>
+						<div ref={anchorEl}>
+							<TextField
+								label={label}
+								onChange={(e) => serachChange(e.target.value)}
+								value={address}
+								onFocus={openMenu}
+								placeholder={placeholder}
+								error={hasError}
+							/>
+						</div>
+					</Grid>
+					<Grid item xs={12} md={6}>
+						<TextField label={'Адрес на английском языке'} disabled value={addressEn} placeholder={placeholder} />
+					</Grid>
 					<Popper
 						popperOptions={popperOptions}
 						placement={'bottom-start'}
@@ -213,7 +217,7 @@ const AddressWithMapField = ({
 						</Button>
 					)} */}
 				</Grid>
-				<Grid item xs={12} md={6}>
+				<Grid item xs={12} md={12}>
 					<div className={style.container}>
 						<Map
 							modules={['Placemark', 'geoObject.addon.balloon']}

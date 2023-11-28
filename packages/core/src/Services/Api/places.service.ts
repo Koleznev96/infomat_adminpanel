@@ -44,7 +44,7 @@ async function deleteItem(id: number) {
 
 async function updateItem({id, cover, photos, frames, ...data}: TPlacesCreate) {
 	const formData = new FormData();
-	const dataValid = {...data, frames: _.filter(frames, (item) => !_.isUndefined(item))};
+	const dataValid = {...data, frames: _.filter(frames, (item) => !_.isUndefined(item) && item.partName !== null)};
 	formData.append(
 		'place',
 		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(dataValid))], {
@@ -65,11 +65,12 @@ async function updateItem({id, cover, photos, frames, ...data}: TPlacesCreate) {
 	return api.patch(`${URL}/${id}`, formData);
 }
 
-async function createItem({cover, photos, ...data}: TPlacesCreate) {
+async function createItem({cover, photos, frames, ...data}: TPlacesCreate) {
 	const formData = new FormData();
+	const dataValid = {...data, frames: _.filter(frames, (item) => !_.isUndefined(item) && item.partName !== null)};
 	formData.append(
 		'place',
-		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(data))], {type: 'application/json'}),
+		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(dataValid))], {type: 'application/json'}),
 	);
 	if (cover?.url3x2Original instanceof File) {
 		formData.append('cover', cover.url3x2Original);

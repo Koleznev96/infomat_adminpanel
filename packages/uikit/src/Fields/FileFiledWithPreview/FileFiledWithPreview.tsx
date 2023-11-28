@@ -20,6 +20,19 @@ export interface ILocalFile {
 	name: string;
 }
 
+function getImageDimensions(file: File): Promise<HTMLImageElement> {
+	return new Promise((resolve, reject) => {
+		const img = new Image();
+		img.onload = () => {
+			resolve(img);
+		};
+		img.onerror = () => {
+			reject(new Error('Failed to load image'));
+		};
+		img.src = URL.createObjectURL(file);
+	});
+}
+
 const FileFiledWithPreview = ({
 	label,
 	files = [{url: null}],
@@ -43,6 +56,7 @@ const FileFiledWithPreview = ({
 			} else {
 				onAttach && onAttach(index, file);
 			}
+			setCrop(undefined);
 		},
 		[onAttachAndCrop, onAttach, setImageCrop, setIndexCrop],
 	);
@@ -52,7 +66,27 @@ const FileFiledWithPreview = ({
 	}, [setImageCrop]);
 
 	const saveCropImage = useCallback(() => {
-		onAttachAndCrop && onAttachAndCrop(indexCrop, imageCrop, crop);
+		if (imageCrop)
+			getImageDimensions(imageCrop)
+				.then((img) => {
+					const {width, height} = img;
+					if (crop) {
+						const data = {
+							x: (Math.round(crop?.x) * width) / 100,
+							y: (Math.round(crop?.y) * height) / 100,
+							height: (Math.round(crop?.height) * height) / 100,
+							width: (Math.round(crop?.width) * width) / 100,
+							unit: crop.unit,
+						};
+						onAttachAndCrop && onAttachAndCrop(indexCrop, imageCrop, data);
+					}
+					setCrop(undefined);
+				})
+				.catch((error) => {
+					console.log('Error:', error);
+					setCrop(undefined);
+				});
+
 		exitCrop();
 	}, [onAttachAndCrop, exitCrop, indexCrop, imageCrop, crop]);
 
@@ -60,6 +94,7 @@ const FileFiledWithPreview = ({
 		(index: number) => {
 			onAttachAndCrop && onAttachAndCrop(index, null, undefined);
 			onAttach && onAttach(index, null);
+			setCrop(undefined);
 		},
 		[onAttachAndCrop, onAttach],
 	);
@@ -139,7 +174,7 @@ const FileFiledWithPreview = ({
 					<Typography className={style.title}>Выберите 2:3 области</Typography>
 					<div className={style.boxCrop}>
 						{imageCrop && (
-							<ReactCrop aspect={3 / 2} crop={crop} onChange={setCrop}>
+							<ReactCrop aspect={3 / 2} crop={crop} onChange={(_, value) => setCrop(value)}>
 								<img className={style.imgCrop} src={URL.createObjectURL(imageCrop)} />
 							</ReactCrop>
 						)}
@@ -148,7 +183,7 @@ const FileFiledWithPreview = ({
 						<Button className={style.button} variant="outlined" onClick={exitCrop}>
 							Отменить
 						</Button>
-						<Button variant="contained" onClick={saveCropImage}>
+						<Button disabled={crop === undefined || crop === null} variant="contained" onClick={saveCropImage}>
 							Сохранить
 						</Button>
 					</Grid>
