@@ -24,6 +24,7 @@ export type TPlacesCreate = {
 	cover?: TFileCrop;
 	photos?: TFileCrop[];
 	frames?: TFrameCrop[];
+	coverFrame?: TFrameCrop;
 	subcategory?: TSubcategoryObjectVM;
 	photoIdsForRemoving?: number[];
 	linkForQrCode?: string;

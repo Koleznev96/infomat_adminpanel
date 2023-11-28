@@ -46,7 +46,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 	const [photoIdsForRemoving, setPhotoIdsForRemoving] = useState<number[]>([]);
 	const [linkForQrCode, setLinkForQrCode] = useState(placesObjectVM?.linkForQrCode || '');
 	const [leng, setLeng] = useState('ru');
-	const [frameCover, setFrameCover] = useState<TFrameCrop | undefined>(undefined);
+	const [coverFrame, setCoverFrame] = useState<TFrameCrop | undefined>(placesObjectVM?.coverFrame || undefined);
 
 	const titleValue = leng === 'ru' ? title : titleEn;
 	const setTitleValue = leng === 'ru' ? setTitle : setTitleEn;
@@ -68,7 +68,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 			photoIdsForRemoving,
 			photos,
 			cover,
-			frames: [...frames, frameCover],
+			frames,
 			title,
 			titleEn: titleEn.length ? titleEn : undefined,
 			description,
@@ -83,6 +83,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 			address,
 			linkForQrCode,
 			workingHoursEn,
+			coverFrame,
 		});
 	}, [
 		id,
@@ -101,7 +102,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 		email,
 		website,
 		onSubmit,
-		frameCover,
+		coverFrame,
 		workingHours,
 		address,
 		linkForQrCode,
@@ -144,13 +145,13 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 	);
 
 	const onAttachBackground = useCallback(
-		(index: number, file: File | null) => {
+		(index: number, file: File | null, crop?: Crop) => {
 			setCover({url3x2Original: file});
-			// if (file !== null && crop) {
-			// 	setFrameCover({partName: 'cover', x: crop.x, y: crop.y, width: crop?.width, height: crop.height});
-			// } else {
-			// 	setFrameCover(undefined);
-			// }
+			if (file !== null && crop) {
+				setCoverFrame({partName: 'cover', x: crop.x, y: crop.y, width: crop?.width, height: crop.height});
+			} else {
+				setCoverFrame(undefined);
+			}
 		},
 		[setCover],
 	);
@@ -180,7 +181,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 				<FileFiledWithPreview
 					totalFiles={1}
 					isImageAllowed
-					onAttach={onAttachBackground}
+					onAttachAndCrop={onAttachBackground}
 					label="Обложка объекта*"
 					files={[cover]}
 				/>

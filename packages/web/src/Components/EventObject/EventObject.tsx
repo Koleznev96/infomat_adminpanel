@@ -41,7 +41,7 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 	const [photos, setPhotos] = useState<TFileCrop[]>(eventsObjectVM?.photos || []);
 	const [photoIdsForRemoving, setPhotoIdsForRemoving] = useState<number[]>([]);
 	const [leng, setLeng] = useState('ru');
-	const [frameCover, setFrameCover] = useState<TFrameCrop | undefined>(undefined);
+	const [coverFrame, setCoverFrame] = useState<TFrameCrop | undefined>(eventsObjectVM?.coverFrame || undefined);
 	const [startDate, setstartDate] = useState(eventsObjectVM?.startDate || '');
 	const [endDate, setendDate] = useState(eventsObjectVM?.endDate || '');
 	const [startTime, setstartTime] = useState(eventsObjectVM?.startTime || '');
@@ -67,7 +67,7 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 			photoIdsForRemoving,
 			photos,
 			cover,
-			frames: [...frames, frameCover],
+			frames,
 			title,
 			titleEn: titleEn.length ? titleEn : undefined,
 			description,
@@ -82,6 +82,7 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 			endDate: endDate.length ? endDate : undefined,
 			endTime: endTime.length ? endTime : undefined,
 			linkForQrCode,
+			coverFrame,
 		});
 	}, [
 		id,
@@ -98,7 +99,7 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 		email,
 		website,
 		onSubmit,
-		frameCover,
+		coverFrame,
 		address,
 		startDate,
 		startTime,
@@ -143,8 +144,13 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 	);
 
 	const onAttachBackground = useCallback(
-		(index: number, file: File | null) => {
+		(index: number, file: File | null, crop?: Crop) => {
 			setCover({url3x2Original: file});
+			if (file !== null && crop) {
+				setCoverFrame({partName: 'cover', x: crop.x, y: crop.y, width: crop?.width, height: crop.height});
+			} else {
+				setCoverFrame(undefined);
+			}
 		},
 		[setCover],
 	);
@@ -165,7 +171,7 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 				<FileFiledWithPreview
 					totalFiles={1}
 					isImageAllowed
-					onAttach={onAttachBackground}
+					onAttachAndCrop={onAttachBackground}
 					label="Обложка объекта*"
 					files={[cover]}
 				/>

@@ -23,6 +23,7 @@ export type TEventsCreate = {
 	cover?: TFileCrop;
 	photos?: TFileCrop[];
 	frames?: TFrameCrop[];
+	coverFrame?: TFrameCrop;
 	photoIdsForRemoving?: number[];
 	linkForQrCode?: string;
 	address?: {
