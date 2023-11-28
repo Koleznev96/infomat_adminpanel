@@ -1,4 +1,5 @@
-import {put, call} from 'typed-redux-saga';
+import {put, call, take} from 'typed-redux-saga';
+import {AxiosResponse} from 'axios';
 
 import {getNavigationContext} from '@infomat/core/src/Redux/sagaContext';
 import {subcategoryObjectClientToServerActions} from '@infomat/core/src/Redux/SubcategoryObject/Actions/subcategoryObjectClientToServerActions';
@@ -6,13 +7,20 @@ import {subcategoryObjectClientOnlyActions} from '@infomat/core/src/Redux/Subcat
 import notificationsClientOnlyActions from '@infomat/core/src/Redux/Notifications/Actions/notificationsClientOnlyActions';
 import {EnumNotificationSeverity} from '@infomat/uikit/src/Notification/EnumNotificationSeverity';
 import {subcategoryObject} from '@infomat/core/src/Services/Api/subcategoryObject.service';
+import {TRespounseData} from '@infomat/core/src/Types/PartialBy';
+import {TSubcategoryObjectVM} from '@infomat/core/src/Redux/SubcategoryObject/entityAdapter';
 
 const createCategoryObjectSaga = function* ({
 	payload,
 }: ReturnType<typeof subcategoryObjectClientToServerActions.createCategory>) {
 	try {
-		const {goSubcategoriesObjects} = yield* getNavigationContext();
-		yield subcategoryObject.createItem(payload);
+		const {goSubcategoryObject} = yield* getNavigationContext();
+		const response: AxiosResponse = yield subcategoryObject.createItem(payload);
+		const data: TRespounseData<TSubcategoryObjectVM> = response.data;
+
+		yield* call(goSubcategoryObject, data.data.id);
+
+		yield* take(subcategoryObjectClientOnlyActions.setData.type);
 		yield put(
 			notificationsClientOnlyActions.enqueuePersistent({
 				notificationTitle: 'Подкатегория успешно создана',
@@ -20,7 +28,6 @@ const createCategoryObjectSaga = function* ({
 				severity: EnumNotificationSeverity.SUCCESS,
 			}),
 		);
-		yield* call(goSubcategoriesObjects);
 	} catch (error) {
 		yield* put(subcategoryObjectClientOnlyActions.stopLoading());
 	}

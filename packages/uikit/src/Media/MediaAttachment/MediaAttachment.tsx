@@ -46,7 +46,7 @@ const MediaAttachment = ({
 			supportedMimeTypes['image/png'] = ['.png'];
 			supportedMimeTypes['image/svg'] = ['.svg'];
 			supportedMimeTypes['image/tiff'] = ['.tif', '.tiff'];
-			supportedMimeTypes['image/webp'] = ['.webp'];
+			// supportedMimeTypes['image/webp'] = ['.webp'];
 			supportedMimeTypes['image/heic'] = ['.heic'];
 			supportedMimeTypes['image/heif'] = ['.heif'];
 		}

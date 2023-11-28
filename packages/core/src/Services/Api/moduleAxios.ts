@@ -14,8 +14,10 @@ const currentUrl = window.location.href;
 const parsedUrl = new URL(currentUrl);
 const baseUrl = parsedUrl.origin;
 
+const isDevUrl = baseUrl === 'http://localhost:3000' ? 'http://smolenskis.site/api' : `${baseUrl}/api`;
+
 const config = {
-	baseURL: `${baseUrl}/api`,
+	baseURL: isDevUrl,
 	withCredentials: true,
 	headers: {
 		Accept: 'application/json',

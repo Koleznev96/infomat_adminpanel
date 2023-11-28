@@ -1,18 +1,23 @@
-import {put, call} from 'typed-redux-saga';
+import {put} from 'typed-redux-saga';
+import {AxiosResponse} from 'axios';
 
 import {categoryObjectClientToServerActions} from '@infomat/core/src/Redux/CategoryObject/Actions/categoryObjectClientToServerActions';
-import {getNavigationContext} from '@infomat/core/src/Redux/sagaContext';
 import {categoryObjectService} from '@infomat/core/src/Services/Api/categoryObject.service';
 import {categoryObjectClientOnlyActions} from '@infomat/core/src/Redux/CategoryObject/Actions/categoryObjectClientOnlyActions';
 import notificationsClientOnlyActions from '@infomat/core/src/Redux/Notifications/Actions/notificationsClientOnlyActions';
 import {EnumNotificationSeverity} from '@infomat/uikit/src/Notification/EnumNotificationSeverity';
+import {TCategoryObjectVM} from '@infomat/core/src/Redux/CategoryObject/entityAdapter';
+import {TRespounseData} from '@infomat/core/src/Types/PartialBy';
 
 const updateCategoryObjectSaga = function* ({
 	payload,
 }: ReturnType<typeof categoryObjectClientToServerActions.updateCategory>) {
 	try {
-		const {goCategoriesObjects} = yield* getNavigationContext();
-		yield categoryObjectService.updateItem(payload);
+		const response: AxiosResponse = yield categoryObjectService.updateItem(payload);
+		const data: TRespounseData<TCategoryObjectVM> = response.data;
+
+		yield* put(categoryObjectClientOnlyActions.setData(data.data));
+
 		yield put(
 			notificationsClientOnlyActions.enqueuePersistent({
 				notificationTitle: 'Категория успешно обновлена',
@@ -20,7 +25,6 @@ const updateCategoryObjectSaga = function* ({
 				severity: EnumNotificationSeverity.SUCCESS,
 			}),
 		);
-		yield* call(goCategoriesObjects);
 	} catch (error) {
 		yield* put(categoryObjectClientOnlyActions.stopLoading());
 	}
