@@ -14,22 +14,24 @@ import {Routes} from 'src/Routes/Routes';
 import TouristObject from './TouristObject';
 
 const TouristObjectContainer = ({id}: TTouristObjectContainerProps) => {
-	const placesObjectVM = isUndefined(id) ? undefined : useStoreSelector(selectPlacesData);
+	const placesObjectVM = useStoreSelector(selectPlacesData);
 	const isLoading = useStoreSelector(selectPlacesIsLoading);
 	const onDelete = useActionDispatcher(placesClientToServerActions.deleteCategory);
 	const onUpdate = useActionDispatcher(placesClientToServerActions.updateCategory);
 	const onCreate = useActionDispatcher(placesClientToServerActions.createCategory);
 	const PlacesLink = useRouterLinkForMui(Routes.touristObjects);
 
+	const dataVM = isUndefined(id) ? undefined : placesObjectVM;
+
 	return (
 		<Page
-			isLoading={isLoading || (isUndefined(placesObjectVM) && !isUndefined(id))}
+			isLoading={isLoading || (isUndefined(dataVM) && !isUndefined(id))}
 			backLink={PlacesLink}
 			label={isUndefined(id) ? 'Создание объекта' : 'Редактирование объекта'}
 		>
 			<TouristObject
 				id={id}
-				placesObjectVM={placesObjectVM}
+				placesObjectVM={dataVM}
 				onSubmit={isUndefined(id) ? onCreate : onUpdate}
 				onDelete={onDelete}
 			/>

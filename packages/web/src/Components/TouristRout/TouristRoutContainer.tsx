@@ -14,20 +14,22 @@ import {Routes} from 'src/Routes/Routes';
 import TouristRout from './TouristRout';
 
 const TouristRoutContainer = ({id}: TTouristRoutContainerProps) => {
-	const routesVM = isUndefined(id) ? undefined : useStoreSelector(selectRoutesData);
+	const routesVM = useStoreSelector(selectRoutesData);
 	const isLoading = useStoreSelector(selectRoutesIsLoading);
 	const onDelete = useActionDispatcher(routesClientToServerActions.deleteCategory);
 	const onUpdate = useActionDispatcher(routesClientToServerActions.updateCategory);
 	const onCreate = useActionDispatcher(routesClientToServerActions.createCategory);
 	const RoutesLink = useRouterLinkForMui(Routes.touristRoutes);
 
+	const dataVM = isUndefined(id) ? undefined : routesVM;
+
 	return (
 		<Page
-			isLoading={isLoading || (isUndefined(routesVM) && !isUndefined(id))}
+			isLoading={isLoading || (isUndefined(dataVM) && !isUndefined(id))}
 			backLink={RoutesLink}
 			label={isUndefined(id) ? 'Создание маршрута' : 'Редактирование маршрута'}
 		>
-			<TouristRout id={id} routesVM={routesVM} onSubmit={isUndefined(id) ? onCreate : onUpdate} onDelete={onDelete} />
+			<TouristRout id={id} routesVM={dataVM} onSubmit={isUndefined(id) ? onCreate : onUpdate} onDelete={onDelete} />
 		</Page>
 	);
 };

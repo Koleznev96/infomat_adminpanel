@@ -14,22 +14,24 @@ import {Routes} from 'src/Routes/Routes';
 import SubcategoryObject from './SubcategoryObject';
 
 const SubcategoryObjectContainer = ({id}: TSubcategoryObjectContainerProps) => {
-	const subcategoryObjectVM = isUndefined(id) ? undefined : useStoreSelector(selectSubcategoryObjectData);
+	const subcategoryObjectVM = useStoreSelector(selectSubcategoryObjectData);
 	const isLoading = useStoreSelector(selectSubcategoryObjectIsLoading);
 	const onDelete = useActionDispatcher(subcategoryObjectClientToServerActions.deleteCategory);
 	const onUpdate = useActionDispatcher(subcategoryObjectClientToServerActions.updateCategory);
 	const onCreate = useActionDispatcher(subcategoryObjectClientToServerActions.createCategory);
 	const SubategoriesObjectsLink = useRouterLinkForMui(Routes.subcategoriesObjects);
 
+	const dataVM = isUndefined(id) ? undefined : subcategoryObjectVM;
+
 	return (
 		<Page
-			isLoading={isLoading || (isUndefined(subcategoryObjectVM) && !isUndefined(id))}
+			isLoading={isLoading || (isUndefined(dataVM) && !isUndefined(id))}
 			backLink={SubategoriesObjectsLink}
 			label={isUndefined(id) ? 'Создание категории объектов' : 'Редактирование категории объектов'}
 		>
 			<SubcategoryObject
 				id={id}
-				subcategoryObjectVM={subcategoryObjectVM}
+				subcategoryObjectVM={dataVM}
 				onSubmit={isUndefined(id) ? onCreate : onUpdate}
 				onDelete={onDelete}
 			/>

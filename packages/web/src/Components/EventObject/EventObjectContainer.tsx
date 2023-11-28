@@ -14,22 +14,24 @@ import {Routes} from 'src/Routes/Routes';
 import EventObject from './EventObject';
 
 const EventObjectContainer = ({id}: TEventObjectContainerProps) => {
-	const eventsObjectVM = isUndefined(id) ? undefined : useStoreSelector(selectEventsData);
+	const eventsObjectVM = useStoreSelector(selectEventsData);
 	const isLoading = useStoreSelector(selectEventsIsLoading);
 	const onDelete = useActionDispatcher(eventsClientToServerActions.deleteCategory);
 	const onUpdate = useActionDispatcher(eventsClientToServerActions.updateCategory);
 	const onCreate = useActionDispatcher(eventsClientToServerActions.createCategory);
 	const EventsLink = useRouterLinkForMui(Routes.touristObjects);
 
+	const dataVM = isUndefined(id) ? undefined : eventsObjectVM;
+
 	return (
 		<Page
-			isLoading={isLoading || (isUndefined(eventsObjectVM) && !isUndefined(id))}
+			isLoading={isLoading || (isUndefined(dataVM) && !isUndefined(id))}
 			backLink={EventsLink}
 			label={isUndefined(id) ? 'Создание мероприятия' : 'Редактирование мероприятия'}
 		>
 			<EventObject
 				id={id}
-				eventsObjectVM={eventsObjectVM}
+				eventsObjectVM={dataVM}
 				onSubmit={isUndefined(id) ? onCreate : onUpdate}
 				onDelete={onDelete}
 			/>

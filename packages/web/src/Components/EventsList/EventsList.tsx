@@ -87,6 +87,8 @@ const EventsList = ({
 							onAsc={onAscDate}
 							onDec={onDecDate}
 							onReset={onResetDate}
+							placement="bottom-start"
+							labels={['Asc', 'Desc', 'Reset']}
 						/>
 					</Grid>
 					<Grid item xs={1} md={0.5}>

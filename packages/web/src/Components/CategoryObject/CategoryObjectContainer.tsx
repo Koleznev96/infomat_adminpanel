@@ -14,22 +14,24 @@ import {Routes} from 'src/Routes/Routes';
 import CategoryObject from './CategoryObject';
 
 const CategoryObjectContainer = ({id}: TCategoryObjectContainerProps) => {
-	const categoryObjectVM = isUndefined(id) ? undefined : useStoreSelector(selectCategoryObjectData);
+	const categoryObjectVM = useStoreSelector(selectCategoryObjectData);
 	const isLoading = useStoreSelector(selectCategoryObjectIsLoading);
 	const onDelete = useActionDispatcher(categoryObjectClientToServerActions.deleteCategory);
 	const onUpdate = useActionDispatcher(categoryObjectClientToServerActions.updateCategory);
 	const onCreate = useActionDispatcher(categoryObjectClientToServerActions.createCategory);
 	const CategoriesObjectsLink = useRouterLinkForMui(Routes.categoriesObjects);
 
+	const dataVM = isUndefined(id) ? undefined : categoryObjectVM;
+
 	return (
 		<Page
-			isLoading={isLoading || (isUndefined(categoryObjectVM) && !isUndefined(id))}
+			isLoading={isLoading || (isUndefined(dataVM) && !isUndefined(id))}
 			backLink={CategoriesObjectsLink}
 			label={isUndefined(id) ? 'Создание категории объектов' : 'Редактирование категории объектов'}
 		>
 			<CategoryObject
 				id={id}
-				categoryObjectVM={categoryObjectVM}
+				categoryObjectVM={dataVM}
 				onSubmit={isUndefined(id) ? onCreate : onUpdate}
 				onDelete={onDelete}
 			/>
