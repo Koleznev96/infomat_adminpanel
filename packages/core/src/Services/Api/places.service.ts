@@ -20,17 +20,21 @@ async function getList({
 	search,
 	status,
 	recommendedOnly,
+	subcategoryId,
 }: {
 	page?: number;
 	size?: number;
 	search?: string;
 	status?: string | null;
 	recommendedOnly?: boolean | null;
+	subcategoryId?: number | null;
 }) {
 	return api.get(
 		`${URL}?page=${page}&size=${size}${!isUndefined(search) ? '&search=' + search : ''}${
 			!isUndefined(status) && status !== null ? '&status=' + status : ''
-		}${!isUndefined(recommendedOnly) && recommendedOnly !== null ? '&recommendedOnly=' + recommendedOnly : ''}`,
+		}${!isUndefined(recommendedOnly) && recommendedOnly !== null ? '&recommendedOnly=' + recommendedOnly : ''}${
+			!isUndefined(subcategoryId) && subcategoryId !== null ? '&subcategoryId=' + subcategoryId : ''
+		}`,
 	);
 }
 

@@ -12,9 +12,10 @@ import {selectPlacesSearch} from '@infomat/core/src/Redux/Places/Selectors/selec
 import {selectPlacesStatus} from '@infomat/core/src/Redux/Places/Selectors/selectPlacesStatus';
 import {selectPlacesRecommendedOnly} from '@infomat/core/src/Redux/Places/Selectors/selectPlacesRecommendedOnly';
 import {placesService} from '@infomat/core/src/Services/Api/places.service';
+import {selectPlacesSubcategoryId} from '@infomat/core/src/Redux/Places/Selectors/selectPlacesSubcategoryId';
 
 const getListSaga = function* ({
-	payload: {size, page, search, status, recommendedOnly},
+	payload: {size, page, search, status, recommendedOnly, subcategoryId},
 }: ReturnType<typeof placesClientToServerActions.getList>) {
 	try {
 		const sizeUp = yield* select(selectPlacesSizePage);
@@ -22,12 +23,14 @@ const getListSaga = function* ({
 		const searchUp = yield* select(selectPlacesSearch);
 		const statusUp = yield* select(selectPlacesStatus);
 		const recommendedOnlyUp = yield* select(selectPlacesRecommendedOnly);
+		const subcategoryIdUp = yield* select(selectPlacesSubcategoryId);
 		const response: AxiosResponse = yield placesService.getList({
 			size: size ?? sizeUp,
 			page: page ?? pageUp,
 			search: search ?? searchUp,
 			status: _.isUndefined(status) ? statusUp : status,
 			recommendedOnly: _.isUndefined(recommendedOnly) ? recommendedOnlyUp : recommendedOnly,
+			subcategoryId: _.isUndefined(subcategoryId) ? subcategoryIdUp : subcategoryId,
 		});
 		const del = size || sizeUp;
 		const data: TRespounse<TPlacesVM> = response.data;

@@ -2,6 +2,7 @@ import React, {useCallback} from 'react';
 import {Grid, Typography} from '@mui/material';
 import _ from 'lodash';
 
+import {Icon, IconSize, IconType} from '@infomat/uikit/src/Icon';
 import PropertyHandler from '@infomat/core/src/Types/PropertyHandler';
 import PageListIteration from '@infomat/uikit/src/PageListIteration/PageListIteration';
 import FilterMenuItem from '@infomat/uikit/src/ActionMenu/FilterMenuItem/FilterMenuItem';
@@ -11,6 +12,7 @@ import {Routes} from 'src/Routes/Routes';
 
 import style from './TouristObjectsList.module.scss';
 import TouristObjectItemContainer from './TouristObjectItem/TouristObjectItemContainer';
+import SelectCategoryFieldContainer from '../SelectCategoryField/SelectCategoryFieldContainer';
 
 const TouristObjectsList = ({
 	getData,
@@ -22,6 +24,7 @@ const TouristObjectsList = ({
 	isLoading,
 	search,
 	recommendedOnly,
+	subcategoryId,
 	status,
 	isRemoveRecommend,
 }: TTouristObjectsListProps) => {
@@ -50,6 +53,17 @@ const TouristObjectsList = ({
 		getData({status: null, page: 0});
 	}, [getData]);
 
+	const onFilterSubcategory = useCallback(
+		(value: number) => {
+			getData({page: 0, subcategoryId: value});
+		},
+		[getData],
+	);
+
+	const onResetFilterSubcategory = useCallback(() => {
+		getData({page: 0, subcategoryId: null});
+	}, [getData]);
+
 	return (
 		<PageListIteration
 			numberPages={totalPage}
@@ -61,6 +75,23 @@ const TouristObjectsList = ({
 			addLink={TouristObjectCreateLink}
 			startCrrentPageNumber={currentPage}
 			startValueLimit={size}
+			FilterComponent={
+				<div className={style.filter}>
+					<div className={style.select}>
+						<SelectCategoryFieldContainer
+							onChange={onFilterSubcategory}
+							value={subcategoryId === null ? undefined : subcategoryId}
+							isShowSubcategory
+							placeholder="Подкатегория объекта"
+						/>
+					</div>
+					{subcategoryId !== null && !_.isUndefined(subcategoryId) && (
+						<div onClick={onResetFilterSubcategory} className={style.resetButton}>
+							<Icon type={IconType.close} size={IconSize.tiny} />
+						</div>
+					)}
+				</div>
+			}
 		>
 			<Grid container className={style.table} direction="column">
 				<Grid item container className={style.header}>
@@ -102,6 +133,7 @@ type TTouristObjectsListProps = {
 	error?: string;
 	status?: string | null;
 	recommendedOnly?: boolean | null;
+	subcategoryId?: number | null;
 	isRemoveRecommend?: boolean;
 	getData: PropertyHandler<{
 		page?: number;
@@ -109,6 +141,7 @@ type TTouristObjectsListProps = {
 		search?: string;
 		status?: string | null;
 		recommendedOnly?: boolean | null;
+		subcategoryId?: number | null;
 	}>;
 };
 

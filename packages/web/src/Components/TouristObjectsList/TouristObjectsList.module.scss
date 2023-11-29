@@ -24,24 +24,6 @@
 	max-height: 50px;
 }
 
-.filter {
-	display: flex;
-	align-items: center;
-	cursor: pointer;
-	user-select: none;
-	transition: all 0.3s;
-	border-radius: 6px;
-	padding: 4px 6px;
-
-	&:hover {
-		background-color: themeColor(--mui-palette-slate-200);
-	}
-
-	:global(.svg-icon) {
-		margin-left: 16px;
-	}
-}
-
 .title {
 	font-size: 14px;
 	font-style: normal;
@@ -56,4 +38,30 @@
 	width: 100%;
 	height: 100%;
 	flex: 1;
+}
+
+.filter {
+	padding: 0 0 30px 30px;
+	display: flex;
+	align-items: center;
+}
+
+.select {
+	width: 330px;
+}
+
+.resetButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 6px;
+	margin: 0 10px;
+	cursor: pointer;
+	transition: none 0.3s;
+
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.05);
+	}
 }

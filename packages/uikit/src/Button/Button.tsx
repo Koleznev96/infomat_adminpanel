@@ -34,8 +34,8 @@ const Button = forwardRef(
 					)
 				}
 				endIcon={
-					(endIconType && <Icon type={endIconType} size={iconSize} />) ||
-					(iconType && <Icon type={iconType} size={iconSize} />)
+					(endIconType && <Icon color={iconColor} type={endIconType} size={iconSize} />) ||
+					(iconType && <Icon color={iconColor} type={iconType} size={iconSize} />)
 				}
 				className={classNames(className, {
 					'Mui-iconOnly': !_.isUndefined(iconType) && !children,

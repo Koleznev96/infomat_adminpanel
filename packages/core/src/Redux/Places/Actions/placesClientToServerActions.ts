@@ -24,6 +24,7 @@ class PlacesClientToServerActions extends ClientOnlyActions<EnumStore.PLACES> {
 			search?: string;
 			status?: string | null;
 			recommendedOnly?: boolean | null;
+			subcategoryId?: number | null;
 		}>(),
 	);
 

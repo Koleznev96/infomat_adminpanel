@@ -11,6 +11,7 @@ import {selectPlacesCurrentPage} from '@infomat/core/src/Redux/Places/Selectors/
 import {selectPlacesIds} from '@infomat/core/src/Redux/Places/Selectors/defaultSelectors';
 import {placesClientToServerActions} from '@infomat/core/src/Redux/Places/Actions/placesClientToServerActions';
 import {selectPlacesRecommendedOnly} from '@infomat/core/src/Redux/Places/Selectors/selectPlacesRecommendedOnly';
+import {selectPlacesSubcategoryId} from '@infomat/core/src/Redux/Places/Selectors/selectPlacesSubcategoryId';
 import {selectPlacesStatus} from '@infomat/core/src/Redux/Places/Selectors/selectPlacesStatus';
 
 import TouristObjectsList from './TouristObjectsList';
@@ -20,6 +21,7 @@ const TouristObjectsListContainer = ({isRemoveRecommend}: TTouristObjectsListCon
 	const totalPage = useStoreSelector(selectPlacesTotalPages);
 	const size = useStoreSelector(selectPlacesSizePage);
 	const search = useStoreSelector(selectPlacesSearch);
+	const subcategoryId = useStoreSelector(selectPlacesSubcategoryId);
 	const isLoading = useStoreSelector(selectPlacesIsLoading);
 	const currentPage = useStoreSelector(selectPlacesCurrentPage);
 	const status = useStoreSelector(selectPlacesStatus);
@@ -40,6 +42,7 @@ const TouristObjectsListContainer = ({isRemoveRecommend}: TTouristObjectsListCon
 			status={status}
 			recommendedOnly={recommendedOnly}
 			isRemoveRecommend={isRemoveRecommend}
+			subcategoryId={subcategoryId}
 		/>
 	);
 };

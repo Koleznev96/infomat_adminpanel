@@ -4,9 +4,10 @@ import {useStoreSelector} from '@infomat/core/src/Hooks/useStoreSelector';
 import {selectCategoryObjectIsLoading} from '@infomat/core/src/Redux/CategoryObject/Selectors/selectCategoryObjectIsLoading';
 import {selectCategoryObjectVMs} from '@infomat/core/src/Redux/CategoryObject/Selectors/defaultSelectors';
 import PropertyHandler from '@infomat/core/src/Types/PropertyHandler';
+import {selectSubcategoryObjectVMs} from '@infomat/core/src/Redux/SubcategoryObject/Selectors/defaultSelectors';
+import {selectSubcategoryObjectIsLoading} from '@infomat/core/src/Redux/SubcategoryObject/Selectors/selectSubcategoryObjectIsLoading';
 
 import SelectField from './SelectField';
-import {selectSubcategoryObjectVMs} from '@infomat/core/src/Redux/SubcategoryObject/Selectors/defaultSelectors';
 
 const SelectCategoryFieldContainer = ({
 	onChange,
@@ -17,7 +18,8 @@ const SelectCategoryFieldContainer = ({
 }: TSelectCategoryFieldContainerProps) => {
 	const categoryObjectVMs = useStoreSelector(selectCategoryObjectVMs);
 	const subcategoryObjectVMs = useStoreSelector(selectSubcategoryObjectVMs);
-	const isLoading = useStoreSelector(selectCategoryObjectIsLoading);
+	const isLoadingCategory = useStoreSelector(selectCategoryObjectIsLoading);
+	const isLoadingSubcategory = useStoreSelector(selectSubcategoryObjectIsLoading);
 
 	return (
 		<SelectField
@@ -26,7 +28,7 @@ const SelectCategoryFieldContainer = ({
 			label={label}
 			placeholder={placeholder}
 			value={value}
-			isLoading={isLoading}
+			isLoading={isShowSubcategory ? isLoadingSubcategory : isLoadingCategory}
 		/>
 	);
 };
