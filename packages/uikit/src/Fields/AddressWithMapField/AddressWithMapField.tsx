@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, useCallback} from 'react';
 import {
 	Typography,
 	Paper,
@@ -30,7 +30,10 @@ const AddressWithMapField = ({
 	addressForSearch,
 	addressForPoint,
 	isLoadingAddress,
+	errorCoordinates,
 	isLoadingCoordinates,
+	onSearchByGeocodingDragend,
+	addressForPointDragend,
 	onSearchByAddress,
 	onSearchByGeocoding,
 	onReset,
@@ -44,6 +47,18 @@ const AddressWithMapField = ({
 	const [isShow, open, close] = useBooleanState(false);
 	const [popperWidth, setPopperWidth] = useState(0);
 	const [isReadyYmaps, setIsReadyYmaps] = useState(false);
+	const [isChangeAddress, setIsChangeAddress] = useState<{latitude?: number; longitude?: number} | undefined>(
+		undefined,
+	);
+
+	const getAddress = (coords: number[]) => {
+		placemarkRef.current?.properties.set('iconCaption', 'loading..');
+		onSearchByGeocoding({latitude: coords[0], longitude: coords[1]});
+	};
+
+	const getAddressDragend = (coords: number[]) => {
+		onSearchByGeocodingDragend({latitude: coords[0], longitude: coords[1]});
+	};
 
 	const onSelect = (value: TAddress) => {
 		if (value.address && !_.isUndefined(value.latitude) && !_.isUndefined(value.longitude)) {
@@ -53,17 +68,32 @@ const AddressWithMapField = ({
 			placemarkRef.current = createPlacemark([value.latitude, value.longitude], value.address);
 			mapRef.current?.geoObjects.add(placemarkRef.current);
 			mapRef.current?.setCenter([value.latitude, value.longitude], 14);
+			placemarkRef.current?.events.add('dragend', function () {
+				const coords = placemarkRef.current?.geometry.getCoordinates();
+				getAddressDragend(coords);
+				setIsChangeAddress({latitude: coords[0], longitude: coords[1]});
+			});
 			setValue(value);
 			onReset();
 		}
 	};
 
-	useEffect(() => {
-		if (value && value.address?.length && isReadyYmaps) {
+	const upEffect = () => {
+		if (value && value.address?.length) {
 			mapRef.current?.geoObjects.removeAll();
 			onSelect(value);
 		}
-	}, [value, isReadyYmaps]);
+	};
+
+	useEffect(() => {
+		if (isReadyYmaps) {
+			upEffect();
+		}
+
+		return () => {
+			onReset();
+		};
+	}, [isReadyYmaps]);
 
 	const createPlacemark = (coords: number[], iconCaption?: string) => {
 		return new ymaps.current.Placemark(
@@ -78,7 +108,7 @@ const AddressWithMapField = ({
 		);
 	};
 
-	useEffect(() => {
+	const updateForPoint = useCallback((addressForPoint?: TAddress) => {
 		if (
 			addressForPoint &&
 			!_.isUndefined(addressForPoint.address) &&
@@ -92,9 +122,46 @@ const AddressWithMapField = ({
 				iconCaption: addressForPoint.address,
 				balloonContent: addressForPoint.address,
 			});
-
 			setValue(addressForPoint);
 		}
+	}, []);
+
+	const updateForPointDragend = useCallback(
+		(addressForPoint?: TAddress | null) => {
+			if (
+				addressForPoint &&
+				!_.isUndefined(addressForPoint.address) &&
+				!_.isUndefined(addressForPoint.latitude) &&
+				!_.isUndefined(addressForPoint.longitude)
+			) {
+				setAddress(addressForPoint.address);
+				setAddressEn(addressForPoint.addressEn || '');
+
+				placemarkRef.current?.properties.set({
+					iconCaption: addressForPoint.address,
+					balloonContent: addressForPoint.address,
+				});
+
+				if (isChangeAddress) {
+					setValue({...addressForPoint, latitude: isChangeAddress.latitude, longitude: isChangeAddress.longitude});
+				} else {
+					setValue(addressForPoint);
+				}
+			}
+			if (addressForPoint === null && placemarkRef.current && isChangeAddress) {
+				setValue({...value, latitude: isChangeAddress.latitude, longitude: isChangeAddress.longitude});
+			}
+		},
+		[setAddress, setAddressEn, isChangeAddress, setValue, value],
+	);
+
+	useEffect(() => {
+		updateForPointDragend(addressForPointDragend);
+		// onReset();
+	}, [addressForPointDragend]);
+
+	useEffect(() => {
+		updateForPoint(addressForPoint);
 		if (addressForPoint === null && placemarkRef.current) {
 			placemarkRef.current?.properties.set({
 				iconCaption: 'Server error',
@@ -107,19 +174,15 @@ const AddressWithMapField = ({
 
 	// useEffect на координаты, при получении обновляем
 
-	const getAddress = (coords: number[]) => {
-		placemarkRef.current?.properties.set('iconCaption', 'loading..');
-		onSearchByGeocoding({latitude: coords[0], longitude: coords[1]});
-	};
-
 	const onMapClick = (e: any) => {
 		const coords = e.get('coords');
-
 		mapRef.current?.geoObjects.removeAll();
 		placemarkRef.current = createPlacemark(coords);
 		mapRef.current?.geoObjects.add(placemarkRef.current);
 		placemarkRef.current?.events.add('dragend', function () {
-			getAddress(placemarkRef.current?.geometry.getCoordinates());
+			const coords = placemarkRef.current?.geometry.getCoordinates();
+			getAddressDragend(coords);
+			setIsChangeAddress({latitude: coords[0], longitude: coords[1]});
 		});
 		setAddress('');
 		getAddress(coords);
@@ -228,7 +291,7 @@ const AddressWithMapField = ({
 							instanceRef={mapRef}
 							onClick={onMapClick}
 							className={style.map}
-							defaultState={{center: [55.7522, 37.6156], zoom: 10}}
+							defaultState={{center: [54.47, 32.04], zoom: 10}}
 						></Map>
 					</div>
 				</Grid>
@@ -238,6 +301,8 @@ const AddressWithMapField = ({
 };
 
 type TAddressWithMapFieldProps = TextFieldProps & {
+	errorAddress?: string;
+	errorCoordinates?: string;
 	hasError?: boolean;
 	label?: string;
 	placeholder?: string;
@@ -245,10 +310,12 @@ type TAddressWithMapFieldProps = TextFieldProps & {
 	setValue: PropertyHandler<TAddress>;
 	addressForSearch: TAddress[];
 	addressForPoint?: TAddress;
+	addressForPointDragend?: TAddress | null;
 	isLoadingAddress?: boolean;
 	isLoadingCoordinates?: boolean;
 	onSearchByAddress: PropertyHandler<string>;
 	onSearchByGeocoding: PropertyHandler<{latitude?: number; longitude?: number}>;
+	onSearchByGeocodingDragend: PropertyHandler<{latitude?: number; longitude?: number}>;
 	onReset: PropertyHandler;
 };
 

@@ -29,8 +29,8 @@ const CategoryObject = ({onSubmit, onDelete, categoryObjectVM, id}: TCategoryObj
 		!color.length;
 
 	const onSave = useCallback(() => {
-		onSubmit({id, title, titleEn, backgroundColor, icon, description, descriptionEn});
-	}, [id, title, titleEn, backgroundColor, icon, onSubmit, description, descriptionEn]);
+		onSubmit({id, title, titleEn, backgroundColor, icon, description, descriptionEn, color});
+	}, [id, title, titleEn, backgroundColor, icon, onSubmit, description, descriptionEn, color]);
 
 	return (
 		<Grid container spacing={3}>

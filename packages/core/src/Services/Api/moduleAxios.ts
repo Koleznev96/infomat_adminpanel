@@ -63,7 +63,7 @@ export function replaceEmptyStringsWithUndefined(obj: any) {
 			if (_.isObject(value)) {
 				recursiveUpdate(value); // Рекурсивно вызываем функцию для вложенных объектов
 			} else if (value === '') {
-				obj[key] = undefined; // Заменяем пустую строку на undefined
+				obj[key] = null; // Заменяем пустую строку на undefined
 			}
 		});
 	}

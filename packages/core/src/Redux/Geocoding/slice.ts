@@ -30,6 +30,12 @@ const geocodingSlice = createSlice<TGeocodingSlice, SliceCaseReducers<TGeocoding
 			state.coordinates = action.payload;
 			state.isLoadingAddress = false;
 		});
+		builder.addCase(geocodingClientOnlyActions.upsertCoordinatesDragend, (state, action) => {
+			// 2.2
+			// получаем элемент с адресом
+			state.coordinatesDragend = action.payload;
+			state.isLoadingAddress = false;
+		});
 		builder.addCase(geocodingClientOnlyActions.setErrors, (state, action) => {
 			state.isLoadingCoordinates = false;
 			state.isLoadingAddress = false;
@@ -56,6 +62,7 @@ const geocodingSlice = createSlice<TGeocodingSlice, SliceCaseReducers<TGeocoding
 			state.isLoadingCoordinates = false;
 			state.address = [];
 			state.coordinates = undefined;
+			state.coordinatesDragend = undefined;
 		});
 	},
 });
@@ -67,6 +74,7 @@ export type TGeocodingSlice = {
 	errorCoordinates?: string;
 	address: TAddress[];
 	coordinates?: TAddress;
+	coordinatesDragend?: TAddress | null;
 };
 
 export default geocodingSlice;

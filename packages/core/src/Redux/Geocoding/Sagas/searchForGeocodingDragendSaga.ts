@@ -6,15 +6,16 @@ import {geocodingClientToServerActions} from '@infomat/core/src/Redux/Geocoding/
 import {TAddress} from '@infomat/core/src/Redux/Geocoding/entityAdapter';
 import {geocodingService} from '@infomat/core/src/Services/Api/geocoding.service';
 
-const searchForGeocodingSaga = function* ({payload}: ReturnType<typeof geocodingClientToServerActions.getAddress>) {
+const searchForGeocodingDragendSaga = function* ({
+	payload,
+}: ReturnType<typeof geocodingClientToServerActions.getAddressDragend>) {
 	try {
 		const response: AxiosResponse = yield geocodingService.getForGeocoding(payload);
 		const data: TAddress = response.data;
-		yield* put(geocodingClientOnlyActions.upsertCoordinates(data));
+		yield* put(geocodingClientOnlyActions.upsertCoordinatesDragend(data));
 	} catch (error) {
 		yield* put(geocodingClientOnlyActions.stopLoading());
-		yield* put(geocodingClientOnlyActions.setErrors({errorCoordinates: 'error'}));
 	}
 };
 
-export default searchForGeocodingSaga;
+export default searchForGeocodingDragendSaga;

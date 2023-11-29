@@ -79,7 +79,12 @@ const PageListIteration = ({
 			<Grid container className={style.header} spacing={3} direction="row">
 				{chengeSearch && (
 					<Grid item xs={12} md={8} className={style.input}>
-						<TextField value={search} onChange={(e) => chengeSearch(e.target.value)} className={style.search} />
+						<TextField
+							placeholder="Поиск"
+							value={search}
+							onChange={(e) => chengeSearch(e.target.value)}
+							className={style.search}
+						/>
 						<Icon
 							className={style.searchIcon}
 							type={IconType.search}

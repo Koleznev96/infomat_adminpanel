@@ -10,17 +10,24 @@ import PropertyHandler from '@infomat/core/src/Types/PropertyHandler';
 import useActionDispatcher from '@infomat/core/src/Hooks/useActionDispatcher';
 import {geocodingClientToServerActions} from '@infomat/core/src/Redux/Geocoding/Actions/geocodingClientToServerActions';
 import geocodingClientOnlyActions from '@infomat/core/src/Redux/Geocoding/Actions/geocodingClientOnlyActions';
+import {selectGeocodingErrors} from '@infomat/core/src/Redux/Geocoding/Selectors/selectGeocodingErrors';
+import {selectCoordinatesDragend} from '@infomat/core/src/Redux/Geocoding/Selectors/selectCoordinatesDragend';
 
 const GeocodingMapContainer = ({label, placeholder, value, setValue}: TGeocodingMapContainerProps) => {
 	const addressForSearch = useStoreSelector(selectAddress);
 	const addressForPoint = useStoreSelector(selectCoordinates);
+	const addressForPointDragend = useStoreSelector(selectCoordinatesDragend);
+	const {errorAddress, errorCoordinates} = useStoreSelector(selectGeocodingErrors);
 	const {isLoadingAddress, isLoadingCoordinates} = useStoreSelector(selectGeocodingIsLoading);
 	const onSearchByAddress = useActionDispatcher(geocodingClientToServerActions.getGeocoding);
+	const onSearchByGeocodingDragend = useActionDispatcher(geocodingClientToServerActions.getAddressDragend);
 	const onSearchByGeocoding = useActionDispatcher(geocodingClientToServerActions.getAddress);
 	const onReset = useActionDispatcher(geocodingClientOnlyActions.reset);
 
 	return (
 		<AddressWithMapField
+			errorAddress={errorAddress}
+			errorCoordinates={errorCoordinates}
 			value={value}
 			setValue={setValue}
 			label={label}
@@ -31,7 +38,9 @@ const GeocodingMapContainer = ({label, placeholder, value, setValue}: TGeocoding
 			isLoadingCoordinates={isLoadingCoordinates}
 			onSearchByAddress={onSearchByAddress}
 			onSearchByGeocoding={onSearchByGeocoding}
+			onSearchByGeocodingDragend={onSearchByGeocodingDragend}
 			onReset={onReset}
+			addressForPointDragend={addressForPointDragend}
 		/>
 	);
 };
