@@ -16,10 +16,17 @@ const CategoryObject = ({onSubmit, onDelete, categoryObjectVM, id}: TCategoryObj
 	const [description, setDescription] = useState(categoryObjectVM?.description || '');
 	const [descriptionEn, setDescriptionEn] = useState(categoryObjectVM?.descriptionEn || '');
 	const [backgroundColor, onBackgroundColor] = useState(categoryObjectVM?.backgroundColor || undefined);
+	const [color, onColor] = useState(categoryObjectVM?.color || undefined);
 	const [icon, onIcon] = useState(categoryObjectVM?.icon || {url: null});
 
 	const isDisabledSave =
-		!title.length || !titleEn.length || icon.url === null || backgroundColor === undefined || !backgroundColor.length;
+		!title.length ||
+		!titleEn.length ||
+		icon.url === null ||
+		backgroundColor === undefined ||
+		!backgroundColor.length ||
+		color === undefined ||
+		!color.length;
 
 	const onSave = useCallback(() => {
 		onSubmit({id, title, titleEn, backgroundColor, icon, description, descriptionEn});
@@ -30,11 +37,11 @@ const CategoryObject = ({onSubmit, onDelete, categoryObjectVM, id}: TCategoryObj
 			<Grid item container xs={12} md={12} gap={3}>
 				<IconFiledWithPreview onAttach={onIcon} file={icon} label="Загрузить иконку 30х30*" />
 			</Grid>
-			<Grid item container xs={12} md={12}>
-				<Grid item xs={12} md={6}>
-					{/* <IconFiledWithPreview onAttach={onBackground} file={background} label="Загрузить подложку 56х56" /> */}
-					<ColorPicker label="Цвет подложки (HEX, с решёткой)*" value={backgroundColor} setValue={onBackgroundColor} />
-				</Grid>
+			<Grid item xs={12} md={6}>
+				<ColorPicker label="Цвет подложки (HEX, с решёткой)*" value={backgroundColor} setValue={onBackgroundColor} />
+			</Grid>
+			<Grid item xs={12} md={6}>
+				<ColorPicker label="Основной цвет (HEX, с решёткой)*" value={color} setValue={onColor} />
 			</Grid>
 			<Grid item xs={12} md={6}>
 				<TextField

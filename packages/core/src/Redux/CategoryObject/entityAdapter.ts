@@ -8,6 +8,7 @@ export const categoryObjectAdapter = createEntityAdapter<TCategoryObjectVM>({
 
 export type TCategoryObjectCreate = {
 	id?: number;
+	color?: string;
 	backgroundColor?: string;
 	title?: string;
 	titleEn?: string;
