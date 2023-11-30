@@ -51,14 +51,43 @@ const FileFiledWithPreview = ({
 	const onAttachSuccess = useCallback(
 		(index: number, file: File) => {
 			if (onAttachAndCrop) {
-				setImageCrop(file);
-				setIndexCrop(index);
+				getImageDimensions(file)
+					.then((img) => {
+						const {width, height} = img;
+						let data: Crop = {
+							x: 0,
+							y: 16.67,
+							height: 66.66,
+							width: 100,
+							unit: '%',
+						};
+						if (width !== height) {
+							const h = (2 * width) / 3;
+							const w = (height * 3) / 2;
+							const hi = h > height ? 100 : (h * 100) / height;
+							const wi = h > height ? (w * 100) / width : 100;
+							data = {
+								x: wi < 100 ? (100 - wi) / 2 : 0,
+								y: hi < 100 ? (100 - hi) / 2 : 0,
+								height: hi,
+								width: wi,
+								unit: '%',
+							};
+						}
+						setCrop(data);
+						setImageCrop(file);
+						setIndexCrop(index);
+					})
+					.catch((error) => {
+						console.log('Error:', error);
+						setCrop(undefined);
+					});
 			} else {
 				onAttach && onAttach(index, file);
 			}
 			setCrop(undefined);
 		},
-		[onAttachAndCrop, onAttach, setImageCrop, setIndexCrop],
+		[onAttachAndCrop, onAttach, setImageCrop, setIndexCrop, setCrop],
 	);
 
 	const exitCrop = useCallback(() => {
