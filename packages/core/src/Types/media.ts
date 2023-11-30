@@ -57,6 +57,7 @@ export type TVideo = {
 export type TFile = {
 	id?: number;
 	url?: string;
+	url3x2Original?: string;
 };
 
 export type TFileLocal = {

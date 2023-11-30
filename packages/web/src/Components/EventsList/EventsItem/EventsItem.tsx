@@ -44,7 +44,7 @@ const EventsItem = ({onDelete, eventVM, id}: TEventsItemProps) => {
 				}`}</Typography>
 			</Grid>
 			<Grid item xs={1.5} md={1.5} container justifyContent="flex-end">
-				<img src={eventVM.cover.url} className={style.img} />
+				<img src={eventVM.cover.url3x2Original} className={style.img} />
 			</Grid>
 			<Grid item xs={3} md={5}>
 				<Typography className={style.title}>{eventVM.title}</Typography>

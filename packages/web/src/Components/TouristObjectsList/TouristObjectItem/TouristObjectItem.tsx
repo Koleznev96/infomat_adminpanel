@@ -32,7 +32,7 @@ const TouristObjectItem = ({
 				<Typography className={style.title}>{touristObjectVM.id}</Typography>
 			</Grid>
 			<Grid item xs={2} md={1.5} container justifyContent="flex-end">
-				<img src={touristObjectVM.cover.url} className={style.img} />
+				<img src={touristObjectVM.cover.url3x2Original} className={style.img} />
 			</Grid>
 			<Grid item xs={5} md={7}>
 				<Typography className={style.title}>{touristObjectVM.title}</Typography>
