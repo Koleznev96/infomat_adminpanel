@@ -1,4 +1,4 @@
-import React, {ElementType, ReactNode, useCallback, useState} from 'react';
+import React, {ElementType, ReactNode, useCallback, useEffect, useState} from 'react';
 import {Paper, Typography, Grid, Select, MenuItem, CircularProgress} from '@mui/material';
 import classNames from 'classnames';
 
@@ -29,6 +29,11 @@ const PageListIteration = ({
 	const [search, setSearch] = useState(startSearch);
 	const [currentPageNumber, setCurrentPageNumber] = useState(startCrrentPageNumber);
 	const [valueLimit, setValueLimit] = useState(startValueLimit);
+
+	useEffect(() => {
+		setSearch(startSearch)
+		setCurrentPageNumber(startCrrentPageNumber)
+	}, [startSearch, startCrrentPageNumber])
 
 	const decrementFullPage = useCallback(() => {
 		setCurrentPageNumber(0);
