@@ -35,6 +35,15 @@ export const createSagaContext = (router: ReturnType<typeof createBrowserRouter>
 				navigate(Routes.recommend, options);
 			},
 
+			goSpecialPlaces(options) {
+				navigate(Routes.specialPlaces, options);
+			},
+
+			goSpecialPlace(id, options) {
+				console.log('addddd-', id);
+				navigate(Routes.specialPlace(id), options);
+			},
+
 			goTouristRoutes(options) {
 				navigate(Routes.touristRoutes, options);
 			},

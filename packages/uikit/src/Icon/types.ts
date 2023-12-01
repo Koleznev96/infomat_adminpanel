@@ -64,6 +64,7 @@ export enum IconType {
 	paragraph,
 	chevronsDownUp,
 	time,
+	object,
 }
 
 export enum IconSource {

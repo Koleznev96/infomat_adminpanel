@@ -9,6 +9,7 @@ enum EnumStore {
 	PLACES = 'PLACES',
 	EVENTS = 'EVENTS',
 	ROUTES = 'ROUTES',
+	SPECIAL_PLACES = 'SPECIAL_PLACES',
 }
 
 export default EnumStore;

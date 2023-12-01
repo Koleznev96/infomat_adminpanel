@@ -20,8 +20,9 @@ const MenuItemWithIcon = forwardRef<
 		label?: string;
 		iconSize?: IconSize;
 		to?: string;
+		colorIcon?: IconColor;
 	}
->(({children, iconType, iconSize, label, to, ...restProps}, ref) => (
+>(({children, iconType, iconSize, label, to, colorIcon = IconColor.white, ...restProps}, ref) => (
 	<MenuItem
 		component={RouterLink}
 		to={to}
@@ -31,7 +32,7 @@ const MenuItemWithIcon = forwardRef<
 	>
 		{iconType && (
 			<ListItemIcon className={style.icon}>
-				<Icon type={iconType} size={iconSize} color={IconColor.white} />
+				<Icon type={iconType} size={iconSize} color={colorIcon} />
 			</ListItemIcon>
 		)}
 		{label && (

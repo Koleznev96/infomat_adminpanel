@@ -1,0 +1,15 @@
+@import '@infomat/uikit/src/themeUtils';
+
+.container {
+	border-top: 1px solid themeColor(--mui-palette-slate-200);
+	overflow-y: auto;
+	width: 100%;
+	height: 100%;
+	flex: 1;
+}
+
+.filter {
+	width: 234px;
+	padding: 0 0 30px 30px;
+	display: flex;
+}

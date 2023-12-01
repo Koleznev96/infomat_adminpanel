@@ -2,7 +2,7 @@ import React from 'react';
 import {useLocation} from 'react-router-dom';
 import {includes} from 'lodash';
 
-import {IconType} from '@infomat/uikit/src/Icon';
+import {IconColor, IconType} from '@infomat/uikit/src/Icon';
 import MenuItemWithIcon from '@infomat/uikit/src/Menu/MenuItemWithIcon/MenuItemWithIcon';
 
 import {Routes} from 'src/Routes/Routes';
@@ -55,6 +55,13 @@ const Menu = ({hasLoader}: TMenuProps) => {
 				label="Общая информация"
 				iconType={IconType.warningBox}
 				selected={includes(location.pathname, Routes.information)}
+			/>
+			<MenuItemWithIcon
+				to={Routes.specialPlaces}
+				label="Объекты"
+				colorIcon={IconColor.cherry}
+				iconType={IconType.object}
+				selected={includes(location.pathname, Routes.specialPlaces)}
 			/>
 		</div>
 	);

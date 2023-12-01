@@ -259,7 +259,7 @@ const AddressWithMapField = ({
 										<CircularProgress size={28} />
 									</div>
 								) : (
-									addressForSearch?.map((item, index) => (
+									_.map(addressForSearch, (item, index) => (
 										<MenuItem onClick={() => onSelect(item)} key={index}>
 											<Typography
 												variant="body1"

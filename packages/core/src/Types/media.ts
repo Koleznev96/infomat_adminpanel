@@ -51,13 +51,13 @@ export enum EnumVideoFacingMode {
 export type TVideo = {
 	id?: number;
 	url?: File | null | string;
-	url3x2Original?: File | null | string;
+	url3x2?: File | null | string;
 };
 
 export type TFile = {
 	id?: number;
 	url?: string;
-	url3x2Original?: string;
+	url3x2?: string;
 };
 
 export type TFileLocal = {

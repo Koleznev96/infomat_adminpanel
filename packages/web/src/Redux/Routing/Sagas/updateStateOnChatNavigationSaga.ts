@@ -9,6 +9,7 @@ import {subcategoryObjectClientToServerActions} from '@infomat/core/src/Redux/Su
 import {placesClientToServerActions} from '@infomat/core/src/Redux/Places/Actions/placesClientToServerActions';
 import {eventsClientToServerActions} from '@infomat/core/src/Redux/Events/Actions/eventsClientToServerActions';
 import {routesClientToServerActions} from '@infomat/core/src/Redux/Routes/Actions/routesClientToServerActions';
+import {specialPlacesClientToServerActions} from '@infomat/core/src/Redux/SpecialPlace/Actions/specialPlacesClientToServerActions';
 
 import {EnumRouteSlugs} from 'src/Routes/EnumRouteSlugs';
 
@@ -29,6 +30,10 @@ export const updateStateOnChatNavigationSaga = function* ({
 
 		if (path === EnumRouteSlugs.CATEGORIES_OBJECTS) {
 			yield* put(categoryObjectClientToServerActions.getList({}));
+		}
+
+		if (path === EnumRouteSlugs.SPECIAL_PLACES) {
+			yield* put(specialPlacesClientToServerActions.getList({}));
 		}
 
 		if (path === EnumRouteSlugs.SUBCATEGORIES_OBJECTS) {
@@ -78,6 +83,10 @@ export const updateStateOnChatNavigationSaga = function* ({
 
 		if (path === EnumRouteSlugs.CATEGORY_OBJECT && id !== 'new') {
 			yield* put(categoryObjectClientToServerActions.get(Number(id)));
+		}
+
+		if (path === EnumRouteSlugs.SPECIAL_PLACE && id !== 'new') {
+			yield* put(specialPlacesClientToServerActions.get(Number(id)));
 		}
 
 		if (path === EnumRouteSlugs.SUBCATEGORY_OBJECT) {

@@ -11,6 +11,7 @@ import subcategoryObjectSagaWatcher from '@infomat/core/src/Redux/SubcategoryObj
 import placesSagaWatcher from '@infomat/core/src/Redux/Places/placesSagaWatcher';
 import eventsSagaWatcher from '@infomat/core/src/Redux/Events/eventsSagaWatcher';
 import routesSagaWatcher from '@infomat/core/src/Redux/Routes/routesSagaWatcher';
+import specialPlacesSagaWatcher from '@infomat/core/src/Redux/SpecialPlace/specialPlacesSagaWatcher';
 
 import routingSagaWatcher from './Routing/routingSagaWatcher';
 
@@ -29,6 +30,7 @@ function* rootSaga() {
 	yield* fork(placesSagaWatcher);
 	yield* fork(eventsSagaWatcher);
 	yield* fork(routesSagaWatcher);
+	yield* fork(specialPlacesSagaWatcher);
 }
 
 const sagaRunner = startRootSaga(sagaMiddleware, rootSaga);

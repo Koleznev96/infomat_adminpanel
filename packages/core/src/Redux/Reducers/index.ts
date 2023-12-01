@@ -13,6 +13,7 @@ import subcategoryObjectSlice from '@infomat/core/src/Redux/SubcategoryObject/sl
 import placesSlice from '@infomat/core/src/Redux/Places/slice';
 import eventsSlice from '@infomat/core/src/Redux/Events/slice';
 import routesSlice from '@infomat/core/src/Redux/Routes/slice';
+import specialPlacesSlice from '@infomat/core/src/Redux/SpecialPlace/slice';
 
 const reducers = {
 	[EnumStore.GEOCODING]: geocodingSlice.reducer,
@@ -24,6 +25,7 @@ const reducers = {
 	[EnumStore.PLACES]: placesSlice.reducer,
 	[EnumStore.EVENTS]: eventsSlice.reducer,
 	[EnumStore.ROUTES]: routesSlice.reducer,
+	[EnumStore.SPECIAL_PLACES]: specialPlacesSlice.reducer,
 };
 
 export const resetAllStores = createAction<{keepLocalStores: boolean} | undefined>('app/reset_all_stores');

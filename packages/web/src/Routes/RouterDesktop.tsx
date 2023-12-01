@@ -7,20 +7,6 @@ import PublicRoute from 'src/Routes/PublicRoute/PublicRoute';
 import store from 'src/Redux/store';
 import {pageLoader} from 'src/Routes/PageLoaders';
 import {EnumRouteSlugs} from 'src/Routes/EnumRouteSlugs';
-// import BaseChatPage from './Pages/Desktop/BaseChatPage';
-// import GeneralInformationPage from './Pages/Desktop/GeneralInformationPage/GeneralInformationPage';
-// import EditEventPage from './Pages/Desktop/EditEventPage/EditEventPage';
-// import EventsListPage from './Pages/Desktop/EventsListPage/EventsListPage';
-// import RecommendListPage from './Pages/Desktop/RecommendListPage/RecommendListPage';
-// import TouristRoutPage from './Pages/Desktop/TouristRoutPage/TouristRoutPage';
-// import TouristRoutesListPage from './Pages/Desktop/TouristRoutesListPage/TouristRoutesListPage';
-// import SubcategoryObjectPage from './Pages/Desktop/SubcategoryObjectPage/SubcategoryObjectPage';
-// import SubcategoryObjectsListPage from './Pages/Desktop/SubcategoryObjectsListPage/SubcategoryObjectsListPage';
-// import CategoryObjectPage from './Pages/Desktop/CategoryObjectPage/CategoryObjectPage';
-// import CategoryObjectsListPage from './Pages/Desktop/CategoryObjectsListPage/CategoryObjectsListPage';
-// import TouristObjectPage from './Pages/Desktop/TouristObjectPage/TouristObjectPage';
-// import TouristObjectsListPage from './Pages/Desktop/TouristObjectsListPage/TouristObjectsListPage';
-// import NotFoundPage from './Pages/Common/NotFoundPage';
 
 const BaseChatPage = lazy(() => import('src/Routes/Pages/Desktop/BaseChatPage'));
 const GeneralInformationPage = lazy(
@@ -47,6 +33,10 @@ const TouristRoutesListPage = lazy(
 );
 const RecommendListPage = lazy(() => import('src/Routes/Pages/Desktop/RecommendListPage/RecommendListPage'));
 const EventsListPage = lazy(() => import('src/Routes/Pages/Desktop/EventsListPage/EventsListPage'));
+const SpecialPlacePage = lazy(() => import('src/Routes/Pages/Desktop/SpecialPlacePage/SpecialPlacePage'));
+const SpecialPlacesListPage = lazy(
+	() => import('src/Routes/Pages/Desktop/SpecialPlacesListPage/SpecialPlacesListPage'),
+);
 const NotFound = lazy(() => import('src/Routes/Pages/Common/NotFoundPage'));
 
 const RouterDesktop = createBrowserRouter(
@@ -162,6 +152,25 @@ const RouterDesktop = createBrowserRouter(
 					element={
 						<Suspense>
 							<TouristObjectsListPage />
+						</Suspense>
+					}
+				/>
+
+				<Route
+					loader={(args) => pageLoader(store, EnumRouteSlugs.SPECIAL_PLACE, args)(args)}
+					path={EnumRouteSlugs.SPECIAL_PLACE}
+					element={
+						<Suspense>
+							<SpecialPlacePage />
+						</Suspense>
+					}
+				/>
+				<Route
+					loader={(args) => pageLoader(store, EnumRouteSlugs.SPECIAL_PLACES, args)(args)}
+					path={EnumRouteSlugs.SPECIAL_PLACES}
+					element={
+						<Suspense>
+							<SpecialPlacesListPage />
 						</Suspense>
 					}
 				/>

@@ -27,4 +27,8 @@ export const Routes = {
 	touristObjects: `/${EnumRouteSlugs.TOURIST_OBJECTS}`,
 	touristObject: (id?: number) =>
 		generatePath(`/${EnumRouteSlugs.TOURIST_OBJECT}`, {id: isUndefined(id) ? 'new' : String(id)}),
+
+	specialPlaces: `/${EnumRouteSlugs.SPECIAL_PLACES}`,
+	specialPlace: (id?: number) =>
+		generatePath(`/${EnumRouteSlugs.SPECIAL_PLACE}`, {id: isUndefined(id) ? 'new' : String(id)}),
 };

@@ -41,7 +41,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 	const [workingHours, setWorkingHours] = useState(placesObjectVM?.workingHours || '');
 	const [workingHoursEn, setWorkingHoursEn] = useState(placesObjectVM?.workingHoursEn || '');
 	const [frames, setFrames] = useState<TFrameCrop[]>([]);
-	const [cover, setCover] = useState<TFileCrop>(placesObjectVM?.cover || {url3x2Original: null});
+	const [cover, setCover] = useState<TFileCrop>(placesObjectVM?.cover || {url3x2: null});
 	const [photos, setPhotos] = useState<TFileCrop[]>(placesObjectVM?.photos || []);
 	const [photoIdsForRemoving, setPhotoIdsForRemoving] = useState<number[]>([]);
 	const [linkForQrCode, setLinkForQrCode] = useState(placesObjectVM?.linkForQrCode || '');
@@ -120,11 +120,11 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 			const videosNew = [...photos];
 			if (_.isUndefined(videosNew[index])) {
 				do {
-					videosNew.push({url3x2Original: null});
+					videosNew.push({url3x2: null});
 				} while (_.isUndefined(videosNew[index]));
 			}
 			const partName = cuid();
-			videosNew[index] = {url3x2Original: file, partName: file !== null ? partName : undefined};
+			videosNew[index] = {url3x2: file, partName: file !== null ? partName : undefined};
 			setPhotos(videosNew);
 
 			const framesNew = [...frames];
@@ -146,7 +146,7 @@ const TouristObject = ({onSubmit, onDelete, id, placesObjectVM}: TTouristObjectP
 
 	const onAttachBackground = useCallback(
 		(index: number, file: File | null, crop?: Crop) => {
-			setCover({url3x2Original: file});
+			setCover({url3x2: file});
 			if (file !== null && crop) {
 				setCoverFrame({partName: 'cover', x: crop.x, y: crop.y, width: crop?.width, height: crop.height});
 			} else {

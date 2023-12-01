@@ -55,13 +55,13 @@ async function updateItem({id, cover, photos, frames, ...data}: TPlacesCreate) {
 			type: 'application/json',
 		}),
 	);
-	if (cover?.url3x2Original instanceof File) {
-		formData.append('cover', cover.url3x2Original);
+	if (cover?.url3x2 instanceof File) {
+		formData.append('cover', cover.url3x2);
 	}
 	if (photos) {
 		for (const photo of photos) {
-			if (photo?.url3x2Original instanceof File) {
-				formData.append(photo.partName || 'photo', photo?.url3x2Original);
+			if (photo?.url3x2 instanceof File) {
+				formData.append(photo.partName || 'photo', photo?.url3x2);
 			}
 		}
 	}
@@ -76,13 +76,13 @@ async function createItem({cover, photos, frames, ...data}: TPlacesCreate) {
 		'place',
 		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(dataValid))], {type: 'application/json'}),
 	);
-	if (cover?.url3x2Original instanceof File) {
-		formData.append('cover', cover.url3x2Original);
+	if (cover?.url3x2 instanceof File) {
+		formData.append('cover', cover.url3x2);
 	}
 	if (photos) {
 		for (const photo of photos) {
-			if (photo?.url3x2Original instanceof File) {
-				formData.append(photo.partName || 'photo', photo?.url3x2Original);
+			if (photo?.url3x2 instanceof File) {
+				formData.append(photo.partName || 'photo', photo?.url3x2);
 			}
 		}
 	}

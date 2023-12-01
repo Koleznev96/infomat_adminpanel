@@ -19,6 +19,7 @@ import {
 	Visibility,
 	VisibilityOff,
 	Warning,
+	PlaceOutlined,
 } from '@mui/icons-material';
 
 import {ReactComponent as MapOutlined} from '@infomat/uikit/src/Assets/Icons/map.svg';
@@ -68,4 +69,5 @@ export const iconsMap = {
 	[IconType.paragraph]: Paragraph,
 	[IconType.chevronsDownUp]: ChevronsDownUp,
 	[IconType.time]: Time,
+	[IconType.object]: PlaceOutlined,
 };

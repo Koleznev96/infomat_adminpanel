@@ -20,4 +20,7 @@ export enum EnumRouteSlugs {
 
 	TOURIST_OBJECTS = 'tourist-objects',
 	TOURIST_OBJECT = 'tourist-objects/:id',
+
+	SPECIAL_PLACES = 'special-places',
+	SPECIAL_PLACE = 'special-places/:id',
 }

@@ -37,7 +37,7 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 	const [descriptionEn, setDescriptionEn] = useState(eventsObjectVM?.descriptionEn || '');
 	const [address, setAddress] = useState(eventsObjectVM?.address || undefined);
 	const [frames, setFrames] = useState<TFrameCrop[]>([]);
-	const [cover, setCover] = useState<TFileCrop>(eventsObjectVM?.cover || {url3x2Original: null});
+	const [cover, setCover] = useState<TFileCrop>(eventsObjectVM?.cover || {url3x2: null});
 	const [photos, setPhotos] = useState<TFileCrop[]>(eventsObjectVM?.photos || []);
 	const [photoIdsForRemoving, setPhotoIdsForRemoving] = useState<number[]>([]);
 	const [leng, setLeng] = useState('ru');
@@ -119,11 +119,11 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 			const videosNew = [...photos];
 			if (_.isUndefined(videosNew[index])) {
 				do {
-					videosNew.push({url3x2Original: null});
+					videosNew.push({url3x2: null});
 				} while (_.isUndefined(videosNew[index]));
 			}
 			const partName = cuid();
-			videosNew[index] = {url3x2Original: file, partName: file !== null ? partName : undefined};
+			videosNew[index] = {url3x2: file, partName: file !== null ? partName : undefined};
 			setPhotos(videosNew);
 
 			const framesNew = [...frames];
@@ -145,7 +145,7 @@ const EventObject = ({onSubmit, onDelete, id, eventsObjectVM}: TEventObjectProps
 
 	const onAttachBackground = useCallback(
 		(index: number, file: File | null, crop?: Crop) => {
-			setCover({url3x2Original: file});
+			setCover({url3x2: file});
 			if (file !== null && crop) {
 				setCoverFrame({partName: 'cover', x: crop.x, y: crop.y, width: crop?.width, height: crop.height});
 			} else {

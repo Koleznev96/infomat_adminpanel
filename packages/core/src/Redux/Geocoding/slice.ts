@@ -21,7 +21,10 @@ const geocodingSlice = createSlice<TGeocodingSlice, SliceCaseReducers<TGeocoding
 		builder.addCase(geocodingClientOnlyActions.upsertAddress, (state, action) => {
 			// 1.2
 			// получаем список адресов с координатоми
-			state.address = action.payload;
+			if (Array.isArray(action.payload)) {
+				state.address = action.payload;
+			}
+
 			state.isLoadingCoordinates = false;
 		});
 		builder.addCase(geocodingClientOnlyActions.upsertCoordinates, (state, action) => {

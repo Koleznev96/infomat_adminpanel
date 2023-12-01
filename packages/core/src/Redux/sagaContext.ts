@@ -13,6 +13,7 @@ export type TSagaContext = {
 		goSubcategoryObject: (id: number, options?: TNavigateOptions) => void;
 		goCategoryObject: (id: number, options?: TNavigateOptions) => void;
 		goTouristObject: (id: number, options?: TNavigateOptions) => void;
+		goSpecialPlace: (id: number, options?: TNavigateOptions) => void;
 
 		goInformation: (options?: TNavigateOptions) => void;
 		goEvents: (options?: TNavigateOptions) => void;
@@ -21,6 +22,7 @@ export type TSagaContext = {
 		goSubcategoriesObjects: (options?: TNavigateOptions) => void;
 		goCategoriesObjects: (options?: TNavigateOptions) => void;
 		goTouristObjects: (options?: TNavigateOptions) => void;
+		goSpecialPlaces: (options?: TNavigateOptions) => void;
 		goHome: (options?: TNavigateOptions) => void;
 	};
 };

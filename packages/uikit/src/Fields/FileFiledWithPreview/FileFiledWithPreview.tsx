@@ -137,10 +137,7 @@ const FileFiledWithPreview = ({
 			)}
 			<Grid item container gap={0.625}>
 				{_.map(_.times(totalFiles, _.identity), (index: number) => {
-					const file =
-						files[index]?.url || files[index]?.url3x2Original
-							? files[index]?.url || files[index]?.url3x2Original
-							: null;
+					const file = files[index]?.url || files[index]?.url3x2 ? files[index]?.url || files[index]?.url3x2 : null;
 					return (
 						<MediaAttachment
 							key={index}
