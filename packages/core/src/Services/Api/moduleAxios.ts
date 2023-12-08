@@ -35,7 +35,7 @@ api.interceptors.response.use(
 		return response;
 	},
 	(error: AxiosError<{data: null | any; errors: {details: string}[]}>) => {
-		if (error.code === '401') {
+		if (error?.response?.status === 401) {
 			localStorage.setItem('isLogin', 'false');
 			store.dispatch(userClientOnlyActions.logout());
 			return error;

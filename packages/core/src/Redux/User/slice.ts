@@ -59,7 +59,11 @@ const userSlice = createSlice<TUserSlice, SliceCaseReducers<TUserSlice>, EnumSto
 		builder.addCase(userClientOnlyActions.logout, (state) => {
 			localStorage.setItem('isLogin', 'false');
 			localStorage.removeItem('login');
-			return getDefaultState(state);
+			state.isLoggedIn = false;
+			state.isLoading = false;
+			state.login = undefined;
+			console.log('bbbbb');
+			// return getDefaultState(state);
 		});
 	},
 });

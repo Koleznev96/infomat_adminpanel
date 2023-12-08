@@ -61,11 +61,11 @@ const DateRangField = ({startValue, endValue, setStartValue, setEndValue, label}
 			return;
 		}
 		if (isValidDate(statrV)) {
-			if (!isValidDateNow(statrV)) {
-				setEndValue('');
-				setError('Дата должна быть не позднее текущего числа');
-				return;
-			}
+			// if (!isValidDateNow(statrV)) {
+			// 	setEndValue('');
+			// 	setError('Дата должна быть не позднее текущего числа');
+			// 	return;
+			// }
 			setError('');
 			setStartValue(replaceAllReset(statrV));
 		} else {
