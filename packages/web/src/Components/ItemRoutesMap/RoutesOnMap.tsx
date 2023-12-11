@@ -182,6 +182,7 @@ const RoutesOnMap = ({
 				const cord = coords[index];
 				newItemsI.splice(index, 0, {
 					address: {
+						address: 'address',
 						latitude: cord[0],
 						longitude: cord[1],
 					},
@@ -196,6 +197,7 @@ const RoutesOnMap = ({
 				const index = event.originalEvent.vertexModel._index;
 				newItemsI[index] = {
 					address: {
+						address: 'address',
 						latitude: cord[0],
 						longitude: cord[1],
 					},
