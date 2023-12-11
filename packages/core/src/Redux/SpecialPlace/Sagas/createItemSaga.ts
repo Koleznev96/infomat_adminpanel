@@ -13,15 +13,10 @@ import {specialPlacesService} from '@infomat/core/src/Services/Api/specialPlaces
 const createItemSaga = function* ({payload}: ReturnType<typeof specialPlacesClientToServerActions.createCategory>) {
 	try {
 		const {goSpecialPlace} = yield* getNavigationContext();
-		console.log('2222222222222');
 		const response: AxiosResponse = yield specialPlacesService.createItem(payload);
-		console.log('1111111');
 		const data: TRespounseData<TSpecialPlaceVM> = response.data;
-		console.log('nnnmmmm');
 		yield* call(goSpecialPlace, data.data.id);
-		console.log('3333333333');
 		yield* take(specialPlacesClientOnlyActions.setData.type);
-		console.log('4444444444');
 		yield put(
 			notificationsClientOnlyActions.enqueuePersistent({
 				notificationTitle: 'Объект успешно создан',

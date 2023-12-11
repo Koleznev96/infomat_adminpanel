@@ -27,6 +27,7 @@ const EventsItem = ({onDelete, eventVM, id}: TEventsItemProps) => {
 	}, [onDelete, id]);
 
 	const statusTitle = eventVM.status === 'DRAFT' ? 'Черновик' : 'Опубликовано';
+	const statusIcon = eventVM.status === 'DRAFT' ? IconType.clock : IconType.time;
 
 	return (
 		<Grid container className={style.container} direction="row" spacing={1}>
@@ -51,7 +52,7 @@ const EventsItem = ({onDelete, eventVM, id}: TEventsItemProps) => {
 			</Grid>
 			<Grid item container xs={2} md={1}>
 				<div className={style.filter}>
-					<Icon type={IconType.time} color={IconColor.white} />
+					<Icon type={statusIcon} color={IconColor.white} />
 					<Typography className={style.title}>{statusTitle}</Typography>
 				</div>
 			</Grid>

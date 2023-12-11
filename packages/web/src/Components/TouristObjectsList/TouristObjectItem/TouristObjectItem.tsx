@@ -25,6 +25,7 @@ const TouristObjectItem = ({
 	}, [onDelete, id]);
 
 	const statusTitle = touristObjectVM.status === 'DRAFT' ? 'Черновик' : 'Опубликовано';
+	const statusIcon = touristObjectVM.status === 'DRAFT' ? IconType.clock : IconType.time;
 
 	return (
 		<Grid container className={style.container} direction="row" spacing={1}>
@@ -39,7 +40,7 @@ const TouristObjectItem = ({
 			</Grid>
 			<Grid item container xs={2} md={1}>
 				<div className={style.filter}>
-					<Icon type={IconType.time} color={IconColor.white} />
+					<Icon type={statusIcon} color={IconColor.white} />
 					<Typography className={style.title}>{statusTitle}</Typography>
 				</div>
 			</Grid>

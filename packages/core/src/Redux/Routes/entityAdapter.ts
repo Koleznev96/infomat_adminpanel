@@ -11,6 +11,12 @@ export type TStop = {
 	id?: number;
 	place?: TPlacesVM;
 	sequenceNumber?: number;
+	address?: {
+		address?: string;
+		addressEn?: string;
+		latitude?: number;
+		longitude?: number;
+	};
 };
 
 export type TRoutesCreate = {

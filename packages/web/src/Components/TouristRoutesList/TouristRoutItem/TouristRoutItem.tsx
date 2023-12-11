@@ -19,6 +19,7 @@ const TouristRoutItem = ({id, onDelete, touristRoutVM}: TTouristRoutItemProps) =
 	}, [onDelete, id]);
 
 	const statusTitle = touristRoutVM.status === 'DRAFT' ? 'Черновик' : 'Опубликовано';
+	const statusIcon = touristRoutVM.status === 'DRAFT' ? IconType.clock : IconType.time;
 
 	return (
 		<Grid container className={style.container} direction="row" spacing={1}>
@@ -35,7 +36,7 @@ const TouristRoutItem = ({id, onDelete, touristRoutVM}: TTouristRoutItemProps) =
 			</Grid>
 			<Grid item container xs={2} md={1}>
 				<div className={style.filter}>
-					<Icon type={IconType.chevronsDownUp} color={IconColor.white} />
+					<Icon type={statusIcon} color={IconColor.white} />
 					<Typography className={style.title}>{statusTitle}</Typography>
 				</div>
 			</Grid>

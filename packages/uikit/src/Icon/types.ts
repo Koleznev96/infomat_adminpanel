@@ -65,6 +65,7 @@ export enum IconType {
 	chevronsDownUp,
 	time,
 	object,
+	clock,
 }
 
 export enum IconSource {

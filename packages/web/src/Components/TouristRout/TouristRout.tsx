@@ -71,8 +71,7 @@ const TouristRout = ({onSubmit, onDelete, routesVM, id}: TTouristRoutProps) => {
 		_.isEmpty(stops) ||
 		!stops.length ||
 		stops.length < 2 ||
-		_.isUndefined(stops[0].place) ||
-		_.isUndefined(stops[1].place);
+		_.size(_.filter(stops, (item) => !!item.place)) < 2;
 
 	const onSave = useCallback(() => {
 		onSubmit({
@@ -91,7 +90,13 @@ const TouristRout = ({onSubmit, onDelete, routesVM, id}: TTouristRoutProps) => {
 			type,
 			typeEn: typeEn.length ? typeEn : undefined,
 			icon,
-			stops: stops ? _.map(stops, (item, index) => ({placeId: item.place?.id, sequenceNumber: index + 1})) : undefined,
+			stops: stops
+				? _.map(stops, (item, index) => ({
+						placeId: item.place?.id,
+						sequenceNumber: index + 1,
+						address: !item.address ? undefined : item.address,
+				  }))
+				: undefined,
 		});
 	}, [
 		id,

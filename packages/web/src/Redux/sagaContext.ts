@@ -40,7 +40,6 @@ export const createSagaContext = (router: ReturnType<typeof createBrowserRouter>
 			},
 
 			goSpecialPlace(id, options) {
-				console.log('addddd-', id);
 				navigate(Routes.specialPlace(id), options);
 			},
 

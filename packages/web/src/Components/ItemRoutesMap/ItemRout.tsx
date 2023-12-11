@@ -22,6 +22,7 @@ const RoutesField = ({
 	onItem,
 	getSearch,
 	onReset,
+	onEnd,
 }: TRoutesFieldProps) => {
 	const y = useMotionValue(0);
 	const boxShadow = useRaisedShadow(y);
@@ -70,7 +71,7 @@ const RoutesField = ({
 	}, 500);
 
 	return (
-		<Reorder.Item value={item} style={{boxShadow, y, borderRadius: 6, opacity: 1}}>
+		<Reorder.Item value={item} style={{boxShadow, y, borderRadius: 6, opacity: 1}} onDragEnd={(e, d) => onEnd({e, d})}>
 			<div className={style.item}>
 				<div className={style.boxIndex}>
 					<Typography className={style.index}>{index + 1}</Typography>
@@ -144,6 +145,7 @@ type TRoutesFieldProps = {
 	onItem: PropertyHandler<TPlacesVM, number>;
 	getSearch: PropertyHandler<string>;
 	onReset: PropertyHandler;
+	onEnd: PropertyHandler<{e: any; d: any}>;
 };
 
 export default RoutesField;

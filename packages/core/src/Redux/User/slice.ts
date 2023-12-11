@@ -62,7 +62,6 @@ const userSlice = createSlice<TUserSlice, SliceCaseReducers<TUserSlice>, EnumSto
 			state.isLoggedIn = false;
 			state.isLoading = false;
 			state.login = undefined;
-			console.log('bbbbb');
 			// return getDefaultState(state);
 		});
 	},

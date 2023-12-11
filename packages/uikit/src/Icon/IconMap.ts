@@ -32,6 +32,7 @@ import {ReactComponent as En} from '@infomat/uikit/src/Assets/Icons/en.svg';
 import {ReactComponent as Paragraph} from '@infomat/uikit/src/Assets/Icons/paragraph-spacing.svg';
 import {ReactComponent as ChevronsDownUp} from '@infomat/uikit/src/Assets/Icons/chevrons-down-up.svg';
 import {ReactComponent as Time} from '@infomat/uikit/src/Assets/Icons/time.svg';
+import {ReactComponent as Clock} from '@infomat/uikit/src/Assets/Icons/clock.svg';
 
 import {IconType} from '@infomat/uikit/src/Icon/types';
 
@@ -70,4 +71,5 @@ export const iconsMap = {
 	[IconType.chevronsDownUp]: ChevronsDownUp,
 	[IconType.time]: Time,
 	[IconType.object]: PlaceOutlined,
+	[IconType.clock]: Clock,
 };
