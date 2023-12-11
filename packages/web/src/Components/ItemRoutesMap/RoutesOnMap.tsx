@@ -125,7 +125,7 @@ const RoutesOnMap = ({
 			const filtersItems = _.chain(allsteps.current)
 				.filter((item) => !_.isUndefined(item.place) || !_.isUndefined(item.address))
 				.map((item) =>
-					!_.isUndefined(item.place)
+					!_.isUndefined(item.place) && item.place !== null
 						? [item.place?.address?.latitude, item.place?.address?.longitude]
 						: [item.address?.latitude, item.address?.longitude],
 				)
