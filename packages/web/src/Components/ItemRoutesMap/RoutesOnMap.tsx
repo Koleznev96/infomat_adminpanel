@@ -11,6 +11,7 @@ import PropertyHandler from '@infomat/core/src/Types/PropertyHandler';
 import {TPlacesVM} from '@infomat/core/src/Redux/Places/entityAdapter';
 import {TStop} from '@infomat/core/src/Redux/Routes/entityAdapter';
 import cuid from 'cuid';
+import {useDebounced} from '@infomat/core/src/Hooks/useDebounced';
 
 const serchItems = [
 	{id: 'auto', titile: 'на автомобиле'},
@@ -119,8 +120,12 @@ const RoutesOnMap = ({
 	// );
 	// };
 
-	useEffect(() => {
-		if (isReadyYmaps && items && items.length) {
+	const onReMap = useDebounced(
+		(
+			items: (TStop & {
+				key: string;
+			})[],
+		) => {
 			mapRef.current?.geoObjects.removeAll();
 			const filtersItems = _.chain(allsteps.current)
 				.filter((item) => !_.isUndefined(item.place) || !_.isUndefined(item.address))
@@ -132,25 +137,10 @@ const RoutesOnMap = ({
 				.value();
 			placemarkRef.current = createPolyline(filtersItems);
 
-			// {
-			// 	items.map((route, index) => (
-			// 		<Placemark
-			// 			key={index}
-			// 			geometry={[route.place?.address?.latitude, route.place?.address?.longitude]}
-			// 			options={{
-			// 				pane: 'overlaps',
-			// 				iconLayout: ymaps.current?.templateLayoutFactory?.createClass(routeContent(index + 1, '#222')),
-			// 			}}
-			// 		/>
-			// 	));
-			// }
 			items.forEach((route, index) => {
 				mapRef.current?.geoObjects.add(
 					new ymaps.current.Placemark(
 						[route.place?.address?.latitude, route.place?.address?.longitude],
-						// {
-						// 	iconCaption: iconCaption || 'loading..',
-						// },
 						{},
 						{
 							preset: 'islands#violetDotIconWithCaption',
@@ -210,6 +200,14 @@ const RoutesOnMap = ({
 				setValue(newItemsI);
 				allsteps.current = newItemsI;
 			});
+		},
+		800,
+	);
+
+	useEffect(() => {
+		// const items = _.filter(value, (item) => !!(item.place && !_.isUndefined(item.place.id)));
+		if (isReadyYmaps && items && items.length) {
+			onReMap(items);
 		}
 	}, [items, isReadyYmaps]);
 
@@ -319,10 +317,14 @@ const RoutesOnMap = ({
 		onReset();
 	};
 
-	const onReorder = (values: any[]) => {
+	const onReValues = useDebounced((values: any[]) => {
 		allsteps.current = values;
 		setValue(values);
+	}, 400);
+
+	const onReorder = (values: any[]) => {
 		setItems(values);
+		onReValues(values);
 	};
 
 	const onReorderEnd = ({e, d}: {e: any; d: any}) => {
@@ -349,7 +351,6 @@ const RoutesOnMap = ({
 		// 	ind++;
 		// }
 		// newValue.splice(elementIndexN, 0, element);
-		// console.log('gggg-', e, d);
 		// setValue(values);
 		// setItems(values);
 		// удаляем связи между старым индексом и старинд+1
