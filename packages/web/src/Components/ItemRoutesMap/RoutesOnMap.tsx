@@ -162,6 +162,11 @@ const RoutesOnMap = ({
 				);
 			});
 
+			const le = _.find(items, (item) => !!item.place);
+			if (le && le.place?.address?.latitude && le.place?.address?.longitude) {
+				mapRef.current?.setCenter([le.place?.address?.latitude, le.place?.address?.longitude], 13);
+			}
+
 			mapRef.current?.geoObjects.add(placemarkRef.current);
 
 			placemarkRef.current?.editor.startEditing();
