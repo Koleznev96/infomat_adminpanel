@@ -24,7 +24,10 @@ const SpecialPlaceItem = ({id, onDelete, specialPlaceVM}: TSpecialPlaceItemProps
 				{/* <img src={categoryObjectVM.background.url} className={style.layout} /> */}
 				<img src={specialPlaceVM.icon.url} className={style.icon} />
 			</div>
-			<Typography className={style.label}>{specialPlaceVM.type === 'WC' ? 'Туалет' : 'Фотозона'}</Typography>
+			<div className={style.list}>
+				<Typography className={style.label}>{specialPlaceVM.type === 'WC' ? 'Туалет' : 'Фотозона'}</Typography>
+				<Typography className={style.address}>{specialPlaceVM.address?.address}</Typography>
+			</div>
 			<ActionMenuItem editLink={SpecialPlaceEditLink} onDelete={deleteCategory} />
 		</div>
 	);
