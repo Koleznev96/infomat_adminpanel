@@ -27,7 +27,7 @@ const SubcategoryObjectContainer = ({id}: TSubcategoryObjectContainerProps) => {
 		<Page
 			isLoading={isLoading || (isUndefined(dataVM) && !isUndefined(id))}
 			backLink={SubategoriesObjectsLink}
-			label={isUndefined(id) ? 'Создание категории объектов' : 'Редактирование категории объектов'}
+			label={isUndefined(id) ? 'Создание подкатегории объектов' : 'Редактирование подкатегории объектов'}
 		>
 			<SubcategoryObject
 				id={id}
