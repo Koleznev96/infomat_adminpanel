@@ -63,6 +63,7 @@ export const updateStateOnChatNavigationSaga = function* ({
 					subcategoryId: null,
 				}),
 			);
+			yield* put(subcategoryObjectClientToServerActions.getAllList());
 		}
 
 		if (path === EnumRouteSlugs.EVENTS) {

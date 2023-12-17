@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Typography, Paper, ClickAwayListener, Popper, CircularProgress, MenuItem} from '@mui/material';
 import {Reorder, useMotionValue} from 'framer-motion';
 
@@ -22,7 +22,6 @@ const RoutesField = ({
 	onItem,
 	getSearch,
 	onReset,
-	onEnd,
 }: TRoutesFieldProps) => {
 	const y = useMotionValue(0);
 	const boxShadow = useRaisedShadow(y);
@@ -30,6 +29,12 @@ const RoutesField = ({
 	const [isShow, open, close] = useBooleanState(false);
 	const [popperWidth, setPopperWidth] = useState(0);
 	const [value, setValue] = useState(item?.place?.title || '');
+
+	useEffect(() => {
+		if (!item?.place?.title.length) {
+			setValue('');
+		}
+	}, [item]);
 
 	const popperOptions = {
 		modifiers: [
@@ -70,8 +75,13 @@ const RoutesField = ({
 		close();
 	}, 500);
 
+	const remove = (index: number) => {
+		removeToIndex(index);
+		setValue('');
+	};
+
 	return (
-		<Reorder.Item value={item} style={{boxShadow, y, borderRadius: 6, opacity: 1}} onDragEnd={(e, d) => onEnd({e, d})}>
+		<Reorder.Item value={item} style={{boxShadow, y, borderRadius: 6, opacity: 1}}>
 			<div className={style.item}>
 				<div className={style.boxIndex}>
 					<Typography className={style.index}>{index + 1}</Typography>
@@ -85,7 +95,7 @@ const RoutesField = ({
 						onChange={(e) => changeV(e.target.value)}
 						classes={{root: style.input}}
 					/>
-					<div className={style.close} onClick={() => removeToIndex(index)}>
+					<div className={style.close} onClick={() => remove(index)}>
 						<Icon type={IconType.close} size={IconSize.small} />
 					</div>
 				</div>
@@ -145,7 +155,6 @@ type TRoutesFieldProps = {
 	onItem: PropertyHandler<TPlacesVM, number>;
 	getSearch: PropertyHandler<string>;
 	onReset: PropertyHandler;
-	onEnd: PropertyHandler<{e: any; d: any}>;
 };
 
 export default RoutesField;

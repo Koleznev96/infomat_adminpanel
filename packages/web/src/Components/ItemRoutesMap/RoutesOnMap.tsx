@@ -217,7 +217,8 @@ const RoutesOnMap = ({
 
 	const onClear = () => {
 		setItems([{key: '0'}, {key: '1'}]);
-		// Тут мы удаляем все точки с карты
+		allsteps.current = [{}, {}];
+		setValue([{}, {}]);
 	};
 
 	const removeToIndex = (index: number) => {
@@ -231,81 +232,7 @@ const RoutesOnMap = ({
 		allsteps.current = newItems;
 		setValue(newItems);
 		setItems(newItems);
-		// Тут мы удаляем точку с карты
 	};
-
-	// const inputChange = (value: string, index: number) => {
-	// 	const newItems = [...items];
-	// 	newItems[index].label = value;
-	// 	setItems(newItems);
-	// 	// Тут мы удаляем точку с карты
-	// };
-
-	// const selectChange = (valueo: TPlacesVM, index: number) => {
-
-	// Тут мы получаем новю точку и создаем ее на карте
-	// const newItems = [...items];
-	// let newValue = [...(value ? value : [])];
-
-	// if (!_.isUndefined(newItems[index].place)) {
-	// 	// newValue[index].place = valueo;
-	// 	// const elementIndex = _.findIndex(newValue, item => item.key === newItems[index].key);
-
-	// 	// newItems[index].place.id
-	// 	const elementIndex = _.findIndex(newValue, (item) => item?.place?.id === newItems[index].place?.id);
-	// 	newValue[elementIndex].place = valueo;
-
-	// 	let ind = elementIndex - 1;
-	// 	while (!newValue[ind].place || (_.isUndefined(newValue[ind].place?.id) && ind > 0)) {
-	// 		newValue.splice(ind, 1);
-	// 		ind--;
-	// 	}
-
-	// 	const elementIndexN = _.findIndex(newValue, (item) => item?.place?.id === newItems[index].place?.id);
-	// 	ind = elementIndexN + 1;
-	// 	while (!newValue[ind].place || (_.isUndefined(newValue[ind].place?.id) && ind < newValue.length)) {
-	// 		newValue.splice(ind, 1);
-	// 		ind++;
-	// 	}
-
-	// 	newItems[index].place = valueo;
-	// 	// const indexToRemove = 2; // Индекс элемента, с которого начинается удаление
-	// 	// const condition = (obj: any) => obj.id % 2 === 0; // Условие удаления объектов (здесь: четные id)
-	// 	// const newArray = _.dropWhile(newValue, (_, index) => index < indexToRemove).filter(condition);
-	// } else {
-	// 	newItems[index].place = valueo;
-	// 	const filItems = _.filter(newItems, (item) => !_.isUndefined(item.place));
-	// 	const filItemsIndex = _.findIndex(filItems, (item) => item.key === newItems[index].key);
-	// 	const element = filItems[filItemsIndex - 1];
-
-	// 	const elementIndexV = _.findIndex(newValue, (item) => item.place?.id === element.place?.id);
-
-	// 	let ind = elementIndexV + 1;
-	// 	while (!newValue[ind].place || (_.isUndefined(newValue[ind].place?.id) && ind < newValue.length)) {
-	// 		newValue.splice(ind, 1);
-	// 		ind++;
-	// 	}
-
-	// 	newValue.splice(elementIndexV, 0, {
-	// 		place: valueo,
-	// 	});
-
-	// 	// newItems[index].key
-	// 	// const elementIndex = _.findIndex(filItems, item => item.key === newItems[index].key);
-	// 	// const elementIndex = _.findIndex(filItems, item => item.key === newItems[index].key);
-	// }
-
-	// // newItems[index].place = valueo;
-	// allsteps.current = newValue;
-	// setValue(newValue);
-	// setItems(newItems);
-	// onReset();
-	// };
-
-	// const onReorder = (values: any[]) => {
-	// 	// setValue(values);
-	// 	setItems(values);
-	// };
 
 	const selectChange = (value: TPlacesVM, index: number) => {
 		// Тут мы получаем новю точку и создаем ее на карте
@@ -327,36 +254,6 @@ const RoutesOnMap = ({
 		onReValues(values);
 	};
 
-	const onReorderEnd = ({e, d}: {e: any; d: any}) => {
-		// const newItems = [...items];
-		// let newValue = [...(value ? value : [])];
-		// const filValue = _.filter(newValue, (item) => !_.isUndefined(item.place) && !_.isUndefined(item.place.id));
-		// const filItems = _.filter(newItems, (item) => !_.isUndefined(item.place));
-		// const movedElement = filValue.find((obj, index) => {
-		// 	return filItems[index]?.place?.id !== obj.place?.id;
-		//   });
-		// const oldIndex = movedElement ? filValue.indexOf(movedElement) : 0;
-		// const newIndex = filItems.findIndex((obj) => filValue[oldIndex]?.place?.id === obj.place?.id)
-		// const element = filItems[newIndex];
-		// const indexValue = _.findIndex(newValue, item => item.place?.id === element.place?.id);
-		// let ind = indexValue - 1;
-		// while (!newValue[ind].place || (_.isUndefined(newValue[ind].place?.id) && ind > 0)) {
-		// 	newValue.splice(ind, 1);
-		// 	ind--;
-		// }
-		// const elementIndexN = _.findIndex(newValue, (item) => item?.place?.id === element.place?.id);
-		// ind = elementIndexN + 1;
-		// while (!newValue[ind].place || (_.isUndefined(newValue[ind].place?.id) && ind < newValue.length)) {
-		// 	newValue.splice(ind, 1);
-		// 	ind++;
-		// }
-		// newValue.splice(elementIndexN, 0, element);
-		// setValue(values);
-		// setItems(values);
-		// удаляем связи между старым индексом и старинд+1
-		// удаляем связи
-	};
-
 	const routeContent = (number: number, color: string, bg?: string) => {
 		return `
 			<p style="color: ${color}; background-color: ${bg}" class="route-content-react-smolensk">
@@ -364,6 +261,8 @@ const RoutesOnMap = ({
 			</p>
 		  `;
 	};
+
+	console.log('items-', items);
 
 	return (
 		<Grid container gap={3}>
@@ -382,7 +281,6 @@ const RoutesOnMap = ({
 								isLoading={isLoading}
 								searchItems={placesIds}
 								getSearch={getSearch}
-								onEnd={onReorderEnd}
 							/>
 						))}
 					</Reorder.Group>
