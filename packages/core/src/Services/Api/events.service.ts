@@ -43,7 +43,7 @@ async function deleteItem(id: number) {
 
 async function updateItem({id, cover, photos, frames, ...data}: TEventsCreate) {
 	const formData = new FormData();
-	const dataValid = {...data, frames: _.filter(frames, (item) => !_.isUndefined(item))};
+	const dataValid = {...data, frames: _.filter(frames, (item) => !_.isUndefined(item) && item.partName !== null)};
 	formData.append(
 		'event',
 		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(dataValid))], {
@@ -66,7 +66,7 @@ async function updateItem({id, cover, photos, frames, ...data}: TEventsCreate) {
 
 async function createItem({id, cover, photos, frames, ...data}: TEventsCreate) {
 	const formData = new FormData();
-	const dataValid = {...data, frames: _.filter(frames, (item) => !_.isUndefined(item))};
+	const dataValid = {...data, frames: _.filter(frames, (item) => !_.isUndefined(item) && item.partName !== null)};
 	formData.append(
 		'event',
 		new Blob([JSON.stringify(replaceEmptyStringsWithUndefined(dataValid))], {
